@@ -11,19 +11,26 @@ import hu.nevermind.reakt.ReactElement
 import hu.nevermind.reakt.ReactElementContainer
 import hu.nevermind.reakt.ReactClass
 import hu.nevermind.reakt.ReactPropDelegate
+import hu.nevermind.reakt.ReactRef
+import kotlin.js.dom.html.window
 
 class Comment(authorName: String, body: ReactElementContainer.() -> Unit) : ReactClass(body) {
     var authorName: String by ReactPropDelegate()
     var count: Int by ReactPropDelegate()
-
-    override fun doRender(): ReactElement? {
+	val h2Ref = ref("h2")
+    override fun render(): ReactElement? {
         return div("className" to "comment") {
             +h2("className" to "commentAuthor") {
-                +authorName
+				ref = h2Ref
+				+authorName
             }
             +children
         }
     }
+
+	override fun componentDidMount() {
+		window.setTimeout({h2Ref.getDOMNode().innerHTML = "bali"}, 2000)
+	}
 
     {
         this.authorName = authorName
@@ -33,8 +40,7 @@ class Comment(authorName: String, body: ReactElementContainer.() -> Unit) : Reac
 
 class CommentList(data: Array<Person>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
     var data: Array<Person> by ReactPropDelegate()
-
-    override fun doRender(): ReactElement? {
+    override fun render(): ReactElement? {
         val commentNodes = data.map { comment ->
             Comment(authorName = comment.author) {
                 +comment.text
@@ -51,7 +57,7 @@ class CommentList(data: Array<Person>, body: ReactElementContainer.() -> Unit = 
 }
 
 class CommentForm(body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
-    override fun doRender(): ReactElement? {
+    override fun render(): ReactElement? {
         return div("className" to "CommentForm") {
             +"Hello, world! I am a CommentForm."
         }
@@ -61,7 +67,7 @@ class CommentForm(body: ReactElementContainer.() -> Unit = {}) : ReactClass(body
 class CommentBox(data: Array<Person>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
     var data: Array<Person> by ReactPropDelegate()
 
-    override fun doRender(): ReactElement?  {
+    override fun render(): ReactElement?  {
         return div("className" to "commentBox") {
             +h1 { +"Comments" }
             +CommentList(data = data)
