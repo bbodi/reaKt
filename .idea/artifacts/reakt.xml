@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="reakt">
+    <output-path>$PROJECT_DIR$/out/artifacts/reakt</output-path>
+    <root id="root">
+      <element id="library" level="project" name="KotlinJavaScript" />
+      <element id="module-output" name="reaKt" />
+    </root>
+  </artifact>
+</component>
