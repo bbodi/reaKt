@@ -4,181 +4,6 @@
     hu: Kotlin.definePackage(null, /** @lends _.hu */ {
       nevermind: Kotlin.definePackage(null, /** @lends _.hu.nevermind */ {
         reakt: Kotlin.definePackage(null, /** @lends _.hu.nevermind.reakt */ {
-          example: Kotlin.definePackage(function () {
-            this.data = [new _.hu.nevermind.reakt.example.Person('Pete Hunt', 'This is one comment'), new _.hu.nevermind.reakt.example.Person('Jordan Walke', 'This is *another* comment')];
-          }, /** @lends _.hu.nevermind.reakt.example */ {
-            Comment: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(authorName, body) {
-              $fun.baseInitializer.call(this, body);
-              this.authorName$delegate = new _.hu.nevermind.reakt.ReactPropDelegate();
-              this.count$delegate = new _.hu.nevermind.reakt.ReactPropDelegate();
-              this.h2Ref = this.ref_61zpoe$('h2');
-              this.authorName = authorName;
-              this.count = 0;
-            }, /** @lends _.hu.nevermind.reakt.example.Comment.prototype */ {
-              authorName: {
-                get: function () {
-                  return this.authorName$delegate.get(this, new Kotlin.PropertyMetadata('authorName'));
-                },
-                set: function (authorName) {
-                  this.authorName$delegate.set(this, new Kotlin.PropertyMetadata('authorName'), authorName);
-                }
-              },
-              count: {
-                get: function () {
-                  return this.count$delegate.get(this, new Kotlin.PropertyMetadata('count'));
-                },
-                set: function (count) {
-                  this.count$delegate.set(this, new Kotlin.PropertyMetadata('count'), count);
-                }
-              },
-              render: function () {
-                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'comment')], _.hu.nevermind.reakt.example.Comment.render$f(this));
-              },
-              componentDidMount: function () {
-                window.setTimeout(_.hu.nevermind.reakt.example.Comment.componentDidMount$f(this), 2000);
-              }
-            }, /** @lends _.hu.nevermind.reakt.example.Comment */ {
-              f: function (this$Comment) {
-                return function () {
-                  this.ref = this$Comment.h2Ref;
-                  this.plus_pdl1w0$(this$Comment.authorName);
-                };
-              },
-              render$f: function (this$Comment) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.h2_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'commentAuthor')], _.hu.nevermind.reakt.example.Comment.f(this$Comment)));
-                  this.plus_eg9ybj$(this$Comment.children);
-                };
-              },
-              componentDidMount$f: function (this$Comment) {
-                return function () {
-                  this$Comment.h2Ref.getDOMNode().innerHTML = 'bali';
-                };
-              }
-            }),
-            CommentList: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(data, body) {
-              if (body === void 0)
-                body = _.hu.nevermind.reakt.example.CommentList.CommentList$f;
-              $fun.baseInitializer.call(this, body);
-              this.data$delegate = new _.hu.nevermind.reakt.ReactPropDelegate();
-              this.data = data;
-            }, /** @lends _.hu.nevermind.reakt.example.CommentList.prototype */ {
-              data: {
-                get: function () {
-                  return this.data$delegate.get(this, new Kotlin.PropertyMetadata('data'));
-                },
-                set: function (data) {
-                  this.data$delegate.set(this, new Kotlin.PropertyMetadata('data'), data);
-                }
-              },
-              render: function () {
-                var tmp$0;
-                tmp$0 = Kotlin.modules['stdlib'].kotlin.map_rie7ol$(this.data, _.hu.nevermind.reakt.example.CommentList.render$f);
-                var commentNodes = tmp$0;
-                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'commentList')], _.hu.nevermind.reakt.example.CommentList.render$f_0(commentNodes));
-              }
-            }, /** @lends _.hu.nevermind.reakt.example.CommentList */ {
-              CommentList$f: function () {
-              },
-              f: function (comment) {
-                return function () {
-                  this.plus_pdl1w0$(comment.text);
-                };
-              },
-              render$f: function (comment) {
-                return new _.hu.nevermind.reakt.example.Comment(comment.author, _.hu.nevermind.reakt.example.CommentList.f(comment));
-              },
-              render$f_0: function (commentNodes) {
-                return function () {
-                  this.plus_ow6yss$(commentNodes);
-                };
-              }
-            }),
-            CommentForm: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(body) {
-              if (body === void 0)
-                body = _.hu.nevermind.reakt.example.CommentForm.CommentForm$f;
-              $fun.baseInitializer.call(this, body);
-            }, /** @lends _.hu.nevermind.reakt.example.CommentForm.prototype */ {
-              render: function () {
-                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'CommentForm')], _.hu.nevermind.reakt.example.CommentForm.render$f);
-              }
-            }, /** @lends _.hu.nevermind.reakt.example.CommentForm */ {
-              CommentForm$f: function () {
-              },
-              render$f: function () {
-                this.plus_pdl1w0$('Hello, world! I am a CommentForm.');
-              }
-            }),
-            CommentBox: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(data, body) {
-              if (body === void 0)
-                body = _.hu.nevermind.reakt.example.CommentBox.CommentBox$f;
-              $fun.baseInitializer.call(this, body);
-              this.data$delegate = new _.hu.nevermind.reakt.ReactPropDelegate();
-              this.data = data;
-            }, /** @lends _.hu.nevermind.reakt.example.CommentBox.prototype */ {
-              data: {
-                get: function () {
-                  return this.data$delegate.get(this, new Kotlin.PropertyMetadata('data'));
-                },
-                set: function (data) {
-                  this.data$delegate.set(this, new Kotlin.PropertyMetadata('data'), data);
-                }
-              },
-              render: function () {
-                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'commentBox')], _.hu.nevermind.reakt.example.CommentBox.render$f(this));
-              }
-            }, /** @lends _.hu.nevermind.reakt.example.CommentBox */ {
-              CommentBox$f: function () {
-              },
-              f: function () {
-                this.plus_pdl1w0$('Comments');
-              },
-              render$f: function (this$CommentBox) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.CommentBox.f));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.CommentList(this$CommentBox.data));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.CommentForm());
-                };
-              }
-            }),
-            Person: Kotlin.createClass(null, function (author, text) {
-              this.author = author;
-              this.text = text;
-            }, /** @lends _.hu.nevermind.reakt.example.Person.prototype */ {
-              component1: function () {
-                return this.author;
-              },
-              component2: function () {
-                return this.text;
-              },
-              copy: function (author, text) {
-                return new _.hu.nevermind.reakt.example.Person(author === void 0 ? this.author : author, text === void 0 ? this.text : text);
-              },
-              toString: function () {
-                return 'Person(author=' + Kotlin.toString(this.author) + (', text=' + Kotlin.toString(this.text)) + ')';
-              },
-              hashCode: function () {
-                var result = 0;
-                result = result * 31 + Kotlin.hashCode(this.author) | 0;
-                result = result * 31 + Kotlin.hashCode(this.text) | 0;
-                return result;
-              },
-              equals_za3rmp$: function (other) {
-                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.author, other.author) && Kotlin.equals(this.text, other.text))));
-              }
-            }),
-            main_kand9s$: function (args) {
-              _.hu.nevermind.reakt.React.object.render_40g7my$((new _.hu.nevermind.reakt.example.CommentBox(_.hu.nevermind.reakt.example.data)).createElement(), document.getElementById('content'));
-            }
-          }),
           ReactElementContainer: Kotlin.createClass(null, function () {
             this.elements = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
             this.options = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
@@ -249,6 +74,37 @@
             var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
             return new _.hu.nevermind.reakt.ReactElement(_.hu.nevermind.reakt.React.object.DOM.h2(constructorParams, Kotlin.copyToArray(elementContainer.elements)));
           },
+          form_djsqtr$f: function (it) {
+          },
+          form_djsqtr$: function (options, onSubmit, body) {
+            if (onSubmit === void 0)
+              onSubmit = _.hu.nevermind.reakt.form_djsqtr$f;
+            var elementContainer = new _.hu.nevermind.reakt.ReactElementContainer();
+            body.call(elementContainer);
+            var fullOptions = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+            Kotlin.modules['stdlib'].kotlin.addAll_7g2der$(fullOptions, options);
+            fullOptions.addAll_4fm7v2$(elementContainer.options);
+            fullOptions.add_za3rmp$(Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onSubmit', onSubmit));
+            var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
+            return new _.hu.nevermind.reakt.ReactElement(_.hu.nevermind.reakt.React.object.DOM.form(constructorParams, Kotlin.copyToArray(elementContainer.elements)));
+          },
+          InputType: Kotlin.createEnumClass(function () {
+            return [Kotlin.Enum];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+          }, function () {
+            return {
+              TEXT: new _.hu.nevermind.reakt.InputType(),
+              SUBMIT: new _.hu.nevermind.reakt.InputType()
+            };
+          }),
+          input_gy5mox$: function (options, type) {
+            var fullOptions = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+            Kotlin.modules['stdlib'].kotlin.addAll_7g2der$(fullOptions, options);
+            fullOptions.add_za3rmp$(Kotlin.modules['stdlib'].kotlin.to_l1ob02$('type', type.name().toLowerCase()));
+            var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
+            return new _.hu.nevermind.reakt.ReactElement(_.hu.nevermind.reakt.React.object.DOM.input(constructorParams));
+          },
           ReactElement: Kotlin.createClass(null, function (backend) {
             this.backend = backend;
           }),
@@ -261,34 +117,52 @@
             },
             h2: function (properties, children) {
               return noImpl;
+            },
+            form: function (properties, children) {
+              return noImpl;
+            },
+            input: function (properties) {
+              return noImpl;
             }
           }),
           React: Kotlin.createClass(null, null, null, /** @lends _.hu.nevermind.reakt.React */ {
             render_40g7my$f: function () {
             },
-            f: function (reactClass) {
+            f: function (reactClass, this$React$) {
               return function () {
                 var tmp$0;
-                var props = this.props;
-                var refs = this.refs;
-                reactClass.props = props;
-                reactClass.refs = refs;
+                var self = null;
+                self = this;
+                this$React$.readStateFromJsToKotlin(self, reactClass);
                 return (tmp$0 = reactClass.render()) != null ? tmp$0.backend : null;
               };
             },
-            f_0: function (reactClass) {
+            f_0: function (reactClass, this$React$) {
               return function () {
-                var props = this.props;
-                var refs = this.refs;
-                reactClass.props = props;
-                reactClass.refs = refs;
+                var self = null;
+                self = this;
+                this$React$.readStateFromJsToKotlin(self, reactClass);
                 reactClass.componentDidMount();
               };
             },
-            createClass_ew72dd$f: function (reactClass) {
+            f_1: function (reactClass, this$React$) {
+              return function () {
+                var self = null;
+                self = this;
+                this$React$.readStateFromJsToKotlin(self, reactClass);
+                if (Kotlin.isType(reactClass, _.hu.nevermind.reakt.StatefulReactClass)) {
+                  return reactClass.getInitialState();
+                }
+                 else {
+                  return null;
+                }
+              };
+            },
+            createClass_ew72dd$f: function (reactClass, this$React$) {
               return Kotlin.createObject(null, function () {
-                this.render = _.hu.nevermind.reakt.React.f(reactClass);
-                this.componentDidMount = _.hu.nevermind.reakt.React.f_0(reactClass);
+                this.render = _.hu.nevermind.reakt.React.f(reactClass, this$React$);
+                this.componentDidMount = _.hu.nevermind.reakt.React.f_0(reactClass, this$React$);
+                this.getInitialState = _.hu.nevermind.reakt.React.f_1(reactClass, this$React$);
               });
             },
             object_initializer$: function () {
@@ -301,14 +175,25 @@
                   React.render(element != null ? element.backend : null, container, callback);
                 },
                 createClass_ew72dd$: function (reactClass) {
-                  return React.createClass(_.hu.nevermind.reakt.React.createClass_ew72dd$f(reactClass));
+                  return React.createClass(_.hu.nevermind.reakt.React.createClass_ew72dd$f(reactClass, this));
+                },
+                readStateFromJsToKotlin: function (self, reactClass) {
+                  var props = self.props;
+                  reactClass.propsJs = props;
+                  var refs = self.refs;
+                  reactClass.refs = refs;
+                  if (Kotlin.isType(reactClass, _.hu.nevermind.reakt.StatefulReactClass)) {
+                    var state = self.state;
+                    reactClass.setStateJs_za3rmp$(state);
+                  }
+                  reactClass.reactClassRuntimeRepr = self;
                 }
               });
             }
           }),
-          ReactProps: Kotlin.createClass(null, function () {
+          ReactPropsJs: Kotlin.createClass(null, function () {
             this.children = noImpl;
-          }, /** @lends _.hu.nevermind.reakt.ReactProps.prototype */ {
+          }, /** @lends _.hu.nevermind.reakt.ReactPropsJs.prototype */ {
             get: function (name) {
               return noImpl;
             },
@@ -355,20 +240,98 @@
               return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.reactClass, other.reactClass) && Kotlin.equals(this.name, other.name))));
             }
           }),
-          ReactClass: Kotlin.createClass(null, function (body) {
+          StatefulReactClass: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.ReactClass];
+          }, function $fun(constructorOptions, body) {
+            $fun.baseInitializer.call(this, constructorOptions, body);
+            this.state$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
+          }, /** @lends _.hu.nevermind.reakt.StatefulReactClass.prototype */ {
+            getInitialState: function () {
+              return noImpl;
+            },
+            state: {
+              get: function () {
+                return this.state$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('state'));
+              },
+              set: function (state) {
+                this.state$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('state'), state);
+              }
+            },
+            setState_za3rmp$: function (newState) {
+              this.reactClassRuntimeRepr.setState(newState);
+            },
+            setStateJs_za3rmp$: function (st) {
+              this.state = st;
+            }
+          }),
+          PropertyDefinition: Kotlin.createClass(null, function () {
+            this.id = 'name_' + Kotlin.hashCode(this);
+          }, /** @lends _.hu.nevermind.reakt.PropertyDefinition.prototype */ {
+            copy: function () {
+              return new _.hu.nevermind.reakt.PropertyDefinition();
+            }
+          }),
+          set_ife7hi$: function ($receiver, param) {
+            return new _.hu.nevermind.reakt.PropertyPair($receiver, param);
+          },
+          PropertyPair: Kotlin.createClass(null, function (key, value) {
+            this.key = key;
+            this.value = value;
+          }, /** @lends _.hu.nevermind.reakt.PropertyPair.prototype */ {
+            component1: function () {
+              return this.key;
+            },
+            component2: function () {
+              return this.value;
+            },
+            copy_u0sgdk$: function (key, value) {
+              return new _.hu.nevermind.reakt.PropertyPair(key === void 0 ? this.key : key, value === void 0 ? this.value : value);
+            },
+            toString: function () {
+              return 'PropertyPair(key=' + Kotlin.toString(this.key) + (', value=' + Kotlin.toString(this.value)) + ')';
+            },
+            hashCode: function () {
+              var result = 0;
+              result = result * 31 + Kotlin.hashCode(this.key) | 0;
+              result = result * 31 + Kotlin.hashCode(this.value) | 0;
+              return result;
+            },
+            equals_za3rmp$: function (other) {
+              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.key, other.key) && Kotlin.equals(this.value, other.value))));
+            }
+          }),
+          ReactClassRuntimeRepr: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactClassRuntimeRepr.prototype */ {
+            setState: function (newState) {
+              noImpl;
+            }
+          }),
+          ReactClass: Kotlin.createClass(null, function (constructorOptions, body) {
+            this.constructorOptions_c8d5yn$ = constructorOptions;
             this.body = body;
-            this.props = null;
+            this.reactClassRuntimeRepr$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
+            this.propsJs = null;
             this.refs = null;
-            this.constructorParams_blvvm5$ = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
             this.backend = _.hu.nevermind.reakt.React.object.createClass_ew72dd$(this);
           }, /** @lends _.hu.nevermind.reakt.ReactClass.prototype */ {
+            reactClassRuntimeRepr: {
+              get: function () {
+                return this.reactClassRuntimeRepr$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('reactClassRuntimeRepr'));
+              },
+              set: function (reactClassRuntimeRepr) {
+                this.reactClassRuntimeRepr$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('reactClassRuntimeRepr'), reactClassRuntimeRepr);
+              }
+            },
             ref_61zpoe$: function (name) {
               return new _.hu.nevermind.reakt.ReactRef(this, name);
+            },
+            props_wh2x03$: function (prop) {
+              var tmp$0;
+              return ((tmp$0 = this.propsJs) != null ? tmp$0 : Kotlin.throwNPE())[prop.id];
             },
             children: {
               get: function () {
                 var tmp$0, tmp$1;
-                var children = ((tmp$0 = this.props) != null ? tmp$0 : Kotlin.throwNPE()).children;
+                var children = ((tmp$0 = this.propsJs) != null ? tmp$0 : Kotlin.throwNPE()).children;
                 if (Kotlin.isType(children, Kotlin.modules['builtins'].kotlin.Array)) {
                   tmp$1 = children;
                 }
@@ -378,9 +341,6 @@
                 return tmp$1;
               }
             },
-            addParam_bm4g0d$: function (name, value) {
-              this.constructorParams_blvvm5$.add_za3rmp$(Kotlin.modules['stdlib'].kotlin.to_l1ob02$(name, value));
-            },
             componentDidMount: function () {
             },
             createElement: function () {
@@ -388,43 +348,38 @@
               var elementContainer = new _.hu.nevermind.reakt.ReactElementContainer();
               this.body.call(elementContainer);
               var fullOptions = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
-              fullOptions.addAll_4fm7v2$(this.constructorParams_blvvm5$);
+              Kotlin.modules['stdlib'].kotlin.forEach_5wd4f$(this.constructorOptions_c8d5yn$, _.hu.nevermind.reakt.ReactClass.createElement$f(fullOptions));
               fullOptions.addAll_4fm7v2$(elementContainer.options);
               var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
               return new _.hu.nevermind.reakt.ReactElement((tmp$0 = React).createElement.apply(tmp$0, [this.backend, constructorParams].concat(Kotlin.copyToArray(elementContainer.elements))));
             }
+          }, /** @lends _.hu.nevermind.reakt.ReactClass */ {
+            createElement$f: function (fullOptions) {
+              return function (it) {
+                fullOptions.add_za3rmp$(new Kotlin.modules['stdlib'].kotlin.Pair(it.key.id, it.value));
+              };
+            }
           }),
           createObjectWithDynamicFields: function (options) {
-            var tmp$1;
+            var tmp$1, tmp$2;
             var tmpObj = Kotlin.createObject(null, null);
             tmp$1 = options.iterator();
             while (tmp$1.hasNext()) {
               var tmp$0 = tmp$1.next()
               , key = tmp$0.component1()
               , value = tmp$0.component2();
-              tmpObj[key] = value;
+              if (Kotlin.isType(value, _.hu.nevermind.reakt.ReactRef))
+                tmp$2 = value.name;
+              else
+                tmp$2 = value;
+              var convertedValue = tmp$2;
+              tmpObj[key] = convertedValue;
             }
             return tmpObj;
-          },
-          ReactPropDelegate: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactPropDelegate.prototype */ {
-            get: function (thisRef, fieldMetadata) {
-              var tmp$0;
-              return ((tmp$0 = thisRef.props) != null ? tmp$0 : Kotlin.throwNPE())[fieldMetadata.name];
-            },
-            set: function (thisRef, fieldMetadata, value) {
-              var tmp$0;
-              if (thisRef.props != null) {
-                ((tmp$0 = thisRef.props) != null ? tmp$0 : Kotlin.throwNPE())[fieldMetadata.name] = value;
-              }
-               else {
-                thisRef.addParam_bm4g0d$(fieldMetadata.name, value);
-              }
-            }
-          })
+          }
         })
       })
     })
   });
   Kotlin.defineModule('reaKt', _);
-  _.hu.nevermind.reakt.example.main_kand9s$([]);
 }(Kotlin));

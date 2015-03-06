@@ -4,6 +4,7 @@ import kotlin.js.dom.html.document
 import org.w3c.dom.Element
 import kotlin.properties.Delegates
 import kotlin.js.dom.html.HTMLElement
+import org.w3c.dom.events.Event
 
 public class ReactElementContainer() {
 	val elements: MutableList<Any> = arrayListOf()
@@ -70,8 +71,32 @@ public fun h2(vararg options: Pair<String, Any>, body: ReactElementContainer.() 
 	return ReactElement(React.DOM.h2(constructorParams, *elementContainer.elements.copyToArray()))
 }
 
+public fun form(vararg options: Pair<String, Any>, onSubmit: (Event)->Unit={}, body: ReactElementContainer.() -> Unit): ReactElement {
+    val elementContainer = ReactElementContainer()
+    elementContainer.body()
+    val fullOptions = arrayListOf<Pair<String, Any>>()
+    fullOptions.addAll(options)
+    fullOptions.addAll(elementContainer.options)
+    fullOptions.add("onSubmit" to onSubmit)
+    val constructorParams = createObjectWithDynamicFields(fullOptions)
+    return ReactElement(React.DOM.form(constructorParams, *elementContainer.elements.copyToArray()))
+}
+
+public enum class InputType {
+    TEXT
+    SUBMIT
+}
+public fun input(vararg options: Pair<String, Any>, type: InputType): ReactElement {
+    val fullOptions = arrayListOf<Pair<String, Any>>()
+    fullOptions.addAll(options)
+    fullOptions.add("type" to type.name().toLowerCase())
+    val constructorParams = createObjectWithDynamicFields(fullOptions)
+    return ReactElement(React.DOM.input(constructorParams))
+}
+
 native("ReactClass")
 private class ReactClassJs {
+
 }
 
 native("ReactElement")
@@ -87,6 +112,9 @@ private class ReactDom {
 
 	fun h1(properties: Any?, vararg children: Any): ReactElementJs = noImpl
 	fun h2(properties: Any?, vararg children: Any): ReactElementJs = noImpl
+    fun form(properties: Any?, vararg children: Any): ReactElementJs = noImpl
+
+    fun input(properties: Any?): ReactElementJs = noImpl
 }
 
 public class React {
@@ -101,22 +129,42 @@ public class React {
 			return ReactJs.createClass(object {
 				val render = {
 					// this = ReactCompositeComponent
-					val props = js("this.props")
-					val refs = js("this.refs")
-					reactClass.props = props
-					reactClass.refs = refs
+                    var self: dynamic = null
+                    js("self = this")
+                    readStateFromJsToKotlin(self, reactClass)
 					reactClass.render()?.backend
 				}
 				val componentDidMount = {
-					val props = js("this.props")
-					val refs = js("this.refs")
-					reactClass.props = props
-					reactClass.refs = refs
+                    var self: dynamic = null
+                    js("self = this")
+                    readStateFromJsToKotlin(self, reactClass)
 					reactClass.componentDidMount()
 				}
+                val getInitialState = {
+                    var self: dynamic = null
+                    js("self = this")
+                    readStateFromJsToKotlin(self, reactClass)
+                    if (reactClass is StatefulReactClass<*>) {
+                        reactClass.getInitialState()
+                    } else {
+                        null
+                    }
+                }
 			})
 		}
-	}
+
+        private fun readStateFromJsToKotlin(self: dynamic, reactClass: ReactClass) {
+            val props = self.props
+            reactClass.propsJs = props
+            val refs = self.refs
+            reactClass.refs = refs
+            if (reactClass is StatefulReactClass<*>) {
+                val state = self.state
+                reactClass.setStateJs(state)
+            }
+            reactClass.reactClassRuntimeRepr = self
+        }
+    }
 }
 
 native("React")
@@ -130,7 +178,7 @@ class ReactJs {
 }
 
 
-class ReactProps() {
+class ReactPropsJs() {
 	native
 	val children: Any = noImpl
 
@@ -157,16 +205,52 @@ public data class ReactRef(val reactClass: ReactClass, val name: String) {
 	}
 }
 
-abstract public class ReactClass(val body: ReactElementContainer.() -> Unit) {
-	public fun ref(name: String): ReactRef = ReactRef(this, name)
+abstract public class StatefulReactClass<STATE>(constructorOptions: Array<out PropertyPair<out Any>>, body: ReactElementContainer.() -> Unit) : ReactClass(constructorOptions, body) {
+
+    open fun getInitialState(): STATE = noImpl
+
+    var state: STATE by Delegates.notNull()
+
+    public fun setState(newState: STATE) {
+        reactClassRuntimeRepr.setState(newState)
+    }
+
+    fun setStateJs(st: Any) {
+        state = st as STATE
+    }
+}
+
+public data class PropertyDefinition<V> {
+    public val id: String = "name_${hashCode()}"
+}
+
+public fun <V> PropertyDefinition<V>.set(param: V): PropertyPair<V> {
+    return PropertyPair(this, param)
+}
+
+public data class PropertyPair<V>(val key: PropertyDefinition<V>, val value: V)
+
+private class ReactClassRuntimeRepr {
+    native
+    fun <STATE> setState(newState: STATE): Unit = noImpl
+}
+
+abstract public class ReactClass(private val constructorOptions: Array<out PropertyPair<out Any>>, val body: ReactElementContainer.() -> Unit) {
+
+    var reactClassRuntimeRepr: ReactClassRuntimeRepr by Delegates.notNull()
+
+    public fun ref(name: String): ReactRef = ReactRef(this, name)
 
 	// TODO private
-	public var props: ReactProps? = null
-	public var refs: ReactRefs? = null
+    var propsJs: ReactPropsJs? = null
+	public fun <V> props(prop: PropertyDefinition<V>): V {
+        return propsJs!!.get<V>(prop.id)
+    }
+    var refs: ReactRefs? = null
 
 	public val children: Array<Any>
 		get() {
-			val children = props!!.children
+			val children = propsJs!!.children
 			return if (children is Array<Any>) {
 				children
 			} else {
@@ -174,15 +258,8 @@ abstract public class ReactClass(val body: ReactElementContainer.() -> Unit) {
 			}
 		}
 
-	private val constructorParams: MutableList<Pair<String, Any>> = arrayListOf()
-
-	fun addParam(name: String, value: Any) {
-		constructorParams.add(name to value)
-	}
-
 	abstract fun render(): ReactElement?
-	open fun componentDidMount() {
-	}
+	open fun componentDidMount() {}
 
 	val backend = React.createClass(this)
 
@@ -191,7 +268,10 @@ abstract public class ReactClass(val body: ReactElementContainer.() -> Unit) {
 		elementContainer.body()
 
 		val fullOptions = arrayListOf<Pair<String, Any>>()
-		fullOptions.addAll(constructorParams)
+        constructorOptions.forEach {
+            fullOptions.add(Pair(it.key.id, it.value))
+        }
+
 		fullOptions.addAll(elementContainer.options)
 
 		val constructorParams = createObjectWithDynamicFields(fullOptions)
@@ -203,24 +283,11 @@ abstract public class ReactClass(val body: ReactElementContainer.() -> Unit) {
 private fun createObjectWithDynamicFields(options: Iterable<Pair<String, Any>>): Any {
 	val tmpObj = object {}
 	for ((key, value) in options) {
-		js("tmpObj[key] = value")
+        val convertedValue: Any = when(value) {
+            is ReactRef -> value.name
+            else -> value
+        }
+		js("tmpObj[key] = convertedValue")
 	}
 	return tmpObj
-}
-
-
-// TODO: it should be in ReactClass class, but currently kotlin us buggy...
-public class ReactPropDelegate<V>() {
-
-	fun get(thisRef: ReactClass, fieldMetadata: PropertyMetadata): V {
-		return thisRef.props!!.get<V>(fieldMetadata.name)
-	}
-
-	fun set(thisRef: ReactClass, fieldMetadata: PropertyMetadata, value: V) {
-		if (thisRef.props != null) {
-			thisRef.props!!.set(fieldMetadata.name, value)
-		} else {
-			thisRef.addParam(fieldMetadata.name, value);
-		}
-	}
 }
