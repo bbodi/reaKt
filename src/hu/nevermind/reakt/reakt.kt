@@ -41,57 +41,83 @@ public class ReactElementContainer() {
 	}
 }
 
-public fun div(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
-	val elementContainer = ReactElementContainer()
-	elementContainer.body()
+
+
+fun createReactElementJs(tagName: String, options: Array<out Pair<String, String>>, addOptions: (MutableList<Pair<String, Any>>)->Unit, body: (ReactElementContainer.() -> Unit)?): ReactElement {
 	val fullOptions = arrayListOf<Pair<String, Any>>()
 	fullOptions.addAll(options)
-	fullOptions.addAll(elementContainer.options)
+	var elements: Array<Any> = array()
+	if (body != null) {
+		val elementContainer = ReactElementContainer()
+		elementContainer.body()
+		fullOptions.addAll(elementContainer.options)
+		elements = elementContainer.elements.copyToArray()
+	}
+
+	addOptions(fullOptions)
 	val constructorParams = createObjectWithDynamicFields(fullOptions)
-	return ReactElement(React.DOM.div(constructorParams, *elementContainer.elements.copyToArray()))
+	val reactElementJs: dynamic = React.DOM.get(tagName)
+	//js("reactElementJs = React.DOM["+tagName+"]")
+	return ReactElement(reactElementJs(constructorParams, *elements))
+}
+
+public fun div(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("div", options, {}, body)
 }
 
 public fun h1(vararg options: Pair<String, String> = array(), body: ReactElementContainer.() -> Unit): ReactElement {
-	val elementContainer = ReactElementContainer()
-	elementContainer.body()
-	val fullOptions = arrayListOf<Pair<String, Any>>()
-	fullOptions.addAll(options)
-	fullOptions.addAll(elementContainer.options)
-	val constructorParams = createObjectWithDynamicFields(fullOptions)
-	return ReactElement(React.DOM.h1(constructorParams, *elementContainer.elements.copyToArray()))
+	return createReactElementJs("h1", options, {}, body)
 }
 
-public fun h2(vararg options: Pair<String, Any>, body: ReactElementContainer.() -> Unit): ReactElement {
-	val elementContainer = ReactElementContainer()
-	elementContainer.body()
-	val fullOptions = arrayListOf<Pair<String, Any>>()
-	fullOptions.addAll(options)
-	fullOptions.addAll(elementContainer.options)
-	val constructorParams = createObjectWithDynamicFields(fullOptions)
-	return ReactElement(React.DOM.h2(constructorParams, *elementContainer.elements.copyToArray()))
+public fun h2(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("h2", options, {}, body)
 }
 
-public fun form(vararg options: Pair<String, Any>, onSubmit: (Event)->Unit={}, body: ReactElementContainer.() -> Unit): ReactElement {
-    val elementContainer = ReactElementContainer()
-    elementContainer.body()
-    val fullOptions = arrayListOf<Pair<String, Any>>()
-    fullOptions.addAll(options)
-    fullOptions.addAll(elementContainer.options)
-    fullOptions.add("onSubmit" to onSubmit)
-    val constructorParams = createObjectWithDynamicFields(fullOptions)
-    return ReactElement(React.DOM.form(constructorParams, *elementContainer.elements.copyToArray()))
+public fun form(vararg options: Pair<String, String>, onSubmit: (Event)->Unit={}, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("form", options, { options ->
+		options.add("onSubmit" to onSubmit)
+	}, body)
 }
 
 public enum class InputType {
     TEXT
     SUBMIT
 }
-public fun input(vararg options: Pair<String, Any>, type: InputType): ReactElement {
-    val fullOptions = arrayListOf<Pair<String, Any>>()
-    fullOptions.addAll(options)
-    fullOptions.add("type" to type.name().toLowerCase())
-    val constructorParams = createObjectWithDynamicFields(fullOptions)
-    return ReactElement(React.DOM.input(constructorParams))
+public fun input(vararg options: Pair<String, String>, type: InputType): ReactElement {
+	return createReactElementJs("form", options, { options ->
+		options.add("type" to type.name().toLowerCase())
+	}, null)
+}
+
+public fun table(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("table", options, {}, body)
+}
+
+public fun thead(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("thead", options, {}, body)
+}
+
+public fun td(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("td", options, {}, body)
+}
+
+public fun th(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("th", options, {}, body)
+}
+
+public fun tr(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("tr", options, {}, body)
+}
+
+public enum class ButtonType {
+	BUTTON
+	RESET
+	SUBMIT
+}
+public fun button(type: ButtonType = ButtonType.BUTTON, vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+	return createReactElementJs("button", options, {options ->
+		options.add("type" to type.name().toLowerCase())
+	}, body)
 }
 
 native("ReactClass")
@@ -107,14 +133,8 @@ public class ReactElement(val backend: ReactElementJs) {
 }
 
 private class ReactDom {
-	native
-	fun div(properties: Any?, vararg children: Any): ReactElementJs = noImpl
-
-	fun h1(properties: Any?, vararg children: Any): ReactElementJs = noImpl
-	fun h2(properties: Any?, vararg children: Any): ReactElementJs = noImpl
-    fun form(properties: Any?, vararg children: Any): ReactElementJs = noImpl
-
-    fun input(properties: Any?): ReactElementJs = noImpl
+	native nativeGetter
+	public fun <V>get(tagName: String): V = noImpl
 }
 
 public class React {
