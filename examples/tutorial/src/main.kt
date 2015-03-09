@@ -77,9 +77,9 @@ class CommentForm(vararg props: PropertyPair<out Any>, body: ReactElementContain
 
     override fun render(): ReactElement? {
         return form(onSubmit = { event -> handleSubmit(event) }) {
-            +input("placeholder" to "Your name", "ref" to authorRef, type = InputType.TEXT)
-            +input("placeholder" to "Say something...", "ref" to textRef, type = InputType.TEXT)
-            +input("value" to "Post", type = InputType.SUBMIT)
+            +input(InputType.TEXT, "placeholder" to "Your name", "ref" to authorRef)
+            +input(InputType.TEXT, "placeholder" to "Say something...", "ref" to textRef)
+            +input(InputType.SUBMIT, "value" to "Post")
         }
     }
 }
@@ -110,6 +110,6 @@ class CommentBox(vararg props: PropertyPair<out Any>, body: ReactElementContaine
 
 data class CommentEntry(val author: String, val text: String)
 
-public fun main(args: Array<String>) {
+/*public fun main(args: Array<String>) {
     React.render(CommentBox().createElement(), document.getElementById("content"))
-}
+}*/

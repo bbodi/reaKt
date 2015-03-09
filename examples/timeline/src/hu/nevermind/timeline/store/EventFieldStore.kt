@@ -22,4 +22,8 @@ object EventFieldStore : Store (){
 	fun get(id: Int): EventField {
 		return fields.getOrElse(id, {error("EventFieldStore: $id not found")})
 	}
+
+    fun getFields(): Map<Int, EventField> {
+        return fields
+    }
 }

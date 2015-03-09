@@ -25,4 +25,8 @@ object TemplateStore : Store (){
 	fun getTemplate(templateId: Int): EventTemplate {
 		return templates.getOrElse(templateId, {error("TemplateStore: $templateId")})
 	}
+
+    fun getTemplates(): Map<Int, EventTemplate> {
+        return templates
+    }
 }

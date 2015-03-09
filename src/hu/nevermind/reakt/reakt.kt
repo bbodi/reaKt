@@ -43,7 +43,7 @@ public class ReactElementContainer() {
 
 
 
-fun createReactElementJs(tagName: String, options: Array<out Pair<String, String>>, addOptions: (MutableList<Pair<String, Any>>)->Unit, body: (ReactElementContainer.() -> Unit)?): ReactElement {
+fun createReactElementJs(tagName: String, options: Array<out Pair<String, Any>>, addOptions: (MutableList<Pair<String, Any>>)->Unit, body: (ReactElementContainer.() -> Unit)?): ReactElement {
 	val fullOptions = arrayListOf<Pair<String, Any>>()
 	fullOptions.addAll(options)
 	var elements: Array<Any> = array()
@@ -73,6 +73,18 @@ public fun h2(vararg options: Pair<String, String>, body: ReactElementContainer.
 	return createReactElementJs("h2", options, {}, body)
 }
 
+public fun h3(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("h3", options, {}, body)
+}
+
+public fun h4(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("h4", options, {}, body)
+}
+
+public fun label(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("label", options, {}, body)
+}
+
 public fun form(vararg options: Pair<String, String>, onSubmit: (Event)->Unit={}, body: ReactElementContainer.() -> Unit): ReactElement {
 	return createReactElementJs("form", options, { options ->
 		options.add("onSubmit" to onSubmit)
@@ -80,13 +92,41 @@ public fun form(vararg options: Pair<String, String>, onSubmit: (Event)->Unit={}
 }
 
 public enum class InputType {
-    TEXT
+    BUTTON
+    CHECKBOX
+    COLOR
+    DATE
+    DATETIME
+    DATETIME_LOCAL
+    EMAIL
+    FILE
+    HIDDEN
+    IMAGE
+    MONTH
+    NUMBER
+    PASSWORD
+    RADIO
+    RANGE
+    RESET
+    SEARCH
     SUBMIT
+    TEL
+    TEXT
+    TIME
+    URL
+    WEEK
 }
-public fun input(vararg options: Pair<String, String>, type: InputType): ReactElement {
-	return createReactElementJs("form", options, { options ->
+public fun input(type: InputType, vararg options: Pair<String, Any>): ReactElement {
+	return createReactElementJs("input", options, { options ->
 		options.add("type" to type.name().toLowerCase())
 	}, null)
+}
+
+public fun textarea(rows: Int, cols: Int, vararg options: Pair<String, Any>): ReactElement {
+    return createReactElementJs("textarea", options, { options ->
+        options.add("rows" to rows)
+        options.add("cols" to cols)
+    }, null)
 }
 
 public fun table(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
@@ -97,7 +137,7 @@ public fun thead(vararg options: Pair<String, String>, body: ReactElementContain
 	return createReactElementJs("thead", options, {}, body)
 }
 
-public fun td(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+public fun td(vararg options: Pair<String, Any>, body: ReactElementContainer.() -> Unit): ReactElement {
 	return createReactElementJs("td", options, {}, body)
 }
 
@@ -118,6 +158,21 @@ public fun button(type: ButtonType = ButtonType.BUTTON, vararg options: Pair<Str
 	return createReactElementJs("button", options, {options ->
 		options.add("type" to type.name().toLowerCase())
 	}, body)
+}
+
+public fun span(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("span", options, {options -> }, body)
+}
+public fun ul(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("ul", options, {options -> }, body)
+}
+
+public fun li(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("li", options, {options -> }, body)
+}
+
+public fun a(vararg options: Pair<String, Any>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("a", options, {options -> }, body)
 }
 
 native("ReactClass")
@@ -165,7 +220,8 @@ public class React {
                     js("self = this")
                     readStateFromJsToKotlin(self, reactClass)
                     if (reactClass is StatefulReactClass<*>) {
-                        reactClass.getInitialState()
+                        //reactClass.getInitialState()
+                        null
                     } else {
                         null
                     }
@@ -227,16 +283,20 @@ public data class ReactRef(val reactClass: ReactClass, val name: String) {
 
 abstract public class StatefulReactClass<STATE>(constructorOptions: Array<out PropertyPair<out Any>>, body: ReactElementContainer.() -> Unit) : ReactClass(constructorOptions, body) {
 
-    open fun getInitialState(): STATE = noImpl
+    abstract fun getInitialState(): STATE
 
-    var state: STATE by Delegates.notNull()
+    //var state: STATE by Delegates.notNull()
 
     public fun setState(newState: STATE) {
         reactClassRuntimeRepr.setState(newState)
     }
 
+    public fun forceUpdate() {
+        reactClassRuntimeRepr.forceUpdate()
+    }
+
     fun setStateJs(st: Any) {
-        state = st as STATE
+        //state = st as STATE
     }
 }
 
@@ -251,8 +311,9 @@ public fun <V> PropertyDefinition<V>.set(param: V): PropertyPair<V> {
 public data class PropertyPair<V>(val key: PropertyDefinition<V>, val value: V)
 
 private class ReactClassRuntimeRepr {
-    native
-    fun <STATE> setState(newState: STATE): Unit = noImpl
+    native fun <STATE> setState(newState: STATE): Unit = noImpl
+
+    native fun forceUpdate(): Unit = noImpl
 }
 
 abstract public class ReactClass(private val constructorOptions: Array<out PropertyPair<out Any>>, val body: ReactElementContainer.() -> Unit) {
