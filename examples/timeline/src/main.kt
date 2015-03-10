@@ -50,8 +50,10 @@ import hu.nevermind.reakt.h4
 import hu.nevermind.timeline.entities.EventFieldType
 import hu.nevermind.reakt.textarea
 import kotlin.properties.Delegates
+import hu.nevermind.timeline.entities.Id
+import hu.nevermind.timeline.EditEvent
 
-class TextInputField(val labelText: String, val placeHolder: String = "", val value: String = "", vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class InputField(val inputType: InputType, val labelText: String, val placeHolder: String = "", val value: String = "", vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
     val inputRef = ref("input")
 
     override fun componentDidMount() {
@@ -60,15 +62,17 @@ class TextInputField(val labelText: String, val placeHolder: String = "", val va
 
     override fun render(): ReactElement? {
         return div("className" to "form-group") {
-            +label {+labelText}
-            +input(InputType.TEXT, "className" to "form-control", "placeholder" to placeHolder, "ref" to inputRef)
+            +label { +labelText }
+            +input(inputType, "className" to "form-control", "placeholder" to placeHolder, "ref" to inputRef)
         }
     }
 
 }
 
-class EventForm(val event: EventInstance, val state: TimelineAppState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class EventForm(val event: EventInstance, val storeState: TimelineStoreState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
 
+    var dateRef: ReactRef by Delegates.notNull()
+    val fieldRefs: MutableList<ReactRef> = arrayListOf()
 
     override fun componentDidMount() {
     }
@@ -76,7 +80,7 @@ class EventForm(val event: EventInstance, val state: TimelineAppState, vararg pr
     override fun render(): ReactElement? {
         return form() {
 
-            val template = state.templates[event.templateId]
+            val template = storeState.templates[event.templateId]
             val formatStr = if (template?.useDateTime ?: false) {
                 format {
                     year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits + " " + hour24.twoDigits + ":" + minutes.twoDigits
@@ -86,20 +90,34 @@ class EventForm(val event: EventInstance, val state: TimelineAppState, vararg pr
                     year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits
                 }
             }
-
-            val dateField = TextInputField("Date", "", event.date.format(formatStr))
+            //val inputType = if (template?.useDateTime ?: false) InputType.DATETIME else InputType.DATE
+            val dateField = InputField(InputType.TEXT, "Date", "", event.date.format(formatStr))
+            dateRef = dateField.inputRef
             +h4 { +event.name }
             +dateField
-            event.fieldIds map {state.eventFields[it]!!} forEach { field ->
+            event.fieldIds map { storeState.eventFields[it]!! } forEach { field ->
+                val fieldTemplate = storeState.EventTemplateField[field.templateFieldId]
                 +div("className" to "form-group") {
-                    +label {+field.name}
-                    when (field.type) {
-                        EventFieldType.INT -> +input(InputType.NUMBER, "className" to "form-control")
-                        EventFieldType.FLOAT -> +input(InputType.NUMBER, "className" to "form-control")
-                        EventFieldType.STRING -> +input(InputType.TEXT, "className" to "form-control")
-                        EventFieldType.TEXTAREA -> +textarea(rows = 5, cols = 50)
-                        EventFieldType.SELECT -> +input(InputType.NUMBER, "className" to "form-control")
+                    val inputField = when (field.type) {
+                        EventFieldType.INT -> {
+                            InputField(InputType.NUMBER, field.name, fieldTemplate?.hint ?: "", field.fieldValue.toString())
+                        }
+                        EventFieldType.FLOAT -> {
+                            InputField(InputType.NUMBER, field.name, fieldTemplate?.hint ?: "", field.fieldValue.toString())
+                        }
+                        EventFieldType.STRING -> {
+                            InputField(InputType.TEXT, field.name, fieldTemplate?.hint ?: "", field.fieldValue.toString())
+                        }
+                        EventFieldType.TEXTAREA -> {
+                            InputField(InputType.TEXT, field.name, fieldTemplate?.hint ?: "", field.fieldValue.toString())
+                            //textarea(rows = 5, cols = 50)
+                        }
+                        EventFieldType.SELECT -> {
+                            InputField(InputType.TEXT, field.name, fieldTemplate?.hint ?: "", field.fieldValue.toString())
+                        }
                     }
+                    +inputField
+                    fieldRefs.add(inputField.inputRef)
                 }
             }
         }
@@ -129,16 +147,16 @@ class DropDownButton(val buttonText: String, val items: Iterable<DropDownButtonI
     }
 }
 
-class FilterSelectorButton(val templates: Map<Int, EventTemplate>, val onFilteringTemplateSelected: (Int)->Unit, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class FilterSelectorButton(val storeState: TimelineStoreState, val onFilteringTemplateSelected: (Id<EventTemplate>) -> Unit, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
 
     override fun render(): ReactElement? {
-        return DropDownButton("Filter", templates.values().map {
-            DropDownButtonItem(it.name, {onFilteringTemplateSelected(it.id)})
+        return DropDownButton("Filter", storeState.templates.values().map {
+            DropDownButtonItem(it.name, { onFilteringTemplateSelected(it.id) })
         }).render()
     }
 }
 
-class FilterSelectorField(val filteringTemplateIds: Iterable<Int>, val templates: Map<Int, EventTemplate>, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class FilterSelectorField(val filteringTemplateIds: Iterable<Id<EventTemplate>>, val storeState: TimelineStoreState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
 
     val inputRef = ref("inputRef")
 
@@ -147,72 +165,123 @@ class FilterSelectorField(val filteringTemplateIds: Iterable<Int>, val templates
     }
 
     override fun componentDidMount() {
-        (inputRef.getDOMNode() as HTMLInputElement).value = filteringTemplateIds.map { templates[it]!!.name }.join(",")
+        (inputRef.getDOMNode() as HTMLInputElement).value = filteringTemplateIds.map { storeState.templates[it]!!.name }.join(",")
     }
 }
 
 
-class EventFilter(val filteringTemplateIds: List<Int>, val templates: Map<Int, EventTemplate>, val onFilteringTemplateSelected: (Int)->Unit, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : StatefulReactClass<MutableList<Int>>(props, body) {
+class EventFilter(val storeState: TimelineStoreState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : StatefulReactClass<List<Id<EventTemplate>>>(props, body) {
 
-    override fun getInitialState(): MutableList<Int> {
-        return arrayListOf()
-    }
+    override fun getInitialState(): List<Id<EventTemplate>> = emptyList()
 
     override fun render(): ReactElement? {
         return div("className" to "row") {
-            +FilterSelectorButton(templates, onFilteringTemplateSelected)
-            +FilterSelectorField(filteringTemplateIds, templates)
+            +FilterSelectorButton(storeState, onFilteringTemplateSelected)
+            +FilterSelectorField(state, storeState)
+        }
+    }
+
+    private val onFilteringTemplateSelected = {(id: Id<EventTemplate>) ->
+        changeState {
+            state + id
         }
     }
 }
 
-class AddEventDropDownButton(val events: Iterable<EventInstance>, val templates: Map<Int, EventTemplate>, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class AddEventDropDownButton(val storeState: TimelineStoreState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
 
     override fun render(): ReactElement? {
-        val eventsByTemplateIds = hashMapOf<Int, Int>()
-        templates.values().forEach { eventsByTemplateIds.put(it.id, 0) }
-        events.filter { it.templateId != null }.forEach { eventsByTemplateIds[it.templateId]!!.inc() }
+        val eventsByTemplateIds = hashMapOf<Id<EventTemplate>, Int>()
+        storeState.templates.values().forEach { eventsByTemplateIds.put(it.id, 0) }
+        storeState.events.filter { it.templateId != null }.forEach { eventsByTemplateIds[it.templateId]!!.inc() }
         val orderedTemplateIds = eventsByTemplateIds.entrySet().sortBy { it.getValue() } map { it.getKey() }
-        val items = orderedTemplateIds.reverse().map{
-            val template = templates[it]!!
+        val items = orderedTemplateIds.reverse().map {
+            val template = storeState.templates[it]!!
             DropDownButtonItem(template.name, null)
         }
         return DropDownButton("Add", items).render()
     }
 }
 
-class EventGridRow(val event: EventInstance, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class EventGridRow(val event: EventInstance, val storeState: TimelineStoreState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : StatefulReactClass<Boolean>(props, body) {
+
+    override fun getInitialState() = false
+
     override fun render(): ReactElement? {
-        return tr {
-            val templ = if (event.templateId != null) TemplateStore.getTemplate(event.templateId!!) else null
-            +td {
-                val format = if (templ?.useDateTime ?: false) {
-                    format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits + " " + hour24.twoDigits + ":" + minutes.twoDigits }
-                } else {
-                    format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits }
+        val templ = if (event.templateId != null) TemplateStore.getTemplate(event.templateId!!) else null
+        val format = if (templ?.useDateTime ?: false) {
+            format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits + " " + hour24.twoDigits + ":" + minutes.twoDigits }
+        } else {
+            format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits }
+        }
+        return if (!state) {
+            tr {
+                +td {
+                    +event.date.format(format)
                 }
-                +event.date.format(format)
+                +td {
+                    +event.name
+                }
+                val field = EventFieldStore.get(event.fieldIds[0])
+                +td {
+                    +field.name
+                }
+                +td {
+                    +field.fieldValue.toString()
+                }
+                val underEditing = state
+                +td("className" to "col-md-6") {
+                    +div("className" to "row") {
+                        // COPY, EDIT, DELETE
+                        +div("className" to "col-md-1") {
+                            +button(options = "className" to "btn btn-info btn-xs") { +"Copy" }
+                        }
+                        +div("className" to "col-md-1") {
+                            val onClick = {
+                                changeState { true }
+                            }
+                            +button(ButtonType.BUTTON, "className" to "btn btn-warning btn-xs", "onClick" to onClick) { +"Edit" }
+                        }
+                        +div("className" to "col-md-1") {
+                            +button(options = "className" to "btn btn-danger btn-xs") { +"Delete" }
+                        }
+
+                    }
+                }
             }
-            +td {
-                +event.name
-            }
-            val field = EventFieldStore.get(event.fieldIds[0])
-            +td {
-                +field.name
-            }
-            +td {
-                +field.fieldValue.toString()
-            }
-            +td("className" to "col-md-6") {
-                +div("className" to "row") {
+        } else {
+            tr {
+                val eventForm = EventForm(event, storeState)
+                +td("colSpan" to 4) {
+                    +eventForm
+                }
+                +td("className" to "col-md-3") {
                     +div("className" to "col-md-1") {
-                        +button(options = "className" to "btn btn-info btn-xs") { +"Copy" }
+                        val onClick = {
+                            val dateValue = (eventForm.dateRef.getDOMNode() as HTMLInputElement).value
+                            val date = Moment.parse(dateValue, format.toString())
+                            val modifiedFields = eventForm.fieldRefs
+                                    .map { (it.getDOMNode() as HTMLInputElement).value }
+                                    .mapIndexed {(index, value) ->
+                                        val field = storeState.eventFields[event.fieldIds[index]]!!
+                                        val extractedValue = when (field.type) {
+                                            EventFieldType.INT -> parseInt(value)
+                                            EventFieldType.FLOAT -> safeParseDouble(value)!!.toFloat()
+                                            EventFieldType.STRING -> value
+                                            EventFieldType.TEXTAREA -> value
+                                            EventFieldType.SELECT -> value
+                                        }
+                                        field.fieldValue = extractedValue
+                                        field
+                                    }
+                            event.date = date
+                            Actions.editEvent.dispatch(EditEvent(event, modifiedFields))
+                        }
+                        +button(ButtonType.BUTTON, "className" to "btn btn-success btn-xs", "onClick" to onClick) { +"Save" }
                     }
                     +div("className" to "col-md-1") {
-                        +button(options = "className" to "btn btn-warning btn-xs") { +"Edit" }
-                    }
-                    +div("className" to "col-md-1") {
-                        +button(options = "className" to "btn btn-danger btn-xs") { +"Delete" }
+                        val onClick = { changeState { false } }
+                        +button(ButtonType.BUTTON, "className" to "btn btn-warning btn-xs", "onClick" to onClick) { +"Cancel" }
                     }
                 }
             }
@@ -220,45 +289,61 @@ class EventGridRow(val event: EventInstance, vararg props: PropertyPair<out Any>
     }
 }
 
-class EventGrid(val state: TimelineAppState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class EventGrid(val storeState: TimelineStoreState, val appState: TimelineAppState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
     override fun render(): ReactElement? {
         return table("className" to "table table-striped table-bordered table-hover") {
             +thead {
                 +tr {
                     +th("className" to "col-md-2") { +"Date" }
-                    +th("className" to "col-md-2") { +"Name" }
-                    +th("className" to "col-md-2") { +"Value name" }
-                    +th("className" to "col-md-6") { +"Value" }
+                    +th("className" to "col-md-1") { +"Name" }
+                    +th("className" to "col-md-1") { +"Value name" }
+                    +th("className" to "col-md-3") { +"Value" }
                     +th("className" to "col-md-3") { +"" }
                 }
-                if (state.filteringTemplateIds.isEmpty()) {
-                    state.events
+                if (appState.filteringTemplateIds.isEmpty()) {
+                    storeState.events
                 } else {
-                    state.events.filter { state.filteringTemplateIds.contains(it.templateId) }
+                    storeState.events.filter { appState.filteringTemplateIds.contains(it.templateId) }
                 }.sortBy { it.date.millisecondsSinceUnixEpoch }.reverse().forEach {
-                    +EventGridRow(it)
-                    +td("colSpan" to 4, "className" to "hiddenRow") {
-                        +div("className" to "accordion-body collapse packageDetails1") {
-                            +EventForm(it, state)
-                        }
-                    }
+                    +EventGridRow(it, storeState)
                 }
             }
         }
     }
 }
 
-data class TimelineAppState(
+data class TimelineStoreState(
         val events: Iterable<EventInstance> = emptyList(),
-        val templates: Map<Int, EventTemplate> = emptyMap(),
-        val eventFields: Map<Int, EventField> = emptyMap(),
-        val filteringTemplateIds: MutableList<Int> = arrayListOf()
-        )
+        val templates: Map<Id<EventTemplate>, EventTemplate> = emptyMap(),
+        val eventFields: Map<Id<EventField>, EventField> = emptyMap(),
+        val EventTemplateField: Map<Id<EventTemplateField>, EventTemplateField> = emptyMap()
+)
 
-class TimelineApp(var state: TimelineAppState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : StatefulReactClass<TimelineAppState>(props, body) {
+data class TimelineAppState(val filteringTemplateIds: List<Id<EventTemplate>>) {
 
-    class object {
-    }
+    /*var filteringTemplateIds: List<Id<EventTemplate>> = arrayListOf()
+        private set(value) {
+            $filteringTemplateIds = value
+        }
+    var editedEventId: Id<EventInstance>? = null
+        private set(value) {
+            $editedEventId = value
+        }*/
+
+    /*public fun changeState(body: ()->TimelineAppState) {
+         val newState = MutableTimelineAppState()
+         newState.filteringTemplateIds.addAll(this.filteringTemplateIds)
+         newState.editedEventId = this.editedEventId
+         newState.body()
+         this.filteringTemplateIds = newState.filteringTemplateIds
+         this.editedEventId = newState.editedEventId
+         app.forceUpdate()
+     }*/
+}
+
+class TimelineApp(var storeState: TimelineStoreState, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : StatefulReactClass<TimelineAppState>(props, body) {
+
+
     val newFieldRef = ref("newField")
     val handleCommentSubmit = {(author: String, text: String) ->
     }
@@ -271,29 +356,24 @@ class TimelineApp(var state: TimelineAppState, vararg props: PropertyPair<out An
         }
     }
 
-    override fun componentDidMount() {
-        EventStore.addChangeListener({
-            state = TimelineAppState(EventStore.getEvents(), TemplateStore.getTemplates(), EventFieldStore.getFields())
-            this.forceUpdate()
-        })
+    override fun getInitialState(): TimelineAppState {
+        return TimelineAppState(emptyList())
     }
 
-    override fun getInitialState(): TimelineAppState {
-        return TimelineAppState(emptyList(), emptyMap())
+    override fun componentDidMount() {
+        EventStore.addChangeListener({
+            storeState = TimelineStoreState(EventStore.getEvents(), TemplateStore.getTemplates(), EventFieldStore.getFields())
+            this.forceUpdate()
+        })
     }
 
     override fun render(): ReactElement? {
         return div("className" to "commentBox") {
             +h1 { +"Events" }
-            +AddEventDropDownButton(state.events, state.templates)
-            +EventFilter(state.filteringTemplateIds, state.templates, {onFilteringTemplateSelected(it)})
-            +EventGrid(state)
+            +AddEventDropDownButton(storeState)
+            +EventFilter(storeState)
+            +EventGrid(storeState, state)
         }
-    }
-
-    private fun onFilteringTemplateSelected(id: Int) {
-        state.filteringTemplateIds.add(id)
-        forceUpdate()
     }
 }
 
@@ -308,7 +388,8 @@ public fun main(args: Array<String>) {
         }
 
         Moment.setLocale("hu")
-        React.render(TimelineApp(TimelineAppState(emptyList(), emptyMap())).createElement(), document.getElementById("timelineApp"))
+
+        React.render(TimelineApp(TimelineStoreState()).createElement(), document.getElementById("timelineApp"))
         queryEntitiesFromServer()
     }
 }

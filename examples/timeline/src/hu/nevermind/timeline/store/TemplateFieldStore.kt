@@ -7,6 +7,8 @@ import hu.nevermind.flux.RegisteredActionHandler
 import hu.nevermind.flux.Store
 import hu.nevermind.timeline.entities.EventTemplateField
 import hu.nevermind.timeline.DataFromServer
+import hu.nevermind.timeline.entities.Id
+import hu.nevermind.timeline.entities.EventTemplate
 
 object TemplateFieldStore : Store (){
 
@@ -17,9 +19,9 @@ object TemplateFieldStore : Store (){
 		}
 	}
 
-	private var fields: MutableMap<Int, EventTemplateField> = hashMapOf();
+	private var fields: MutableMap<Id<EventTemplateField>, EventTemplateField> = hashMapOf();
 
-	fun get(id: Int): EventTemplateField {
+	fun get(id: Id<EventTemplateField>): EventTemplateField {
 		return fields.getOrElse(id, {error("EventFieldStore: $id not found")})
 	}
 }

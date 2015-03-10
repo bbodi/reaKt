@@ -8,6 +8,7 @@ import hu.nevermind.flux.Store
 import hu.nevermind.timeline.entities.EventField
 import hu.nevermind.timeline.DataFromServer
 import hu.nevermind.timeline.entities.EventTemplate
+import hu.nevermind.timeline.entities.Id
 
 object TemplateStore : Store (){
 
@@ -20,13 +21,13 @@ object TemplateStore : Store (){
 		}
 	}
 
-	private var templates: MutableMap<Int, EventTemplate> = hashMapOf();
+	private var templates: MutableMap<Id<EventTemplate>, EventTemplate> = hashMapOf();
 
-	fun getTemplate(templateId: Int): EventTemplate {
+	fun getTemplate(templateId: Id<EventTemplate>): EventTemplate {
 		return templates.getOrElse(templateId, {error("TemplateStore: $templateId")})
 	}
 
-    fun getTemplates(): Map<Int, EventTemplate> {
+    fun getTemplates(): Map<Id<EventTemplate>, EventTemplate> {
         return templates
     }
 }

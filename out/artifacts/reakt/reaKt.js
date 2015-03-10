@@ -389,24 +389,10 @@
                 reactClass.componentDidMount();
               };
             },
-            f_1: function (reactClass, this$React$) {
-              return function () {
-                var self = null;
-                self = this;
-                this$React$.readStateFromJsToKotlin(self, reactClass);
-                if (Kotlin.isType(reactClass, _.hu.nevermind.reakt.StatefulReactClass)) {
-                  return null;
-                }
-                 else {
-                  return null;
-                }
-              };
-            },
             createClass_ew72dd$f: function (reactClass, this$React$) {
               return Kotlin.createObject(null, function () {
                 this.render = _.hu.nevermind.reakt.React.f(reactClass, this$React$);
                 this.componentDidMount = _.hu.nevermind.reakt.React.f_0(reactClass, this$React$);
-                this.getInitialState = _.hu.nevermind.reakt.React.f_1(reactClass, this$React$);
               });
             },
             object_initializer$: function () {
@@ -488,7 +474,20 @@
             return [_.hu.nevermind.reakt.ReactClass];
           }, function $fun(constructorOptions, body) {
             $fun.baseInitializer.call(this, constructorOptions, body);
+            this.$state_poix00$ = this.getInitialState();
           }, /** @lends _.hu.nevermind.reakt.StatefulReactClass.prototype */ {
+            state: {
+              get: function () {
+                return this.$state_poix00$;
+              },
+              set: function (state) {
+                this.$state_poix00$ = state;
+              }
+            },
+            changeState_un3fny$: function (body) {
+              this.state = body();
+              this.forceUpdate();
+            },
             setState_za3rmp$: function (newState) {
               this.reactClassRuntimeRepr.setState(newState);
             },
@@ -615,51 +614,62 @@
             return tmpObj;
           },
           example: Kotlin.definePackage(null, /** @lends _.hu.nevermind.reakt.example */ {
-            TextInputField: Kotlin.createClass(function () {
+            InputField: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(labelText, placeHolder, value, props, body) {
+            }, function $fun(inputType, labelText, placeHolder, value, props, body) {
               if (placeHolder === void 0)
                 placeHolder = '';
               if (value === void 0)
                 value = '';
               if (body === void 0)
-                body = _.hu.nevermind.reakt.example.TextInputField.TextInputField$f;
+                body = _.hu.nevermind.reakt.example.InputField.InputField$f;
               $fun.baseInitializer.call(this, props, body);
+              this.inputType = inputType;
               this.labelText = labelText;
               this.placeHolder = placeHolder;
               this.value = value;
               this.inputRef = this.ref_61zpoe$('input');
-            }, /** @lends _.hu.nevermind.reakt.example.TextInputField.prototype */ {
+            }, /** @lends _.hu.nevermind.reakt.example.InputField.prototype */ {
               componentDidMount: function () {
                 this.inputRef.getDOMNode().value = this.value;
               },
               render: function () {
-                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-group')], _.hu.nevermind.reakt.example.TextInputField.render$f(this));
+                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-group')], _.hu.nevermind.reakt.example.InputField.render$f(this));
               }
-            }, /** @lends _.hu.nevermind.reakt.example.TextInputField */ {
-              TextInputField$f: function () {
+            }, /** @lends _.hu.nevermind.reakt.example.InputField */ {
+              InputField$f: function () {
               },
-              f: function (this$TextInputField) {
+              f: function (this$InputField) {
                 return function () {
-                  this.plus_pdl1w0$(this$TextInputField.labelText);
+                  this.plus_pdl1w0$(this$InputField.labelText);
                 };
               },
-              render$f: function (this$TextInputField) {
+              render$f: function (this$InputField) {
                 return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.label_3topnc$([], _.hu.nevermind.reakt.example.TextInputField.f(this$TextInputField)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.input_5p5u6h$(_.hu.nevermind.reakt.InputType.object.TEXT, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-control'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('placeholder', this$TextInputField.placeHolder), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('ref', this$TextInputField.inputRef)]));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.label_3topnc$([], _.hu.nevermind.reakt.example.InputField.f(this$InputField)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.input_5p5u6h$(this$InputField.inputType, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-control'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('placeholder', this$InputField.placeHolder), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('ref', this$InputField.inputRef)]));
                 };
               }
             }),
             EventForm: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(event, state, props, body) {
+            }, function $fun(event, storeState, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.EventForm.EventForm$f;
               $fun.baseInitializer.call(this, props, body);
               this.event = event;
-              this.state = state;
+              this.storeState = storeState;
+              this.dateRef$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
+              this.fieldRefs = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
             }, /** @lends _.hu.nevermind.reakt.example.EventForm.prototype */ {
+              dateRef: {
+                get: function () {
+                  return this.dateRef$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('dateRef'));
+                },
+                set: function (dateRef) {
+                  this.dateRef$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('dateRef'), dateRef);
+                }
+              },
               componentDidMount: function () {
               },
               render: function () {
@@ -682,40 +692,38 @@
               f_2: function (this$EventForm) {
                 return function (it) {
                   var tmp$0;
-                  return (tmp$0 = this$EventForm.state.eventFields.get_za3rmp$(it)) != null ? tmp$0 : Kotlin.throwNPE();
+                  return (tmp$0 = this$EventForm.storeState.eventFields.get_za3rmp$(it)) != null ? tmp$0 : Kotlin.throwNPE();
                 };
               },
-              f_3: function (field) {
+              f_3: function (field, fieldTemplate, this$EventForm) {
                 return function () {
-                  this.plus_pdl1w0$(field.name);
-                };
-              },
-              f_4: function (field) {
-                return function () {
-                  var tmp$0;
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.label_3topnc$([], _.hu.nevermind.reakt.example.EventForm.f_3(field)));
+                  var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6;
                   tmp$0 = field.type;
                   if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.INT)
-                    this.plus_oclkc7$(_.hu.nevermind.reakt.input_5p5u6h$(_.hu.nevermind.reakt.InputType.object.NUMBER, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-control')]));
+                    tmp$6 = new _.hu.nevermind.reakt.example.InputField(_.hu.nevermind.reakt.InputType.object.NUMBER, field.name, (tmp$1 = fieldTemplate != null ? fieldTemplate.hint : null) != null ? tmp$1 : '', Kotlin.toString(field.fieldValue), []);
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT)
-                    this.plus_oclkc7$(_.hu.nevermind.reakt.input_5p5u6h$(_.hu.nevermind.reakt.InputType.object.NUMBER, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-control')]));
+                    tmp$6 = new _.hu.nevermind.reakt.example.InputField(_.hu.nevermind.reakt.InputType.object.NUMBER, field.name, (tmp$2 = fieldTemplate != null ? fieldTemplate.hint : null) != null ? tmp$2 : '', Kotlin.toString(field.fieldValue), []);
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.STRING)
-                    this.plus_oclkc7$(_.hu.nevermind.reakt.input_5p5u6h$(_.hu.nevermind.reakt.InputType.object.TEXT, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-control')]));
+                    tmp$6 = new _.hu.nevermind.reakt.example.InputField(_.hu.nevermind.reakt.InputType.object.TEXT, field.name, (tmp$3 = fieldTemplate != null ? fieldTemplate.hint : null) != null ? tmp$3 : '', Kotlin.toString(field.fieldValue), []);
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA)
-                    this.plus_oclkc7$(_.hu.nevermind.reakt.textarea_nkp6m1$(5, 50, []));
+                    tmp$6 = new _.hu.nevermind.reakt.example.InputField(_.hu.nevermind.reakt.InputType.object.TEXT, field.name, (tmp$4 = fieldTemplate != null ? fieldTemplate.hint : null) != null ? tmp$4 : '', Kotlin.toString(field.fieldValue), []);
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT)
-                    this.plus_oclkc7$(_.hu.nevermind.reakt.input_5p5u6h$(_.hu.nevermind.reakt.InputType.object.NUMBER, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-control')]));
+                    tmp$6 = new _.hu.nevermind.reakt.example.InputField(_.hu.nevermind.reakt.InputType.object.TEXT, field.name, (tmp$5 = fieldTemplate != null ? fieldTemplate.hint : null) != null ? tmp$5 : '', Kotlin.toString(field.fieldValue), []);
+                  var inputField = tmp$6;
+                  this.plus_zhpcab$(inputField);
+                  this$EventForm.fieldRefs.add_za3rmp$(inputField.inputRef);
                 };
               },
-              f_5: function (this$) {
+              f_4: function (this$EventForm, this$) {
                 return function (field) {
-                  this$.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-group')], _.hu.nevermind.reakt.example.EventForm.f_4(field)));
+                  var fieldTemplate = this$EventForm.storeState.EventTemplateField.get_za3rmp$(field.templateFieldId);
+                  this$.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'form-group')], _.hu.nevermind.reakt.example.EventForm.f_3(field, fieldTemplate, this$EventForm)));
                 };
               },
               render$f: function (this$EventForm) {
                 return function () {
                   var tmp$0, tmp$1;
-                  var template = this$EventForm.state.templates.get_za3rmp$(this$EventForm.event.templateId);
+                  var template = this$EventForm.storeState.templates.get_za3rmp$(this$EventForm.event.templateId);
                   if ((tmp$0 = template != null ? template.useDateTime : null) != null ? tmp$0 : false) {
                     tmp$1 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventForm.f);
                   }
@@ -723,10 +731,11 @@
                     tmp$1 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventForm.f_0);
                   }
                   var formatStr = tmp$1;
-                  var dateField = new _.hu.nevermind.reakt.example.TextInputField('Date', '', this$EventForm.event.date.format_k6n0qe$(formatStr), []);
+                  var dateField = new _.hu.nevermind.reakt.example.InputField(_.hu.nevermind.reakt.InputType.object.TEXT, 'Date', '', this$EventForm.event.date.format_k6n0qe$(formatStr), []);
+                  this$EventForm.dateRef = dateField.inputRef;
                   this.plus_oclkc7$(_.hu.nevermind.reakt.h4_3topnc$([], _.hu.nevermind.reakt.example.EventForm.f_1(this$EventForm)));
                   this.plus_zhpcab$(dateField);
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this$EventForm.event.fieldIds, _.hu.nevermind.reakt.example.EventForm.f_2(this$EventForm)), _.hu.nevermind.reakt.example.EventForm.f_5(this));
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this$EventForm.event.fieldIds, _.hu.nevermind.reakt.example.EventForm.f_2(this$EventForm)), _.hu.nevermind.reakt.example.EventForm.f_4(this$EventForm, this));
                 };
               }
             }),
@@ -792,16 +801,16 @@
             }),
             FilterSelectorButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(templates, onFilteringTemplateSelected, props, body) {
+            }, function $fun(storeState, onFilteringTemplateSelected, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.FilterSelectorButton.FilterSelectorButton$f;
               $fun.baseInitializer.call(this, props, body);
-              this.templates = templates;
+              this.storeState = storeState;
               this.onFilteringTemplateSelected = onFilteringTemplateSelected;
             }, /** @lends _.hu.nevermind.reakt.example.FilterSelectorButton.prototype */ {
               render: function () {
                 var tmp$0, tmp$1, tmp$2;
-                tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this.templates.values(), _.hu.nevermind.reakt.example.FilterSelectorButton.render$f(this));
+                tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this.storeState.templates.values(), _.hu.nevermind.reakt.example.FilterSelectorButton.render$f(this));
                 tmp$1 = [];
                 tmp$2 = void 0;
                 return (new _.hu.nevermind.reakt.example.DropDownButton('Filter', tmp$0, tmp$1, tmp$2)).render();
@@ -822,12 +831,12 @@
             }),
             FilterSelectorField: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(filteringTemplateIds, templates, props, body) {
+            }, function $fun(filteringTemplateIds, storeState, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.FilterSelectorField.FilterSelectorField$f;
               $fun.baseInitializer.call(this, props, body);
               this.filteringTemplateIds = filteringTemplateIds;
-              this.templates = templates;
+              this.storeState = storeState;
               this.inputRef = this.ref_61zpoe$('inputRef');
             }, /** @lends _.hu.nevermind.reakt.example.FilterSelectorField.prototype */ {
               render: function () {
@@ -845,50 +854,58 @@
               componentDidMount$f: function (this$FilterSelectorField) {
                 return function (it) {
                   var tmp$0;
-                  return ((tmp$0 = this$FilterSelectorField.templates.get_za3rmp$(it)) != null ? tmp$0 : Kotlin.throwNPE()).name;
+                  return ((tmp$0 = this$FilterSelectorField.storeState.templates.get_za3rmp$(it)) != null ? tmp$0 : Kotlin.throwNPE()).name;
                 };
               }
             }),
             EventFilter: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.StatefulReactClass];
-            }, function $fun(filteringTemplateIds, templates, onFilteringTemplateSelected, props, body) {
+            }, function $fun(storeState, props, body) {
               if (body === void 0)
-                body = _.hu.nevermind.reakt.example.EventFilter.EventFilter$f;
+                body = _.hu.nevermind.reakt.example.EventFilter.EventFilter$f_0;
               $fun.baseInitializer.call(this, props, body);
-              this.filteringTemplateIds = filteringTemplateIds;
-              this.templates = templates;
-              this.onFilteringTemplateSelected = onFilteringTemplateSelected;
+              this.storeState = storeState;
+              this.onFilteringTemplateSelected_lbmgfc$ = _.hu.nevermind.reakt.example.EventFilter.EventFilter$f(this);
             }, /** @lends _.hu.nevermind.reakt.example.EventFilter.prototype */ {
               getInitialState: function () {
-                return Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+                return Kotlin.modules['stdlib'].kotlin.emptyList();
               },
               render: function () {
                 return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.EventFilter.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventFilter */ {
-              EventFilter$f: function () {
+              f: function (this$EventFilter, id) {
+                return function () {
+                  return Kotlin.modules['stdlib'].kotlin.plus_pjxz11$(this$EventFilter.state, id);
+                };
+              },
+              EventFilter$f: function (this$EventFilter) {
+                return function (id) {
+                  this$EventFilter.changeState_un3fny$(_.hu.nevermind.reakt.example.EventFilter.f(this$EventFilter, id));
+                };
+              },
+              EventFilter$f_0: function () {
               },
               render$f: function (this$EventFilter) {
                 return function () {
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorButton(this$EventFilter.templates, this$EventFilter.onFilteringTemplateSelected, []));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorField(this$EventFilter.filteringTemplateIds, this$EventFilter.templates, []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorButton(this$EventFilter.storeState, this$EventFilter.onFilteringTemplateSelected_lbmgfc$, []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorField(this$EventFilter.state, this$EventFilter.storeState, []));
                 };
               }
             }),
             AddEventDropDownButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(events, templates, props, body) {
+            }, function $fun(storeState, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.AddEventDropDownButton.AddEventDropDownButton$f;
               $fun.baseInitializer.call(this, props, body);
-              this.events = events;
-              this.templates = templates;
+              this.storeState = storeState;
             }, /** @lends _.hu.nevermind.reakt.example.AddEventDropDownButton.prototype */ {
               render: function () {
                 var tmp$0, tmp$1, tmp$2;
                 var eventsByTemplateIds = Kotlin.modules['stdlib'].kotlin.hashMapOf_eoa9s7$([]);
-                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(this.templates.values(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f(eventsByTemplateIds));
-                tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_azvtw4$(this.events, _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_0);
+                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(this.storeState.templates.values(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f(eventsByTemplateIds));
+                tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_azvtw4$(this.storeState.events, _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_0);
                 Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(tmp$0, _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_1(eventsByTemplateIds));
                 tmp$1 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(eventsByTemplateIds.entrySet(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_2);
                 var orderedTemplateIds = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(tmp$1, _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_3);
@@ -922,70 +939,92 @@
               render$f_4: function (this$AddEventDropDownButton) {
                 return function (it) {
                   var tmp$0;
-                  var template = (tmp$0 = this$AddEventDropDownButton.templates.get_za3rmp$(it)) != null ? tmp$0 : Kotlin.throwNPE();
+                  var template = (tmp$0 = this$AddEventDropDownButton.storeState.templates.get_za3rmp$(it)) != null ? tmp$0 : Kotlin.throwNPE();
                   return new _.hu.nevermind.reakt.example.DropDownButtonItem(template.name, null);
                 };
               }
             }),
             EventGridRow: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(event, props, body) {
+              return [_.hu.nevermind.reakt.StatefulReactClass];
+            }, function $fun(event, storeState, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.EventGridRow.EventGridRow$f;
               $fun.baseInitializer.call(this, props, body);
               this.event = event;
+              this.storeState = storeState;
             }, /** @lends _.hu.nevermind.reakt.example.EventGridRow.prototype */ {
+              getInitialState: function () {
+                return false;
+              },
               render: function () {
-                return _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.render$f(this));
+                var tmp$0, tmp$1, tmp$2, tmp$3;
+                var templ = this.event.templateId != null ? _.hu.nevermind.timeline.store.TemplateStore.getTemplate((tmp$0 = this.event.templateId) != null ? tmp$0 : Kotlin.throwNPE()) : null;
+                if ((tmp$1 = templ != null ? templ.useDateTime : null) != null ? tmp$1 : false) {
+                  tmp$2 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventGridRow.render$f);
+                }
+                 else {
+                  tmp$2 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventGridRow.render$f_0);
+                }
+                var format = tmp$2;
+                if (!this.state) {
+                  tmp$3 = _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.render$f_1(this, format));
+                }
+                 else {
+                  tmp$3 = _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.render$f_2(this, format));
+                }
+                return tmp$3;
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventGridRow */ {
               EventGridRow$f: function () {
               },
-              f: function () {
+              render$f: function () {
                 return this.year.fourDigits.plus('.').plus_9xull5$(this.month.twoDigits).plus_61zpoe$('.').plus_9xull5$(this.dayOfMonth.twoDigits).plus_61zpoe$(' ').plus_9xull5$(this.hour24.twoDigits).plus_61zpoe$(':').plus_9xull5$(this.minutes.twoDigits);
               },
-              f_0: function () {
+              render$f_0: function () {
                 return this.year.fourDigits.plus('.').plus_9xull5$(this.month.twoDigits).plus_61zpoe$('.').plus_9xull5$(this.dayOfMonth.twoDigits);
               },
-              f_1: function (templ, this$EventGridRow) {
+              f: function (this$EventGridRow, format) {
                 return function () {
-                  var tmp$0, tmp$1;
-                  if ((tmp$0 = templ != null ? templ.useDateTime : null) != null ? tmp$0 : false) {
-                    tmp$1 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventGridRow.f);
-                  }
-                   else {
-                    tmp$1 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventGridRow.f_0);
-                  }
-                  var format = tmp$1;
                   this.plus_pdl1w0$(this$EventGridRow.event.date.format_k6n0qe$(format));
                 };
               },
-              f_2: function (this$EventGridRow) {
+              f_0: function (this$EventGridRow) {
                 return function () {
                   this.plus_pdl1w0$(this$EventGridRow.event.name);
                 };
               },
-              f_3: function (field) {
+              f_1: function (field) {
                 return function () {
                   this.plus_pdl1w0$(field.name);
                 };
               },
-              f_4: function (field) {
+              f_2: function (field) {
                 return function () {
                   this.plus_pdl1w0$(Kotlin.toString(field.fieldValue));
                 };
               },
-              f_5: function () {
+              f_3: function () {
                 this.plus_pdl1w0$('Copy');
               },
-              f_6: function () {
-                this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(void 0, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-info btn-xs')], _.hu.nevermind.reakt.example.EventGridRow.f_5));
+              f_4: function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(void 0, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-info btn-xs')], _.hu.nevermind.reakt.example.EventGridRow.f_3));
+              },
+              f_5: function () {
+                return true;
+              },
+              f_6: function (this$EventGridRow) {
+                return function () {
+                  this$EventGridRow.changeState_un3fny$(_.hu.nevermind.reakt.example.EventGridRow.f_5);
+                };
               },
               f_7: function () {
                 this.plus_pdl1w0$('Edit');
               },
-              f_8: function () {
-                this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(void 0, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-warning btn-xs')], _.hu.nevermind.reakt.example.EventGridRow.f_7));
+              f_8: function (this$EventGridRow) {
+                return function () {
+                  var onClick = _.hu.nevermind.reakt.example.EventGridRow.f_6(this$EventGridRow);
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-warning btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', onClick)], _.hu.nevermind.reakt.example.EventGridRow.f_7));
+                };
               },
               f_9: function () {
                 this.plus_pdl1w0$('Delete');
@@ -993,34 +1032,117 @@
               f_10: function () {
                 this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(void 0, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-danger btn-xs')], _.hu.nevermind.reakt.example.EventGridRow.f_9));
               },
-              f_11: function () {
-                this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_6));
-                this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_8));
-                this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_10));
-              },
-              f_12: function () {
-                this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.EventGridRow.f_11));
-              },
-              render$f: function (this$EventGridRow) {
+              f_11: function (this$EventGridRow) {
                 return function () {
-                  var tmp$0;
-                  var templ = this$EventGridRow.event.templateId != null ? _.hu.nevermind.timeline.store.TemplateStore.getTemplate((tmp$0 = this$EventGridRow.event.templateId) != null ? tmp$0 : Kotlin.throwNPE()) : null;
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_1(templ, this$EventGridRow)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_2(this$EventGridRow)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_4));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_8(this$EventGridRow)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_10));
+                };
+              },
+              f_12: function (this$EventGridRow) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.EventGridRow.f_11(this$EventGridRow)));
+                };
+              },
+              render$f_1: function (this$EventGridRow, format) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f(this$EventGridRow, format)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_0(this$EventGridRow)));
                   var field = _.hu.nevermind.timeline.store.EventFieldStore.get(this$EventGridRow.event.fieldIds.get_za3lpa$(0));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_3(field)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_4(field)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-6')], _.hu.nevermind.reakt.example.EventGridRow.f_12));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_1(field)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_2(field)));
+                  var underEditing = this$EventGridRow.state;
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-6')], _.hu.nevermind.reakt.example.EventGridRow.f_12(this$EventGridRow)));
+                };
+              },
+              f_13: function (eventForm) {
+                return function () {
+                  this.plus_zhpcab$(eventForm);
+                };
+              },
+              f_14: function (it) {
+                return it.getDOMNode().value;
+              },
+              f_15: function (this$EventGridRow) {
+                return function (index, value) {
+                  var tmp$0, tmp$1, tmp$2, tmp$3;
+                  var field = (tmp$0 = this$EventGridRow.storeState.eventFields.get_za3rmp$(this$EventGridRow.event.fieldIds.get_za3lpa$(index))) != null ? tmp$0 : Kotlin.throwNPE();
+                  tmp$1 = field.type;
+                  if (tmp$1 === _.hu.nevermind.timeline.entities.EventFieldType.object.INT)
+                    tmp$3 = parseInt(value);
+                  else if (tmp$1 === _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT)
+                    tmp$3 = (tmp$2 = Kotlin.safeParseDouble(value)) != null ? tmp$2 : Kotlin.throwNPE();
+                  else if (tmp$1 === _.hu.nevermind.timeline.entities.EventFieldType.object.STRING)
+                    tmp$3 = value;
+                  else if (tmp$1 === _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA)
+                    tmp$3 = value;
+                  else if (tmp$1 === _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT)
+                    tmp$3 = value;
+                  var extractedValue = tmp$3;
+                  field.fieldValue = extractedValue;
+                  return field;
+                };
+              },
+              f_16: function (eventForm, format, this$EventGridRow) {
+                return function () {
+                  var tmp$0, tmp$1;
+                  var dateValue = eventForm.dateRef.getDOMNode().value;
+                  var date = _.net.yested.utils.Moment.object.parse_puj7f4$(dateValue, format.toString());
+                  tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(eventForm.fieldRefs, _.hu.nevermind.reakt.example.EventGridRow.f_14);
+                  tmp$1 = Kotlin.modules['stdlib'].kotlin.mapIndexed_v62v4j$(tmp$0, _.hu.nevermind.reakt.example.EventGridRow.f_15(this$EventGridRow));
+                  var modifiedFields = tmp$1;
+                  this$EventGridRow.event.date = date;
+                  _.hu.nevermind.timeline.Actions.editEvent.dispatch_za3rmp$(new _.hu.nevermind.timeline.EditEvent(this$EventGridRow.event, modifiedFields));
+                };
+              },
+              f_17: function () {
+                this.plus_pdl1w0$('Save');
+              },
+              f_18: function (eventForm, format, this$EventGridRow) {
+                return function () {
+                  var onClick = _.hu.nevermind.reakt.example.EventGridRow.f_16(eventForm, format, this$EventGridRow);
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-success btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', onClick)], _.hu.nevermind.reakt.example.EventGridRow.f_17));
+                };
+              },
+              f_19: function () {
+                return false;
+              },
+              f_20: function (this$EventGridRow) {
+                return function () {
+                  this$EventGridRow.changeState_un3fny$(_.hu.nevermind.reakt.example.EventGridRow.f_19);
+                };
+              },
+              f_21: function () {
+                this.plus_pdl1w0$('Cancel');
+              },
+              f_22: function (this$EventGridRow) {
+                return function () {
+                  var onClick = _.hu.nevermind.reakt.example.EventGridRow.f_20(this$EventGridRow);
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-warning btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', onClick)], _.hu.nevermind.reakt.example.EventGridRow.f_21));
+                };
+              },
+              f_23: function (eventForm, format, this$EventGridRow) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_18(eventForm, format, this$EventGridRow)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_22(this$EventGridRow)));
+                };
+              },
+              render$f_2: function (this$EventGridRow, format) {
+                return function () {
+                  var eventForm = new _.hu.nevermind.reakt.example.EventForm(this$EventGridRow.event, this$EventGridRow.storeState, []);
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('colSpan', 4)], _.hu.nevermind.reakt.example.EventGridRow.f_13(eventForm)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGridRow.f_23(eventForm, format, this$EventGridRow)));
                 };
               }
             }),
             EventGrid: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(state, props, body) {
+            }, function $fun(storeState, appState, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.EventGrid.EventGrid$f;
               $fun.baseInitializer.call(this, props, body);
-              this.state = state;
+              this.storeState = storeState;
+              this.appState = appState;
             }, /** @lends _.hu.nevermind.reakt.example.EventGrid.prototype */ {
               render: function () {
                 return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover')], _.hu.nevermind.reakt.example.EventGrid.render$f(this));
@@ -1045,70 +1167,59 @@
               },
               f_4: function () {
                 this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-2')], _.hu.nevermind.reakt.example.EventGrid.f));
-                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-2')], _.hu.nevermind.reakt.example.EventGrid.f_0));
-                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-2')], _.hu.nevermind.reakt.example.EventGrid.f_1));
-                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-6')], _.hu.nevermind.reakt.example.EventGrid.f_2));
+                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGrid.f_0));
+                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGrid.f_1));
+                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGrid.f_2));
                 this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGrid.f_3));
               },
               f_5: function (this$EventGrid) {
                 return function (it) {
-                  return this$EventGrid.state.filteringTemplateIds.contains_za3rmp$(it.templateId);
+                  return this$EventGrid.appState.filteringTemplateIds.contains_za3rmp$(it.templateId);
                 };
               },
               f_6: function (it) {
                 return it.date.millisecondsSinceUnixEpoch;
               },
-              f_7: function (it, this$EventGrid) {
-                return function () {
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventForm(it, this$EventGrid.state, []));
-                };
-              },
-              f_8: function (it, this$EventGrid) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'accordion-body collapse packageDetails1')], _.hu.nevermind.reakt.example.EventGrid.f_7(it, this$EventGrid)));
-                };
-              },
-              f_9: function (this$, this$EventGrid) {
+              f_7: function (this$EventGrid, this$) {
                 return function (it) {
-                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGridRow(it, []));
-                  this$.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('colSpan', 4), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'hiddenRow')], _.hu.nevermind.reakt.example.EventGrid.f_8(it, this$EventGrid)));
+                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGridRow(it, this$EventGrid.storeState, []));
                 };
               },
-              f_10: function (this$EventGrid) {
+              f_8: function (this$EventGrid) {
                 return function () {
                   var tmp$0, tmp$1, tmp$2;
                   this.plus_oclkc7$(_.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_4));
-                  if (this$EventGrid.state.filteringTemplateIds.isEmpty()) {
-                    tmp$1 = this$EventGrid.state.events;
+                  if (this$EventGrid.appState.filteringTemplateIds.isEmpty()) {
+                    tmp$1 = this$EventGrid.storeState.events;
                   }
                    else {
-                    tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_azvtw4$(this$EventGrid.state.events, _.hu.nevermind.reakt.example.EventGrid.f_5(this$EventGrid));
+                    tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_azvtw4$(this$EventGrid.storeState.events, _.hu.nevermind.reakt.example.EventGrid.f_5(this$EventGrid));
                     tmp$1 = tmp$0;
                   }
                   tmp$2 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(tmp$1, _.hu.nevermind.reakt.example.EventGrid.f_6);
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(tmp$2), _.hu.nevermind.reakt.example.EventGrid.f_9(this, this$EventGrid));
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(tmp$2), _.hu.nevermind.reakt.example.EventGrid.f_7(this$EventGrid, this));
                 };
               },
               render$f: function (this$EventGrid) {
                 return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_10(this$EventGrid)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_8(this$EventGrid)));
                 };
               }
             }),
-            TimelineAppState: Kotlin.createClass(null, function (events, templates, eventFields, filteringTemplateIds) {
+            TimelineStoreState: Kotlin.createClass(null, function (events, templates, eventFields, EventTemplateField) {
               if (events === void 0)
                 events = Kotlin.modules['stdlib'].kotlin.emptyList();
               if (templates === void 0)
                 templates = Kotlin.modules['stdlib'].kotlin.emptyMap();
               if (eventFields === void 0)
                 eventFields = Kotlin.modules['stdlib'].kotlin.emptyMap();
-              if (filteringTemplateIds === void 0)
-                filteringTemplateIds = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+              if (EventTemplateField === void 0)
+                EventTemplateField = Kotlin.modules['stdlib'].kotlin.emptyMap();
               this.events = events;
               this.templates = templates;
               this.eventFields = eventFields;
-              this.filteringTemplateIds = filteringTemplateIds;
-            }, /** @lends _.hu.nevermind.reakt.example.TimelineAppState.prototype */ {
+              this.EventTemplateField = EventTemplateField;
+            }, /** @lends _.hu.nevermind.reakt.example.TimelineStoreState.prototype */ {
               component1: function () {
                 return this.events;
               },
@@ -1119,49 +1230,66 @@
                 return this.eventFields;
               },
               component4: function () {
-                return this.filteringTemplateIds;
+                return this.EventTemplateField;
               },
-              copy: function (events, templates, eventFields, filteringTemplateIds) {
-                return new _.hu.nevermind.reakt.example.TimelineAppState(events === void 0 ? this.events : events, templates === void 0 ? this.templates : templates, eventFields === void 0 ? this.eventFields : eventFields, filteringTemplateIds === void 0 ? this.filteringTemplateIds : filteringTemplateIds);
+              copy: function (events, templates, eventFields, EventTemplateField) {
+                return new _.hu.nevermind.reakt.example.TimelineStoreState(events === void 0 ? this.events : events, templates === void 0 ? this.templates : templates, eventFields === void 0 ? this.eventFields : eventFields, EventTemplateField === void 0 ? this.EventTemplateField : EventTemplateField);
               },
               toString: function () {
-                return 'TimelineAppState(events=' + Kotlin.toString(this.events) + (', templates=' + Kotlin.toString(this.templates)) + (', eventFields=' + Kotlin.toString(this.eventFields)) + (', filteringTemplateIds=' + Kotlin.toString(this.filteringTemplateIds)) + ')';
+                return 'TimelineStoreState(events=' + Kotlin.toString(this.events) + (', templates=' + Kotlin.toString(this.templates)) + (', eventFields=' + Kotlin.toString(this.eventFields)) + (', EventTemplateField=' + Kotlin.toString(this.EventTemplateField)) + ')';
               },
               hashCode: function () {
                 var result = 0;
                 result = result * 31 + Kotlin.hashCode(this.events) | 0;
                 result = result * 31 + Kotlin.hashCode(this.templates) | 0;
                 result = result * 31 + Kotlin.hashCode(this.eventFields) | 0;
+                result = result * 31 + Kotlin.hashCode(this.EventTemplateField) | 0;
+                return result;
+              },
+              equals_za3rmp$: function (other) {
+                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.events, other.events) && Kotlin.equals(this.templates, other.templates) && Kotlin.equals(this.eventFields, other.eventFields) && Kotlin.equals(this.EventTemplateField, other.EventTemplateField))));
+              }
+            }),
+            TimelineAppState: Kotlin.createClass(null, function (filteringTemplateIds) {
+              this.filteringTemplateIds = filteringTemplateIds;
+            }, /** @lends _.hu.nevermind.reakt.example.TimelineAppState.prototype */ {
+              component1: function () {
+                return this.filteringTemplateIds;
+              },
+              copy: function (filteringTemplateIds) {
+                return new _.hu.nevermind.reakt.example.TimelineAppState(filteringTemplateIds === void 0 ? this.filteringTemplateIds : filteringTemplateIds);
+              },
+              toString: function () {
+                return 'TimelineAppState(filteringTemplateIds=' + Kotlin.toString(this.filteringTemplateIds) + ')';
+              },
+              hashCode: function () {
+                var result = 0;
                 result = result * 31 + Kotlin.hashCode(this.filteringTemplateIds) | 0;
                 return result;
               },
               equals_za3rmp$: function (other) {
-                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.events, other.events) && Kotlin.equals(this.templates, other.templates) && Kotlin.equals(this.eventFields, other.eventFields) && Kotlin.equals(this.filteringTemplateIds, other.filteringTemplateIds))));
+                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.filteringTemplateIds, other.filteringTemplateIds)));
               }
             }),
             TimelineApp: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.StatefulReactClass];
-            }, function $fun(state, props, body) {
+            }, function $fun(storeState, props, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.TimelineApp.TimelineApp$f_1;
               $fun.baseInitializer.call(this, props, body);
-              this.state = state;
+              this.storeState = storeState;
               this.newFieldRef = this.ref_61zpoe$('newField');
               this.handleCommentSubmit = _.hu.nevermind.reakt.example.TimelineApp.TimelineApp$f;
               this.handleNewTodoKeyDown = _.hu.nevermind.reakt.example.TimelineApp.TimelineApp$f_0;
             }, /** @lends _.hu.nevermind.reakt.example.TimelineApp.prototype */ {
+              getInitialState: function () {
+                return new _.hu.nevermind.reakt.example.TimelineAppState(Kotlin.modules['stdlib'].kotlin.emptyList());
+              },
               componentDidMount: function () {
                 _.hu.nevermind.timeline.store.EventStore.addChangeListener_qshda6$(_.hu.nevermind.reakt.example.TimelineApp.componentDidMount$f(this));
               },
-              getInitialState: function () {
-                return new _.hu.nevermind.reakt.example.TimelineAppState(Kotlin.modules['stdlib'].kotlin.emptyList(), Kotlin.modules['stdlib'].kotlin.emptyMap());
-              },
               render: function () {
                 return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'commentBox')], _.hu.nevermind.reakt.example.TimelineApp.render$f(this));
-              },
-              onFilteringTemplateSelected: function (id) {
-                this.state.filteringTemplateIds.add_za3rmp$(id);
-                this.forceUpdate();
               }
             }, /** @lends _.hu.nevermind.reakt.example.TimelineApp */ {
               TimelineApp$f: function (author, text) {
@@ -1173,29 +1301,21 @@
               },
               TimelineApp$f_1: function () {
               },
-              object_initializer$: function () {
-                return Kotlin.createObject(null, null);
-              },
               componentDidMount$f: function (this$TimelineApp) {
                 return function () {
-                  this$TimelineApp.state = new _.hu.nevermind.reakt.example.TimelineAppState(_.hu.nevermind.timeline.store.EventStore.getEvents(), _.hu.nevermind.timeline.store.TemplateStore.getTemplates(), _.hu.nevermind.timeline.store.EventFieldStore.getFields());
+                  this$TimelineApp.storeState = new _.hu.nevermind.reakt.example.TimelineStoreState(_.hu.nevermind.timeline.store.EventStore.getEvents(), _.hu.nevermind.timeline.store.TemplateStore.getTemplates(), _.hu.nevermind.timeline.store.EventFieldStore.getFields());
                   this$TimelineApp.forceUpdate();
                 };
               },
               f: function () {
                 this.plus_pdl1w0$('Events');
               },
-              f_0: function (this$TimelineApp) {
-                return function (it) {
-                  this$TimelineApp.onFilteringTemplateSelected(it);
-                };
-              },
               render$f: function (this$TimelineApp) {
                 return function () {
                   this.plus_oclkc7$(_.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.TimelineApp.f));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.AddEventDropDownButton(this$TimelineApp.state.events, this$TimelineApp.state.templates, []));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventFilter(this$TimelineApp.state.filteringTemplateIds, this$TimelineApp.state.templates, _.hu.nevermind.reakt.example.TimelineApp.f_0(this$TimelineApp), []));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGrid(this$TimelineApp.state, []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.AddEventDropDownButton(this$TimelineApp.storeState, []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventFilter(this$TimelineApp.storeState, []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGrid(this$TimelineApp.storeState, this$TimelineApp.state, []));
                 };
               }
             }),
@@ -1210,7 +1330,7 @@
                   localStorage.setItem('username', _.hu.nevermind.timeline.client.username);
                 }
                 _.net.yested.utils.Moment.object.setLocale('hu');
-                _.hu.nevermind.reakt.React.object.render_40g7my$((new _.hu.nevermind.reakt.example.TimelineApp(new _.hu.nevermind.reakt.example.TimelineAppState(Kotlin.modules['stdlib'].kotlin.emptyList(), Kotlin.modules['stdlib'].kotlin.emptyMap()), [])).createElement(), document.getElementById('timelineApp'));
+                _.hu.nevermind.reakt.React.object.render_40g7my$((new _.hu.nevermind.reakt.example.TimelineApp(new _.hu.nevermind.reakt.example.TimelineStoreState(), [])).createElement(), document.getElementById('timelineApp'));
                 _.hu.nevermind.reakt.example.queryEntitiesFromServer();
               }
             },
@@ -1263,6 +1383,7 @@
           this.globalLocal = new _.hu.nevermind.timeline.HuLocal();
           this.Actions = Kotlin.createObject(null, function () {
             this.dataFromServer = new _.hu.nevermind.flux.ActionDef();
+            this.editEvent = new _.hu.nevermind.flux.ActionDef();
           });
         }, /** @lends _.hu.nevermind.timeline */ {
           client: Kotlin.definePackage(function () {
@@ -1439,6 +1560,32 @@
               return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.events, other.events) && Kotlin.equals(this.eventFields, other.eventFields) && Kotlin.equals(this.templates, other.templates) && Kotlin.equals(this.templateFields, other.templateFields))));
             }
           }),
+          EditEvent: Kotlin.createClass(null, function (event, fields) {
+            this.event = event;
+            this.fields = fields;
+          }, /** @lends _.hu.nevermind.timeline.EditEvent.prototype */ {
+            component1: function () {
+              return this.event;
+            },
+            component2: function () {
+              return this.fields;
+            },
+            copy_c7vwbs$: function (event, fields) {
+              return new _.hu.nevermind.timeline.EditEvent(event === void 0 ? this.event : event, fields === void 0 ? this.fields : fields);
+            },
+            toString: function () {
+              return 'EditEvent(event=' + Kotlin.toString(this.event) + (', fields=' + Kotlin.toString(this.fields)) + ')';
+            },
+            hashCode: function () {
+              var result = 0;
+              result = result * 31 + Kotlin.hashCode(this.event) | 0;
+              result = result * 31 + Kotlin.hashCode(this.fields) | 0;
+              return result;
+            },
+            equals_za3rmp$: function (other) {
+              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.event, other.event) && Kotlin.equals(this.fields, other.fields))));
+            }
+          }),
           entities: Kotlin.definePackage(null, /** @lends _.hu.nevermind.timeline.entities */ {
             EventFieldType: Kotlin.createEnumClass(function () {
               return [Kotlin.Enum];
@@ -1477,7 +1624,7 @@
               component4: function () {
                 return this.fieldIds;
               },
-              copy_4aqtow$: function (id, name, useDateTime, fieldIds) {
+              copy_u1jt6d$: function (id, name, useDateTime, fieldIds) {
                 return new _.hu.nevermind.timeline.entities.EventTemplate(id === void 0 ? this.id : id, name === void 0 ? this.name : name, useDateTime === void 0 ? this.useDateTime : useDateTime, fieldIds === void 0 ? this.fieldIds : fieldIds);
               },
               toString: function () {
@@ -1503,7 +1650,7 @@
                 return Kotlin.createObject(null, function () {
                   var tmp$0;
                   tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this$EventTemplate.fieldIds, _.hu.nevermind.timeline.entities.EventTemplate.f);
-                  this.id = this$EventTemplate.id;
+                  this.id = this$EventTemplate.id.id;
                   this.name = this$EventTemplate.name;
                   this.fields = tmp$0;
                   this.useDateTime = this$EventTemplate.useDateTime;
@@ -1523,7 +1670,7 @@
                     var fields = tmp$1;
                     tmp$2 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(fields, _.hu.nevermind.timeline.entities.EventTemplate.fromJson_za3rmp$f_0);
                     var fieldIds = tmp$2;
-                    return new _.hu.nevermind.timeline.entities.EventTemplate(template.id, template.name, template.useDateTime, Kotlin.modules['stdlib'].kotlin.toArrayList_ir3nkc$(fieldIds));
+                    return new _.hu.nevermind.timeline.entities.EventTemplate(new _.hu.nevermind.timeline.entities.Id(template.id), template.name, template.useDateTime, Kotlin.modules['stdlib'].kotlin.toArrayList_ir3nkc$(fieldIds));
                   }
                 });
               }
@@ -1569,7 +1716,7 @@
             }, /** @lends _.hu.nevermind.timeline.entities.EventTemplateField */ {
               toServerSideObj$f: function (this$EventTemplateField) {
                 return Kotlin.createObject(null, function () {
-                  this.id = this$EventTemplateField.id;
+                  this.id = this$EventTemplateField.id.id;
                   this.name = this$EventTemplateField.name;
                   this.type = this$EventTemplateField.type.name();
                   this.hint = this$EventTemplateField.hint;
@@ -1578,7 +1725,7 @@
               object_initializer$: function () {
                 return Kotlin.createObject(null, null, {
                   fromJson: function (field) {
-                    return new _.hu.nevermind.timeline.entities.EventTemplateField(field.id, field.name, _.hu.nevermind.timeline.entities.EventFieldType.valueOf_61zpoe$(field.type), field.hint);
+                    return new _.hu.nevermind.timeline.entities.EventTemplateField(new _.hu.nevermind.timeline.entities.Id(field.id), field.name, _.hu.nevermind.timeline.entities.EventFieldType.valueOf_61zpoe$(field.type), field.hint);
                   }
                 });
               }
@@ -1602,7 +1749,7 @@
               component3: function () {
                 return this.connectedTemplates;
               },
-              copy_vcsjle$: function (id, name, connectedTemplates) {
+              copy_3uwrvd$: function (id, name, connectedTemplates) {
                 return new _.hu.nevermind.timeline.entities.ReportDescription(id === void 0 ? this.id : id, name === void 0 ? this.name : name, connectedTemplates === void 0 ? this.connectedTemplates : connectedTemplates);
               },
               toString: function () {
@@ -1626,14 +1773,14 @@
                 return Kotlin.createObject(null, function () {
                   var tmp$0;
                   tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this$ReportDescription.connectedTemplates, _.hu.nevermind.timeline.entities.ReportDescription.f);
-                  this.id = this$ReportDescription.id;
+                  this.id = this$ReportDescription.id.id;
                   this.name = this$ReportDescription.name;
                   this.templateIds = tmp$0;
                 });
               },
               f_0: function (templateId) {
                 return function (it) {
-                  return it.id === templateId;
+                  return Kotlin.equals(it.id, templateId);
                 };
               },
               fromJson_xoz0db$f: function (templates) {
@@ -1651,7 +1798,7 @@
                     var name = report.name;
                     tmp$1 = Kotlin.modules['stdlib'].kotlin.map_rie7ol$((tmp$0 = report.entries) != null ? tmp$0 : Kotlin.throwNPE(), _.hu.nevermind.timeline.entities.ReportDescription.fromJson_xoz0db$f(templates));
                     var connectedTemplates = tmp$1;
-                    return new _.hu.nevermind.timeline.entities.ReportDescription(report.id, name, connectedTemplates);
+                    return new _.hu.nevermind.timeline.entities.ReportDescription(new _.hu.nevermind.timeline.entities.Id(report.id), name, connectedTemplates);
                   }
                 });
               }
@@ -1691,7 +1838,7 @@
               component7: function () {
                 return this.tags;
               },
-              copy_49tl09$: function (id, name, fieldIds, date, comment, templateId, tags) {
+              copy_42hub2$: function (id, name, fieldIds, date, comment, templateId, tags) {
                 return new _.hu.nevermind.timeline.entities.EventInstance(id === void 0 ? this.id : id, name === void 0 ? this.name : name, fieldIds === void 0 ? this.fieldIds : fieldIds, date === void 0 ? this.date : date, comment === void 0 ? this.comment : comment, templateId === void 0 ? this.templateId : templateId, tags === void 0 ? this.tags : tags);
               },
               toString: function () {
@@ -1718,15 +1865,15 @@
               },
               toServerSideObj$f: function (this$EventInstance) {
                 return Kotlin.createObject(null, function () {
-                  var tmp$0;
+                  var tmp$0, tmp$1;
                   tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this$EventInstance.fieldIds, _.hu.nevermind.timeline.entities.EventInstance.f);
-                  this.id = this$EventInstance.id;
+                  this.id = this$EventInstance.id.id;
                   this.name = this$EventInstance.name;
                   this.millisecsFrom1970 = this$EventInstance.date.millisecondsSinceUnixEpoch;
                   this.comment = this$EventInstance.comment;
                   this.fields = tmp$0;
                   this.tags = this$EventInstance.tags;
-                  this.templateId = this$EventInstance.templateId;
+                  this.templateId = (tmp$1 = this$EventInstance.templateId) != null ? tmp$1.id : null;
                 });
               },
               fromJson_za3rmp$f: function (field) {
@@ -1739,13 +1886,13 @@
                 return Kotlin.createObject(null, null, {
                   fromJson_za3rmp$: function (event) {
                     var tmp$0, tmp$1, tmp$2;
-                    var templateId = event.templateId;
+                    var templateId = new _.hu.nevermind.timeline.entities.Id(event.templateId);
                     tmp$1 = Kotlin.modules['stdlib'].kotlin.map_rie7ol$((tmp$0 = event.fields) != null ? tmp$0 : Kotlin.throwNPE(), _.hu.nevermind.timeline.entities.EventInstance.fromJson_za3rmp$f);
                     var fields = tmp$1;
                     tmp$2 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(fields, _.hu.nevermind.timeline.entities.EventInstance.fromJson_za3rmp$f_0);
                     var fieldIds = tmp$2;
                     var date = _.net.yested.utils.Moment.object.parseMillisecondsSinceUnixEpoch_s8cxhz$(event.millisecsFrom1970);
-                    return new _.hu.nevermind.timeline.entities.EventInstance(event.id, event.name, fieldIds, date, event.comment, templateId, null);
+                    return new _.hu.nevermind.timeline.entities.EventInstance(new _.hu.nevermind.timeline.entities.Id(event.id), event.name, fieldIds, date, event.comment, templateId, null);
                   }
                 });
               }
@@ -1806,6 +1953,27 @@
                 return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.id, other.id) && Kotlin.equals(this.type, other.type) && Kotlin.equals(this.name, other.name) && Kotlin.equals(this.templateFieldId, other.templateFieldId) && Kotlin.equals(this.floatValue, other.floatValue) && Kotlin.equals(this.intValue, other.intValue) && Kotlin.equals(this.boolValue, other.boolValue) && Kotlin.equals(this.stringValue, other.stringValue))));
               }
             }),
+            Id: Kotlin.createClass(null, function (id) {
+              this.id = id;
+            }, /** @lends _.hu.nevermind.timeline.entities.Id.prototype */ {
+              component1: function () {
+                return this.id;
+              },
+              copy_za3lpa$: function (id) {
+                return new _.hu.nevermind.timeline.entities.Id(id === void 0 ? this.id : id);
+              },
+              toString: function () {
+                return 'Id(id=' + Kotlin.toString(this.id) + ')';
+              },
+              hashCode: function () {
+                var result = 0;
+                result = result * 31 + Kotlin.hashCode(this.id) | 0;
+                return result;
+              },
+              equals_za3rmp$: function (other) {
+                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.id, other.id)));
+              }
+            }),
             EventField: Kotlin.createClass(null, function (id, name, fieldValue, type, templateFieldId) {
               this.id = id;
               this.name = name;
@@ -1831,7 +1999,7 @@
               component5: function () {
                 return this.templateFieldId;
               },
-              copy_r03si0$: function (id, name, fieldValue, type, templateFieldId) {
+              copy_a9rcoo$: function (id, name, fieldValue, type, templateFieldId) {
                 return new _.hu.nevermind.timeline.entities.EventField(id === void 0 ? this.id : id, name === void 0 ? this.name : name, fieldValue === void 0 ? this.fieldValue : fieldValue, type === void 0 ? this.type : type, templateFieldId === void 0 ? this.templateFieldId : templateFieldId);
               },
               toString: function () {
@@ -1852,11 +2020,12 @@
             }, /** @lends _.hu.nevermind.timeline.entities.EventField */ {
               toServerSideObj$f: function (this$EventField) {
                 return Kotlin.createObject(null, function () {
-                  this.id = this$EventField.id;
+                  var tmp$0;
+                  this.id = this$EventField.id.id;
                   this.name = this$EventField.name;
                   this.value = this$EventField.fieldValue;
                   this.type = this$EventField.type.name();
-                  this.templateFieldId = this$EventField.templateFieldId;
+                  this.templateFieldId = (tmp$0 = this$EventField.templateFieldId) != null ? tmp$0.id : null;
                 });
               },
               object_initializer$: function () {
@@ -1865,30 +2034,30 @@
                     var tmp$0, tmp$1;
                     tmp$0 = _.hu.nevermind.timeline.entities.EventFieldType.valueOf_61zpoe$(field.type);
                     if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.INT)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(field.id, field.name, field.intValue, _.hu.nevermind.timeline.entities.EventFieldType.object.INT, field.templateFieldId);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(field.id), field.name, field.intValue, _.hu.nevermind.timeline.entities.EventFieldType.object.INT, new _.hu.nevermind.timeline.entities.Id(field.templateFieldId));
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(field.id, field.name, field.floatValue, _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT, field.templateFieldId);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(field.id), field.name, field.floatValue, _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT, new _.hu.nevermind.timeline.entities.Id(field.templateFieldId));
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.STRING)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(field.id, field.name, field.stringValue, _.hu.nevermind.timeline.entities.EventFieldType.object.STRING, field.templateFieldId);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(field.id), field.name, field.stringValue, _.hu.nevermind.timeline.entities.EventFieldType.object.STRING, new _.hu.nevermind.timeline.entities.Id(field.templateFieldId));
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(field.id, field.name, field.stringValue, _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT, field.templateFieldId);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(field.id), field.name, field.stringValue, _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT, new _.hu.nevermind.timeline.entities.Id(field.templateFieldId));
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(field.id, field.name, field.stringValue, _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA, field.templateFieldId);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(field.id), field.name, field.stringValue, _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA, new _.hu.nevermind.timeline.entities.Id(field.templateFieldId));
                     return tmp$1;
                   },
                   createFieldFromTemplate_ilmkc7$: function (eventTemplateField) {
                     var tmp$0, tmp$1;
                     tmp$0 = eventTemplateField.type;
                     if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.INT)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(0, eventTemplateField.name, 0, _.hu.nevermind.timeline.entities.EventFieldType.object.INT, eventTemplateField.id);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(0), eventTemplateField.name, 0, _.hu.nevermind.timeline.entities.EventFieldType.object.INT, eventTemplateField.id);
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(0, eventTemplateField.name, 0.0, _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT, eventTemplateField.id);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(0), eventTemplateField.name, 0.0, _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT, eventTemplateField.id);
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.STRING)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(0, eventTemplateField.name, '', _.hu.nevermind.timeline.entities.EventFieldType.object.STRING, eventTemplateField.id);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(0), eventTemplateField.name, '', _.hu.nevermind.timeline.entities.EventFieldType.object.STRING, eventTemplateField.id);
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(0, eventTemplateField.name, '', _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT, eventTemplateField.id);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(0), eventTemplateField.name, '', _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT, eventTemplateField.id);
                     else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA)
-                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(0, eventTemplateField.name, '', _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA, eventTemplateField.id);
+                      tmp$1 = new _.hu.nevermind.timeline.entities.EventField(new _.hu.nevermind.timeline.entities.Id(0), eventTemplateField.name, '', _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA, eventTemplateField.id);
                     return tmp$1;
                   }
                 });
@@ -1900,7 +2069,8 @@
               return [_.hu.nevermind.flux.Store];
             }, function $fun() {
               $fun.baseInitializer.call(this);
-              this.dataFromServerToken = this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.dataFromServer, _.hu.nevermind.timeline.store.EventFieldStore$f(this));
+              this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.dataFromServer, _.hu.nevermind.timeline.store.EventFieldStore$f(this));
+              this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.editEvent, _.hu.nevermind.timeline.store.EventFieldStore$f_0(this));
               this.fields_ljscr5$ = Kotlin.modules['stdlib'].kotlin.hashMapOf_eoa9s7$([]);
             }, {
               get: function (id) {
@@ -1917,6 +2087,7 @@
             }, function $fun() {
               $fun.baseInitializer.call(this);
               this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.dataFromServer, _.hu.nevermind.timeline.store.EventStore$f(this));
+              this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.editEvent, _.hu.nevermind.timeline.store.EventStore$f_0(this));
               this.events = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
             }, {
               getEvents: function () {
@@ -1964,6 +2135,11 @@
                 Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(appState.eventFields, _.hu.nevermind.timeline.store.f(this$EventFieldStore));
               };
             },
+            EventFieldStore$f_0: function (this$EventFieldStore) {
+              return function (data) {
+                this$EventFieldStore.emitChange();
+              };
+            },
             get$f: function (id) {
               return function () {
                 return Kotlin.modules['stdlib'].kotlin.error_za3rmp$('EventFieldStore: ' + id + ' not found');
@@ -1974,6 +2150,11 @@
                 this.waitFor([_.hu.nevermind.timeline.store.EventFieldStore, _.hu.nevermind.timeline.store.TemplateStore, _.hu.nevermind.timeline.store.TemplateFieldStore]);
                 this$EventStore.events.clear();
                 this$EventStore.events.addAll_4fm7v2$(data.events);
+                this$EventStore.emitChange();
+              };
+            },
+            EventStore$f_0: function (this$EventStore) {
+              return function (data) {
                 this$EventStore.emitChange();
               };
             },

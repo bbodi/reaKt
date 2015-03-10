@@ -14,6 +14,10 @@ object EventStore : Store() {
 			events.addAll(data.events)
 			emitChange()
 		}
+
+        register(Actions.editEvent) { data ->
+            emitChange()
+        }
 	}
 	var events: MutableList<EventInstance> = arrayListOf();
 

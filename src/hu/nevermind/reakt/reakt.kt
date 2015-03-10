@@ -5,6 +5,7 @@ import org.w3c.dom.Element
 import kotlin.properties.Delegates
 import kotlin.js.dom.html.HTMLElement
 import org.w3c.dom.events.Event
+import hu.nevermind.reakt.example.TimelineAppState
 
 public class ReactElementContainer() {
 	val elements: MutableList<Any> = arrayListOf()
@@ -154,7 +155,7 @@ public enum class ButtonType {
 	RESET
 	SUBMIT
 }
-public fun button(type: ButtonType = ButtonType.BUTTON, vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+public fun button(type: ButtonType = ButtonType.BUTTON, vararg options: Pair<String, Any>, body: ReactElementContainer.() -> Unit): ReactElement {
 	return createReactElementJs("button", options, {options ->
 		options.add("type" to type.name().toLowerCase())
 	}, body)
@@ -215,17 +216,6 @@ public class React {
                     readStateFromJsToKotlin(self, reactClass)
 					reactClass.componentDidMount()
 				}
-                val getInitialState = {
-                    var self: dynamic = null
-                    js("self = this")
-                    readStateFromJsToKotlin(self, reactClass)
-                    if (reactClass is StatefulReactClass<*>) {
-                        //reactClass.getInitialState()
-                        null
-                    } else {
-                        null
-                    }
-                }
 			})
 		}
 
@@ -281,7 +271,16 @@ public data class ReactRef(val reactClass: ReactClass, val name: String) {
 	}
 }
 
+
 abstract public class StatefulReactClass<STATE>(constructorOptions: Array<out PropertyPair<out Any>>, body: ReactElementContainer.() -> Unit) : ReactClass(constructorOptions, body) {
+
+    var state: STATE = getInitialState()
+        private set
+
+    public fun changeState(body: ()->STATE) {
+        state = body()
+        forceUpdate()
+    }
 
     abstract fun getInitialState(): STATE
 

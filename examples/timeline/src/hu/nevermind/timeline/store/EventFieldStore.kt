@@ -7,23 +7,29 @@ import hu.nevermind.flux.RegisteredActionHandler
 import hu.nevermind.flux.Store
 import hu.nevermind.timeline.entities.EventField
 import hu.nevermind.timeline.DataFromServer
+import hu.nevermind.timeline.entities.Id
 
 object EventFieldStore : Store (){
 
-	public val dataFromServerToken: RegisteredActionHandler<DataFromServer> = register(Actions.dataFromServer) { appState ->
-		fields.clear()
-		appState.eventFields.forEach {
-			fields.put(it.id, it)
-		}
-	}
+    {
+        register(Actions.dataFromServer) { appState ->
+            fields.clear()
+            appState.eventFields.forEach {
+                fields.put(it.id, it)
+            }
+        }
+        register(Actions.editEvent) { data ->
+            emitChange()
+        }
+    }
 
-	private var fields: MutableMap<Int, EventField> = hashMapOf();
+	private var fields: MutableMap<Id<EventField>, EventField> = hashMapOf();
 
-	fun get(id: Int): EventField {
+	fun get(id: Id<EventField>): EventField {
 		return fields.getOrElse(id, {error("EventFieldStore: $id not found")})
 	}
 
-    fun getFields(): Map<Int, EventField> {
+    fun getFields(): Map<Id<EventField>, EventField> {
         return fields
     }
 }
