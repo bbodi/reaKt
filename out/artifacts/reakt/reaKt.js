@@ -68,6 +68,28 @@
               this.dispatching_1gxqlx$ = false;
             }
           });
+          this.testAction1 = new _.hu.nevermind.flux.ActionDef();
+          this.CTestStore = Kotlin.createObject(function () {
+            return [_.hu.nevermind.flux.Store];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+            this.callbacks = '';
+            this.register_x5ky9g$(_.hu.nevermind.flux.testAction1, _.hu.nevermind.flux.CTestStore$f(this));
+          });
+          this.ATestStore = Kotlin.createObject(function () {
+            return [_.hu.nevermind.flux.Store];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+            this.callbacks = '';
+            this.register_x5ky9g$(_.hu.nevermind.flux.testAction1, _.hu.nevermind.flux.ATestStore$f(this));
+          });
+          this.BTestStore = Kotlin.createObject(function () {
+            return [_.hu.nevermind.flux.Store];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+            this.callbacks = '';
+            this.register_x5ky9g$(_.hu.nevermind.flux.testAction1, _.hu.nevermind.flux.BTestStore$f(this));
+          });
         }, /** @lends _.hu.nevermind.flux */ {
           Store: Kotlin.createClass(null, function () {
             this.changeListeners_pcuery$ = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
@@ -145,7 +167,36 @@
           startDispatching$f: function (it) {
             it.pending = false;
             it.handled = false;
-          }
+          },
+          TestAction1Payload: Kotlin.createClass(null, null),
+          CTestStore$f: function (this$CTestStore) {
+            return function (count) {
+              this.waitFor([_.hu.nevermind.flux.ATestStore, _.hu.nevermind.flux.BTestStore]);
+              this$CTestStore.callbacks = _.hu.nevermind.flux.ATestStore.callbacks + _.hu.nevermind.flux.BTestStore.callbacks;
+            };
+          },
+          ATestStore$f: function (this$ATestStore) {
+            return function (count) {
+              this$ATestStore.callbacks = this$ATestStore.callbacks + ('a(' + count + ')');
+            };
+          },
+          BTestStore$f: function (this$BTestStore) {
+            return function (count) {
+              this$BTestStore.callbacks = this$BTestStore.callbacks + ('b(' + count + ')');
+            };
+          },
+          DispatcherSpecs: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.flux.DispatcherSpecs.prototype */ {
+            dispatcherShouldExecuteAllSubscriber: function () {
+              _.hu.nevermind.flux.testAction1.dispatch_za3rmp$(2);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)', _.hu.nevermind.flux.ATestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('b(2)', _.hu.nevermind.flux.BTestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)b(2)', _.hu.nevermind.flux.CTestStore.callbacks);
+              _.hu.nevermind.flux.testAction1.dispatch_za3rmp$(3);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)a(3)', _.hu.nevermind.flux.ATestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('b(2)b(3)', _.hu.nevermind.flux.BTestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)a(3)b(2)b(3)', _.hu.nevermind.flux.CTestStore.callbacks);
+            }
+          })
         }),
         reakt: Kotlin.definePackage(null, /** @lends _.hu.nevermind.reakt */ {
           ReactElementContainer: Kotlin.createClass(null, function () {
@@ -1427,11 +1478,17 @@
               };
             },
             sendCommand_dz45tr$: function (command, msg, resultHandler) {
-              _.net.yested.ajaxPost_f0flkx$(new _.net.yested.AjaxRequest('/ajax/ajax/', void 0, JSON.stringify(Kotlin.createObject(null, function () {
+              var objectToSend = Kotlin.createObject(null, function () {
                 this.command = command;
                 this.entity = msg.toServerSideObj();
                 this.user = _.hu.nevermind.timeline.client.username;
-              })), void 0, void 0, _.hu.nevermind.timeline.client.sendCommand_dz45tr$f(resultHandler)));
+              });
+              var dataToSend = JSON.stringify(objectToSend, null, 4);
+              var result = window.confirm(dataToSend);
+              if (result == false) {
+                return;
+              }
+              _.net.yested.ajaxPost_f0flkx$(new _.net.yested.AjaxRequest('/ajax/ajax/', void 0, dataToSend, void 0, void 0, _.hu.nevermind.timeline.client.sendCommand_dz45tr$f(resultHandler)));
             }
           }),
           LocalizationEntry: Kotlin.createClass(null, function (name, localizationGenerator) {
@@ -2153,12 +2210,18 @@
                 this$EventStore.emitChange();
               };
             },
-            EventStore$f_0: function (this$EventStore) {
-              return function (data) {
+            f_0: function (this$EventStore) {
+              return function (result) {
                 this$EventStore.emitChange();
               };
             },
-            f_0: function (this$TemplateFieldStore) {
+            EventStore$f_0: function (this$EventStore) {
+              return function (data) {
+                this.waitFor([_.hu.nevermind.timeline.store.EventFieldStore]);
+                _.hu.nevermind.timeline.client.sendCommand_dz45tr$('updateEvent', data.event, _.hu.nevermind.timeline.store.f_0(this$EventStore));
+              };
+            },
+            f_1: function (this$TemplateFieldStore) {
               return function (it) {
                 this$TemplateFieldStore.fields_mnwhzx$.put_wn2jw4$(it.id, it);
               };
@@ -2166,7 +2229,7 @@
             TemplateFieldStore$f: function (this$TemplateFieldStore) {
               return function (appState) {
                 this$TemplateFieldStore.fields_mnwhzx$.clear();
-                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(appState.templateFields, _.hu.nevermind.timeline.store.f_0(this$TemplateFieldStore));
+                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(appState.templateFields, _.hu.nevermind.timeline.store.f_1(this$TemplateFieldStore));
               };
             },
             get$f_0: function (id) {
@@ -2174,7 +2237,7 @@
                 return Kotlin.modules['stdlib'].kotlin.error_za3rmp$('EventFieldStore: ' + id + ' not found');
               };
             },
-            f_1: function (this$TemplateStore) {
+            f_2: function (this$TemplateStore) {
               return function (it) {
                 this$TemplateStore.templates_agm3wp$.put_wn2jw4$(it.id, it);
               };
@@ -2182,7 +2245,7 @@
             TemplateStore$f: function (this$TemplateStore) {
               return function (appState) {
                 this$TemplateStore.templates_agm3wp$.clear();
-                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(appState.templates, _.hu.nevermind.timeline.store.f_1(this$TemplateStore));
+                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(appState.templates, _.hu.nevermind.timeline.store.f_2(this$TemplateStore));
               };
             },
             getTemplate$f: function (templateId) {
@@ -2480,4 +2543,7 @@
   });
   Kotlin.defineModule('reaKt', _);
   _.hu.nevermind.reakt.example.main_kand9s$([]);
+  QUnit.test('DispatcherSpecs.dispatcherShouldExecuteAllSubscriber', function () {
+    (new _.hu.nevermind.flux.DispatcherSpecs()).dispatcherShouldExecuteAllSubscriber();
+  });
 }(Kotlin));

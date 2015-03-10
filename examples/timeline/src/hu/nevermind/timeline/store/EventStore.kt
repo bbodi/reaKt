@@ -4,6 +4,7 @@ import hu.nevermind.timeline.Actions
 import hu.nevermind.timeline.entities.EventInstance
 import hu.nevermind.flux.Dispatcher
 import hu.nevermind.flux.Store
+import hu.nevermind.timeline.client.sendCommand
 
 object EventStore : Store() {
 
@@ -16,7 +17,10 @@ object EventStore : Store() {
 		}
 
         register(Actions.editEvent) { data ->
-            emitChange()
+			waitFor(EventFieldStore)
+			sendCommand("updateEvent", data.event) {(result: dynamic) ->
+				emitChange()
+			}
         }
 	}
 	var events: MutableList<EventInstance> = arrayListOf();
