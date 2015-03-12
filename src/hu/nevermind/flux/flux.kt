@@ -1,21 +1,36 @@
 package hu.nevermind.flux
 
 import kotlin.properties.Delegates
+import hu.nevermind.timeline.CommandSender
+import hu.nevermind.timeline.AjaxCommandSender
+import hu.nevermind.timeline.Sendable
+import hu.nevermind.reakt.example.EventEditorModal
 
 public abstract class Store {
-	private val changeListeners: MutableList<() -> Unit> = arrayListOf()
+
+	private val changeListeners: MutableMap<Any, () -> Unit> = hashMapOf()
+    // public for tests...
+    public var commandSender: CommandSender = AjaxCommandSender()
 
 	protected fun <PAYLOAD> register(actionDef: ActionDef<PAYLOAD>, callback: DispatchCallbackBody<PAYLOAD>.(PAYLOAD) -> Unit): RegisteredActionHandler<PAYLOAD> {
 		return Dispatcher.register(this, actionDef, callback)
 	}
 
-	public fun addChangeListener(callback: () -> Unit) {
-		changeListeners.add(callback)
+    public fun sendCommand<RESULT>(command: String, msg: Sendable, resultHandler: (RESULT) -> Unit) {
+        commandSender.sendCommand(command, msg, resultHandler)
+    }
+
+	public fun addChangeListener(self: Any, callback: () -> Unit) {
+		changeListeners.put(self, callback)
 	}
 
 	protected fun emitChange() {
-		changeListeners.forEach { it() }
+		changeListeners.values().forEach { it() }
 	}
+
+    fun removeListener(self: Any) {
+        changeListeners.remove(self)
+    }
 }
 
 public class ActionDef<PAYLOAD> {

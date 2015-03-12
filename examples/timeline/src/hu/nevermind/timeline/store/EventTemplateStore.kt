@@ -10,7 +10,7 @@ import hu.nevermind.timeline.DataFromServer
 import hu.nevermind.timeline.entities.EventTemplate
 import hu.nevermind.timeline.entities.Id
 
-object TemplateStore : Store (){
+object EventTemplateStore : Store (){
 
 	{
 		register(Actions.dataFromServer) { appState ->
@@ -23,7 +23,7 @@ object TemplateStore : Store (){
 
 	private var templates: MutableMap<Id<EventTemplate>, EventTemplate> = hashMapOf();
 
-	fun getTemplate(templateId: Id<EventTemplate>): EventTemplate {
+	fun get(templateId: Id<EventTemplate>): EventTemplate {
 		return templates.getOrElse(templateId, {error("TemplateStore: $templateId")})
 	}
 

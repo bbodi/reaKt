@@ -73,6 +73,10 @@ public class Moment(private val moment: MomentJs) {
             moment.month(value)
         }
 
+    override fun toString(): String {
+        return this.format(format{ year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits + " " + hour24.twoDigits + ":" + minutes.twoDigits })
+    }
+
     class object {
         public fun now(): Moment = Moment(moment_js())
 

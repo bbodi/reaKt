@@ -62,7 +62,7 @@ fun createReactElementJs(tagName: String, options: Array<out Pair<String, Any>>,
 	return ReactElement(reactElementJs(constructorParams, *elements))
 }
 
-public fun div(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+public fun div(vararg options: Pair<String, Any>, body: ReactElementContainer.() -> Unit): ReactElement {
 	return createReactElementJs("div", options, {}, body)
 }
 
@@ -80,6 +80,10 @@ public fun h3(vararg options: Pair<String, String>, body: ReactElementContainer.
 
 public fun h4(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
     return createReactElementJs("h4", options, {}, body)
+}
+
+public fun small(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("small", options, {}, body)
 }
 
 public fun label(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
@@ -216,6 +220,13 @@ public class React {
                     readStateFromJsToKotlin(self, reactClass)
 					reactClass.componentDidMount()
 				}
+                val componentWillUnmount = {
+                    var self: dynamic = null
+                    js("self = this")
+                    readStateFromJsToKotlin(self, reactClass)
+                    reactClass.componentWillUnmount()
+                }
+
 			})
 		}
 
@@ -272,19 +283,15 @@ public data class ReactRef(val reactClass: ReactClass, val name: String) {
 }
 
 
-abstract public class StatefulReactClass<STATE>(constructorOptions: Array<out PropertyPair<out Any>>, body: ReactElementContainer.() -> Unit) : ReactClass(constructorOptions, body) {
+abstract public class StatefulReactClass<STATE>(initialState: STATE, constructorOptions: Array<out PropertyPair<out Any>>, body: ReactElementContainer.() -> Unit) : ReactClass(constructorOptions, body) {
 
-    var state: STATE = getInitialState()
+    var state: STATE = initialState
         private set
 
     public fun changeState(body: ()->STATE) {
         state = body()
         forceUpdate()
     }
-
-    abstract fun getInitialState(): STATE
-
-    //var state: STATE by Delegates.notNull()
 
     public fun setState(newState: STATE) {
         reactClassRuntimeRepr.setState(newState)
@@ -340,6 +347,8 @@ abstract public class ReactClass(private val constructorOptions: Array<out Prope
 
 	abstract fun render(): ReactElement?
 	open fun componentDidMount() {}
+    open fun componentWillUnmount() {}
+
 
 	val backend = React.createClass(this)
 

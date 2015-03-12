@@ -3,29 +3,18 @@ package hu.nevermind.timeline.entities
 import hu.nevermind.timeline.LocalizationEntry
 import hu.nevermind.timeline.Local
 import net.yested.utils.Moment
-import hu.nevermind.timeline.client.Sendable
-import hu.nevermind.timeline.store.EventFieldStore
-import hu.nevermind.timeline.store.TemplateFieldStore
+import hu.nevermind.timeline.Sendable
 
-enum class EventFieldType(val localizationKey: LocalizationEntry) {
-    INT: EventFieldType(Local.eventFieldInt)
-    FLOAT: EventFieldType(Local.eventFieldFloat)
-    STRING: EventFieldType(Local.eventFieldString)
-    TEXTAREA: EventFieldType(Local.eventFieldTextArea)
-    SELECT: EventFieldType(Local.eventFieldSelect)
+enum class EventFieldType(val localizationKey: LocalizationEntry,
+                              val readValue: (String)->Any?) {
+    INT: EventFieldType(Local.eventFieldInt, readValue = {safeParseInt(it)})
+    FLOAT: EventFieldType(Local.eventFieldFloat, readValue = {safeParseDouble(it)?.toFloat()})
+    STRING: EventFieldType(Local.eventFieldString, readValue = {it})
+    TEXTAREA: EventFieldType(Local.eventFieldTextArea, readValue = {it})
+    SELECT: EventFieldType(Local.eventFieldSelect, readValue = {it})
 }
 
-public data class EventTemplate(var id: Id<EventTemplate>, public var name: String, var useDateTime: Boolean, val fieldIds: MutableList<Id<EventTemplateField>>) : Sendable {
-
-	override fun toServerSideObj(): dynamic = object {
-        val id = this@EventTemplate.id.id
-        val name = this@EventTemplate.name
-        val fields = this@EventTemplate.fieldIds.map { id ->
-			val field = TemplateFieldStore.get(id)
-			field.toServerSideObj()
-		}
-		val useDateTime = this@EventTemplate.useDateTime
-    }
+public data class EventTemplate(var id: Id<EventTemplate>, public var name: String, var useDateTime: Boolean, val fieldIds: MutableList<Id<EventTemplateField>>) {
 
     class object {
         public fun fromJson(template: dynamic): EventTemplate {
@@ -81,26 +70,13 @@ public data class ReportDescription(val id: Id<ReportDescription>, var name: Str
 //} else {
 //	this@EventInstance.date.millisecondsSinceUnixEpoch
 //}
-public data class EventInstance(var id: Id<EventInstance>,
-                                var name: String,
-                                var fieldIds: List<Id<EventField>>,
-                                var date: Moment,
-                                var comment: String?,
-                                var templateId: Id<EventTemplate>?,
+public data class EventInstance(val id: Id<EventInstance>,
+                                val fieldIds: List<Id<EventField>>,
+                                val date: Moment,
+                                val comment: String?,
+                                val templateId: Id<EventTemplate>,
                                 val tags: String?
-) : Sendable {
-    override fun toServerSideObj(): dynamic = object {
-        val id = this@EventInstance.id.id
-        val name = this@EventInstance.name
-		val millisecsFrom1970 = this@EventInstance.date.millisecondsSinceUnixEpoch
-        val comment = this@EventInstance.comment
-        val fields = this@EventInstance.fieldIds.map { id ->
-			val field = EventFieldStore.get(id)
-			field.toServerSideObj()
-		}
-        val tags = this@EventInstance.tags
-        val templateId = this@EventInstance.templateId?.id
-    }
+) {
 
     class object {
         public fun fromJson(event: dynamic): EventInstance {
@@ -110,7 +86,7 @@ public data class EventInstance(var id: Id<EventInstance>,
             }
 			val fieldIds = fields.map { it.id  }
 			val date = Moment.parseMillisecondsSinceUnixEpoch(event.millisecsFrom1970)
-			return EventInstance(Id<EventInstance>(event.id), event.name, fieldIds, date, event.comment, templateId, null)
+			return EventInstance(Id<EventInstance>(event.id), fieldIds, date, event.comment, templateId, null)
         }
     }
 }
@@ -126,33 +102,31 @@ public data class EventFieldFromServer(val id: Int,
 
 public data class Id<T>(val id: Int)
 
-public data class EventField private (var id: Id<EventField>, val name: String, var fieldValue: Any?, val type: EventFieldType, var templateFieldId: Id<EventTemplateField>?) {
+public data class EventField (val id: Id<EventField>, val fieldValue: Any?, val templateFieldId: Id<EventTemplateField>) {
     fun toServerSideObj(): dynamic = object {
         val id = this@EventField.id.id
-        val name = this@EventField.name
         val value = this@EventField.fieldValue
-        val type = this@EventField.type.name()
-        val templateFieldId = this@EventField.templateFieldId?.id
+        val templateFieldId = this@EventField.templateFieldId.id
     }
     class object {
 
         public fun fromJson(field: EventFieldFromServer): EventField {
             return when (EventFieldType.valueOf(field.type)) {
-                EventFieldType.INT -> EventField(Id<EventField>(field.id), field.name, field.intValue, EventFieldType.INT, Id<EventTemplateField>(field.templateFieldId))
-                EventFieldType.FLOAT -> EventField(Id<EventField>(field.id), field.name, field.floatValue, EventFieldType.FLOAT, Id<EventTemplateField>(field.templateFieldId))
-                EventFieldType.STRING -> EventField(Id<EventField>(field.id), field.name, field.stringValue, EventFieldType.STRING, Id<EventTemplateField>(field.templateFieldId))
-                EventFieldType.SELECT -> EventField(Id<EventField>(field.id), field.name, field.stringValue, EventFieldType.SELECT, Id<EventTemplateField>(field.templateFieldId))
-                EventFieldType.TEXTAREA -> EventField(Id<EventField>(field.id), field.name, field.stringValue, EventFieldType.TEXTAREA, Id<EventTemplateField>(field.templateFieldId))
+                EventFieldType.INT -> EventField(Id<EventField>(field.id), field.intValue, Id<EventTemplateField>(field.templateFieldId))
+                EventFieldType.FLOAT -> EventField(Id<EventField>(field.id), field.floatValue, Id<EventTemplateField>(field.templateFieldId))
+                EventFieldType.STRING -> EventField(Id<EventField>(field.id), field.stringValue,Id<EventTemplateField>(field.templateFieldId))
+                EventFieldType.SELECT -> EventField(Id<EventField>(field.id), field.stringValue, Id<EventTemplateField>(field.templateFieldId))
+                EventFieldType.TEXTAREA -> EventField(Id<EventField>(field.id), field.stringValue, Id<EventTemplateField>(field.templateFieldId))
             }
         }
 
         public fun createFieldFromTemplate(eventTemplateField: EventTemplateField): EventField {
             return when (eventTemplateField.type) {
-                EventFieldType.INT -> EventField(Id<EventField>(0), eventTemplateField.name, 0, EventFieldType.INT, eventTemplateField.id)
-                EventFieldType.FLOAT -> EventField(Id<EventField>(0), eventTemplateField.name, 0f, EventFieldType.FLOAT, eventTemplateField.id)
-                EventFieldType.STRING -> EventField(Id<EventField>(0), eventTemplateField.name, "", EventFieldType.STRING, eventTemplateField.id)
-                EventFieldType.SELECT -> EventField(Id<EventField>(0), eventTemplateField.name, "", EventFieldType.SELECT, eventTemplateField.id)
-                EventFieldType.TEXTAREA -> EventField(Id<EventField>(0), eventTemplateField.name, "", EventFieldType.TEXTAREA, eventTemplateField.id)
+                EventFieldType.INT -> EventField(Id<EventField>(0), 0, eventTemplateField.id)
+                EventFieldType.FLOAT -> EventField(Id<EventField>(0), 0f, eventTemplateField.id)
+                EventFieldType.STRING -> EventField(Id<EventField>(0), "", eventTemplateField.id)
+                EventFieldType.SELECT -> EventField(Id<EventField>(0), "", eventTemplateField.id)
+                EventFieldType.TEXTAREA -> EventField(Id<EventField>(0), "", eventTemplateField.id)
             }
         }
     }
