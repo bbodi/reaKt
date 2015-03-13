@@ -14,9 +14,6 @@ import hu.nevermind.reakt.InputType
 import hu.nevermind.reakt.form
 import kotlin.js.dom.html.HTMLInputElement
 import org.w3c.dom.events.Event
-import hu.nevermind.reakt.PropertyDefinition
-import hu.nevermind.reakt.set
-import hu.nevermind.reakt.PropertyPair
 import hu.nevermind.reakt.StatefulReactClass
 import hu.nevermind.reakt.ReactRef
 import hu.nevermind.reakt.tr
@@ -58,6 +55,8 @@ import hu.nevermind.reakt.h3
 import hu.nevermind.timeline.EventCreationPayload
 import hu.nevermind.timeline.EventFieldCreationPayload
 import hu.nevermind.timeline.store.EventTemplateFieldStore
+import hu.nevermind.timeline.Local
+import hu.nevermind.reakt.tbody
 
 data class FormField(val id: Int, val inputType: InputType, val labelText: String, val placeHolder: String = "", value: String = "") {
     var parent: Form? = null
@@ -74,7 +73,7 @@ data class FormField(val id: Int, val inputType: InputType, val labelText: Strin
             }
         }
         set(v) {
-            (parent!!.idsToRefs[this.id]!!.getDOMNode() as HTMLInputElement).value = value ?: ""
+            (parent!!.idsToRefs[this.id]!!.getDOMNode() as HTMLInputElement).value = v ?: ""
         }
 }
 
@@ -87,14 +86,14 @@ abstract class FormSchema() {
     private var id = 0
     val fields = arrayListOf<FormField>()
 
-    protected fun inputField(inputType: InputType, labelText: String = "", placeHolder: String = "", value: String = ""): FormField {
+    protected fun formField(inputType: InputType, labelText: String = "", placeHolder: String = "", value: String = ""): FormField {
         val formField = FormField(id++, inputType, labelText, placeHolder, value)
         fields.add(formField)
         return formField
     }
 }
 
-open class Form(val title: String, schema: FormSchema, val subTitle: String? = null) : StatefulReactClass<FormState>(FormState(schema.fields), array(), {}) {
+open class Form(val title: String, schema: FormSchema, val subTitle: String? = null) : StatefulReactClass<FormState>(FormState(schema.fields)) {
 
     val idsToRefs: MutableMap<Int, ReactRef> = hashMapOf()
 
@@ -126,33 +125,58 @@ open class Form(val title: String, schema: FormSchema, val subTitle: String? = n
     }
 }
 
+class EventTemplateFieldFormSchema() : FormSchema() {
+    val nameField = formField(InputType.TEXT, "Name")
+    // TODO: selectField
+    //val typeField = formField(InputType., "Name")
+    val hintField = formField(InputType.TEXT, "Name")
+}
+
+class EventTemplateFormSchema() : FormSchema() {
+    val nameField = formField(InputType.TEXT, "Name")
+    val useTime = formField(InputType.CHECKBOX, "A dátumon kívül mentse az időpontot is!")
+    val fieldFields: MutableList<FormField> = arrayListOf()
+
+    fun setData(event: EventInstance) {
+        /*dateInput.value = event.date.format(dateFormat)
+        for ((fieldInput, field) in  fieldInputs.zip(event.fieldIds.map { EventStore.getField(it) })) {
+            fieldInput.value = field.fieldValue.toString()
+        }*/
+    }
+}
+
 class EventFormSchema(val eventTemplate: EventTemplate) : FormSchema() {
 
-    val dateFormat = if (eventTemplate.useDateTime) {
-        format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits + " " + hour24.twoDigits + ":" + minutes.twoDigits }
-    } else {
-        format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits }
+    val dateFormat: FormatString
+
+    {
+        dateFormat = if (eventTemplate.useDateTime) {
+            format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits + " " + hour24.twoDigits + ":" + minutes.twoDigits }
+        } else {
+            format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits }
+        }
     }
-    val dateInput = inputField(InputType.TEXT)
-    val commentInput = inputField(InputType.TEXT)
+
+    val dateInput = formField(InputType.TEXT, "Date")
+    val commentInput = formField(InputType.TEXT, "Comment")
     val fieldInputs: List<FormField> = eventTemplate.fieldIds map { EventTemplateFieldStore[it] } map { fieldTemplate ->
         //+div("className" to "form-group") {
         val inputField = when (fieldTemplate.type) {
             EventFieldType.INT -> {
-                inputField(InputType.NUMBER, fieldTemplate.name, fieldTemplate.hint ?: "")
+                formField(InputType.NUMBER, fieldTemplate.name, fieldTemplate.hint ?: "")
             }
             EventFieldType.FLOAT -> {
-                inputField(InputType.NUMBER, fieldTemplate.name, fieldTemplate.hint ?: "")
+                formField(InputType.NUMBER, fieldTemplate.name, fieldTemplate.hint ?: "")
             }
             EventFieldType.STRING -> {
-                inputField(InputType.TEXT, fieldTemplate.name, fieldTemplate.hint ?: "")
+                formField(InputType.TEXT, fieldTemplate.name, fieldTemplate.hint ?: "")
             }
             EventFieldType.TEXTAREA -> {
-                inputField(InputType.TEXT, fieldTemplate.name, fieldTemplate.hint ?: "")
+                formField(InputType.TEXT, fieldTemplate.name, fieldTemplate.hint ?: "")
                 //textarea(rows = 5, cols = 50)
             }
             EventFieldType.SELECT -> {
-                inputField(InputType.TEXT, fieldTemplate.name, fieldTemplate.hint ?: "")
+                formField(InputType.TEXT, fieldTemplate.name, fieldTemplate.hint ?: "")
             }
         }
         inputField
@@ -166,7 +190,7 @@ class EventFormSchema(val eventTemplate: EventTemplate) : FormSchema() {
     }
 }
 
-class InputField(val inputType: InputType, val labelText: String, val placeHolder: String = "", val value: String? = null, val onChange: (String) -> Unit = {}, body: ReactElementContainer.() -> Unit = {}) : ReactClass(array(), body) {
+class InputField(val inputType: InputType, val labelText: String, val placeHolder: String = "", val value: String? = null, val onChange: (String) -> Unit = {}) : ReactClass() {
     val inputRef = ref("input")
 
     override fun componentDidMount() {
@@ -182,9 +206,11 @@ class InputField(val inputType: InputType, val labelText: String, val placeHolde
 
 }
 
-data class DropDownButtonItem(val name: String, val callback: (() -> Unit))
+open data class DropDownButtonItem(val name: String, val callback: (() -> Unit))
+data class DropDownDivider() : DropDownButtonItem("", {})
 
-class DropDownButton(val buttonText: String, val items: Iterable<DropDownButtonItem>, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+// TODO: a DropDownButtonItem-ek a gyermekei legyenek!
+class DropDownButton(val buttonText: String, val items: Iterable<DropDownButtonItem>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
 
     override fun render(): ReactElement? {
         return div("className" to "dropdown") {
@@ -203,7 +229,28 @@ class DropDownButton(val buttonText: String, val items: Iterable<DropDownButtonI
     }
 }
 
-class FilterSelectorButton(val onFilteringTemplateSelected: (Id<EventTemplate>) -> Unit, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class SplitDropDownButton(val mainItem: DropDownButtonItem, vararg val items: DropDownButtonItem, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
+
+    override fun render(): ReactElement? {
+        return div("className" to "btn-group") {
+            +button(ButtonType.BUTTON, "className" to "btn btn-default", "onClick" to { mainItem.callback() }) {
+                +mainItem.name
+            }
+            +button(ButtonType.BUTTON, "className" to "btn btn-default dropdown-toggle", "data-toggle" to "dropdown") {
+                +span("className" to "caret") {}
+            }
+            +ul("className" to "dropdown-menu", "role" to "menu") {
+                +li("role" to "presentation") {
+                    items.forEach {
+                        +a("role" to "menuItem", "onClick" to { it.callback.invoke() }) { +it.name }
+                    }
+                }
+            }
+        }
+    }
+}
+
+class FilterSelectorButton(val onFilteringTemplateSelected: (Id<EventTemplate>) -> Unit, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
 
     override fun render(): ReactElement? {
         return DropDownButton("Filter", EventTemplateStore.getTemplates().values().map {
@@ -212,7 +259,7 @@ class FilterSelectorButton(val onFilteringTemplateSelected: (Id<EventTemplate>) 
     }
 }
 
-class FilterSelectorField(val filteringTemplateIds: Iterable<Id<EventTemplate>>, vararg props: PropertyPair<out Any>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(props, body) {
+class FilterSelectorField(val filteringTemplateIds: Iterable<Id<EventTemplate>>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
 
     val inputRef = ref("inputRef")
 
@@ -226,7 +273,7 @@ class FilterSelectorField(val filteringTemplateIds: Iterable<Id<EventTemplate>>,
 }
 
 
-class EventFilter(val filteringIds: List<Id<EventTemplate>>, val onFilteringTemplateSelectedParentCallback: (Id<EventTemplate>) -> Unit) : StatefulReactClass<List<Id<EventTemplate>>>(filteringIds, array(), {}) {
+class EventFilter(val filteringIds: List<Id<EventTemplate>>, val onFilteringTemplateSelectedParentCallback: (Id<EventTemplate>) -> Unit) : StatefulReactClass<List<Id<EventTemplate>>>(filteringIds) {
 
 
     override fun render(): ReactElement? {
@@ -244,7 +291,7 @@ class EventFilter(val filteringIds: List<Id<EventTemplate>>, val onFilteringTemp
     }
 }
 
-class AddEventDropDownButton(val callback: (EventEditorModalState) -> Unit) : ReactClass(array(), {}) {
+class AddEventDropDownButton(val callback: (EventEditorModalState) -> Unit) : ReactClass() {
 
     override fun render(): ReactElement? {
         val eventsByTemplateIds = hashMapOf<Id<EventTemplate>, Int>()
@@ -256,40 +303,33 @@ class AddEventDropDownButton(val callback: (EventEditorModalState) -> Unit) : Re
             DropDownButtonItem(template.name) {
                 val eventFormSchema = EventFormSchema(template)
                 fun createEventCreationPayload(): EventCreationPayload {
-                    fun createEventCreationPayload(): EventCreationPayload {
-                        // TODO validation
-                        val date = Moment.parse(eventFormSchema.dateInput.value, eventFormSchema.dateFormat.toString())
-                        val comment = eventFormSchema.commentInput.value
-                        val eventFieldCreationPayload = eventFormSchema.fieldInputs
-                                .map { it.value }
-                                .mapIndexed {(index, value) ->
-                                    val templateFieldId = template.fieldIds[index]
-                                    val fieldTemplate = EventTemplateFieldStore[templateFieldId]
-                                    val extractedValue = fieldTemplate.type.readValue(value)
-                                    EventFieldCreationPayload(fieldTemplate.id, extractedValue)
-                                }
-                        val eventChangePayload = EventCreationPayload(template.id, date, comment, eventFieldCreationPayload)
-                        return eventChangePayload
-                    }
-
-                    val eventEditorModalWindowState = EventEditorModalState(template, eventFormSchema) {
-                        val eventCreationPayload = createEventCreationPayload()
-                        Actions.eventCreated.dispatch(eventCreationPayload)
-                    }
-                    callback(eventEditorModalWindowState)
+                    // TODO validation
+                    val date = Moment.parse(eventFormSchema.dateInput.value, eventFormSchema.dateFormat.toString())
+                    val comment = eventFormSchema.commentInput.value
+                    val eventFieldCreationPayload = eventFormSchema.fieldInputs
+                            .map { it.value }
+                            .mapIndexed {(index, value) ->
+                                val templateFieldId = template.fieldIds[index]
+                                val fieldTemplate = EventTemplateFieldStore[templateFieldId]
+                                val extractedValue = fieldTemplate.type.readValue(value)
+                                EventFieldCreationPayload(fieldTemplate.id, extractedValue)
+                            }
+                    val eventChangePayload = EventCreationPayload(template.id, date, comment, eventFieldCreationPayload)
+                    return eventChangePayload
                 }
 
-                val eventEditorModalWindowState = EventEditorModalState(template, eventFormSchema) {
+                val eventEditorModalWindowState = EventEditorModalState(template, eventFormSchema, null) {
                     val eventCreationPayload = createEventCreationPayload()
                     Actions.eventCreated.dispatch(eventCreationPayload)
                 }
+                callback(eventEditorModalWindowState)
             }
         }
         return DropDownButton("Add", items).render()
     }
 }
 
-class EventGridRow(val event: EventInstance, val callback: (EventEditorModalState) -> Unit) : ReactClass(array(), {}) {
+class EventGridRow(val event: EventInstance, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
 
     override fun render(): ReactElement? {
         val templ = EventTemplateStore[event.templateId]
@@ -299,12 +339,7 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
             format { year.fourDigits + "." + month.twoDigits + "." + dayOfMonth.twoDigits }
         }
 
-        val className = if (event.id == Id<EventInstance>(0)) {
-            "warning"
-        } else {
-            ""
-        }
-        return tr("className" to className) {
+        return tr() {
             +td {
                 +event.date.format(dateFormat)
             }
@@ -313,9 +348,6 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
             }
             val field = EventStore.getField(event.fieldIds[0])
             +td {
-                if (EventTemplateFieldStore.getFields()[field.templateFieldId] == null) {
-                    +"asd"
-                }
                 val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
                 +fieldTemplate.name
             }
@@ -323,76 +355,97 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
                 +field.fieldValue.toString()
             }
             +td("className" to "col-md-3") {
-                +div("className" to "row") {
-                    // COPY, EDIT, DELETE
-                    +div("className" to "col-md-1") {
+                // COPY, EDIT, DELETE
+                val onCopyClick = {
+                    val eventFormSchema = EventFormSchema(templ)
+                    fun createEventCreationPayload(): EventCreationPayload {
+                        // TODO validation
+                        val date = Moment.parse(eventFormSchema.dateInput.value, dateFormat.toString())
+                        val comment = eventFormSchema.commentInput.value
+                        val eventFieldChangesPayload = eventFormSchema.fieldInputs
+                                .map { it.value }
+                                .mapIndexed {(index, value) ->
+                                    val field = EventStore.getField(event.fieldIds[index])
+                                    val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
+                                    val extractedValue = fieldTemplate.type.readValue(value)
+                                    EventFieldCreationPayload(fieldTemplate.id, extractedValue)
+                                }
                         val copyEvent = event.copy(id = Id(0))
-                        val onClick = {
-                            val eventFormSchema = EventFormSchema(templ)
-                            eventFormSchema.setData(event)
-                            fun createEventCreationPayload(): EventCreationPayload {
-                                // TODO validation
-                                val date = Moment.parse(eventFormSchema.dateInput.value, dateFormat.toString())
-                                val comment = eventFormSchema.commentInput.value
-                                val eventFieldChangesPayload = eventFormSchema.fieldInputs
-                                        .map { it.value }
-                                        .mapIndexed {(index, value) ->
-                                            val field = EventStore.getField(event.fieldIds[index])
-                                            val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
-                                            val extractedValue = fieldTemplate.type.readValue(value)
-                                            EventFieldCreationPayload(fieldTemplate.id, extractedValue)
-                                        }
-                                val eventChangePayload = EventCreationPayload(copyEvent.templateId, date, comment, eventFieldChangesPayload)
-                                return eventChangePayload
-                            }
-
-                            val eventEditorModalWindowState = EventEditorModalState(event, eventFormSchema) {
-                                val eventCreationPayload = createEventCreationPayload()
-                                Actions.eventCreated.dispatch(eventCreationPayload)
-                            }
-                            callback(eventEditorModalWindowState)
-                        }
-                        +button(ButtonType.BUTTON, "className" to "btn btn-info btn-xs", "onClick" to onClick) { +"Copy" }
-                    }
-                    +div("className" to "col-md-1") {
-                        val onClick = {
-                            val eventFormSchema = EventFormSchema(templ)
-                            eventFormSchema.setData(event)
-                            fun createEventChangePayload(): EventChangePayload {
-                                val date = Moment.parse(eventFormSchema.dateInput.value, dateFormat.toString())
-                                val eventFieldChangesPayload = eventFormSchema.fieldInputs
-                                        .map { it.value }
-                                        .mapIndexed {(index, value) ->
-                                            val field = EventStore.getField(event.fieldIds[index])
-                                            val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
-                                            val extractedValue = fieldTemplate.type.readValue(value)
-                                            EventFieldChangePayload(field.id, extractedValue)
-                                        }
-                                val eventChangePayload = EventChangePayload(event.id, date, eventFieldChangesPayload)
-                                return eventChangePayload
-                            }
-
-                            val eventEditorModalWindowState = EventEditorModalState(event, eventFormSchema) {
-                                val eventChangePayload = createEventChangePayload()
-                                Actions.eventEdited.dispatch(eventChangePayload)
-                            }
-                            callback(eventEditorModalWindowState)
-                        }
-                        +button(ButtonType.BUTTON, "className" to "btn btn-warning btn-xs", "onClick" to onClick) { +"Edit" }
-                    }
-                    +div("className" to "col-md-1") {
-                        +button(options = "className" to "btn btn-danger btn-xs") { +"Delete" }
+                        val eventChangePayload = EventCreationPayload(copyEvent.templateId, date, comment, eventFieldChangesPayload)
+                        return eventChangePayload
                     }
 
+                    val eventEditorModalWindowState = EventEditorModalState(templ, eventFormSchema, event) {
+                        val eventCreationPayload = createEventCreationPayload()
+                        Actions.eventCreated.dispatch(eventCreationPayload)
+                    }
+                    callback(eventEditorModalWindowState)
+                }
+                val onEditClick = {
+                    val eventFormSchema = EventFormSchema(templ)
+                    fun createEventChangePayload(): EventChangePayload {
+                        val date = Moment.parse(eventFormSchema.dateInput.value, dateFormat.toString())
+                        val eventFieldChangesPayload = eventFormSchema.fieldInputs
+                                .map { it.value }
+                                .mapIndexed {(index, value) ->
+                                    val field = EventStore.getField(event.fieldIds[index])
+                                    val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
+                                    val extractedValue = fieldTemplate.type.readValue(value)
+                                    EventFieldChangePayload(field.id, extractedValue)
+                                }
+                        val eventChangePayload = EventChangePayload(event.id, date, eventFieldChangesPayload)
+                        return eventChangePayload
+                    }
+
+                    val eventEditorModalWindowState = EventEditorModalState(templ, eventFormSchema, event) {
+                        val eventChangePayload = createEventChangePayload()
+                        Actions.eventEdited.dispatch(eventChangePayload)
+                    }
+                    callback(eventEditorModalWindowState)
+                }
+                +SplitDropDownButton(DropDownButtonItem("Edit", onEditClick), DropDownButtonItem("Copy", onCopyClick), DropDownButtonItem("Delete", {}))
+            }
+        }
+    }
+}
+
+
+class EventTemplateGridRow(val template: EventTemplate, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+
+    override fun render(): ReactElement? {
+
+        return tr() {
+            +td {
+                +template.name
+            }
+            +td("className" to "col-md-3") {
+                +SplitDropDownButton(DropDownButtonItem("Edit", {}), DropDownButtonItem("Copy", {}), DropDownButtonItem("Delete", {}))
+            }
+        }
+    }
+}
+
+class EventTemplateGrid(val appState: TimelineAppState, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+    override fun render(): ReactElement? {
+        return table("className" to "table table-striped table-bordered table-hover table-condensed") {
+            +thead {
+                +tr {
+                    +th("className" to "col-md-2") { +"Name" }
+                    +th("className" to "col-md-3") { +"" }
+                }
+            }
+            +tbody {
+                EventTemplateStore.getTemplates().values().forEach {
+                    +EventTemplateGridRow(it, callback)
                 }
             }
         }
     }
 }
 
-class EventGrid(val appState: TimelineAppState, val callback: (EventEditorModalState) -> Unit) : ReactClass(array(), {}) {
+class EventGrid(val appState: TimelineAppState, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
     override fun render(): ReactElement? {
-        return table("className" to "table table-striped table-bordered table-hover") {
+        return table("className" to "table table-striped table-bordered table-hover table-condensed") {
             +thead {
                 +tr {
                     +th("className" to "col-md-2") { +"Date" }
@@ -401,6 +454,8 @@ class EventGrid(val appState: TimelineAppState, val callback: (EventEditorModalS
                     +th("className" to "col-md-3") { +"Value" }
                     +th("className" to "col-md-3") { +"" }
                 }
+            }
+            +tbody {
                 if (appState.filteringTemplateIds.isEmpty()) {
                     EventStore.getEvents().values()
                 } else {
@@ -419,33 +474,27 @@ data class TimelineAppState(val filteringTemplateIds: List<Id<EventTemplate>>, v
 
 data class ModalData<T>(val visible: Boolean, val data: T)
 
-abstract class ModalWindow<T>() : StatefulReactClass<ModalData<T>>(ModalData(false, null as T), array(), {}) {
+abstract class ModalWindow() : ReactClass() {
 
     abstract fun header(): ReactElement
     abstract fun content(): ReactElement
     abstract fun footer(): ReactElement
 
     final override fun render(): ReactElement? {
-        val (className, style) = if (state.visible) {
-            Pair("modal fade in", object {
-                val display = "block"
-            })
-        } else {
-            Pair("modal fade hide", object {})
+        val style = object {
+            val display = "block"
         }
-        return div("className" to className, "style" to style) {
-            if (state.visible) {
-                +div("className" to "modal-dialog") {
-                    +div("className" to "modal-content") {
-                        +div("className" to "modal-header") {
-                            +header()
-                        }
-                        +div("className" to "modal-body") {
-                            +content()
-                        }
-                        +div("className" to "modal-footer") {
-                            +footer()
-                        }
+        return div("className" to "modal fade in", "style" to style) {
+            +div("className" to "modal-dialog") {
+                +div("className" to "modal-content") {
+                    +div("className" to "modal-header") {
+                        +header()
+                    }
+                    +div("className" to "modal-body") {
+                        +content()
+                    }
+                    +div("className" to "modal-footer") {
+                        +footer()
                     }
                 }
             }
@@ -462,14 +511,27 @@ private fun eventDateFormat(event: EventInstance): FormatString {
     }
 }
 
-data class EventEditorModalState(val eventTemplate: EventTemplate, val eventFormSchema: EventFormSchema, val onSave: () -> Unit)
-class EventEditorModal() : ModalWindow<EventEditorModalState?>() {
+data class EventEditorModalState(val eventTemplate: EventTemplate, val eventFormSchema: EventFormSchema, val event: EventInstance?, val onSave: () -> Unit)
+class EventEditorModalParent() : StatefulReactClass<ModalData<EventEditorModalState?>>(ModalData(false, null)) {
+    override fun render(): ReactElement? {
+        return if (state.visible) {
+            EventEditorModal(state.data!!, onCancel = { changeState { ModalData(false, null) } }).createElement()
+        } else {
+            div {}
+        }
+    }
+}
+
+class EventEditorModal(val data: EventEditorModalState, val onCancel: () -> Unit) : ModalWindow() {
 
     private val templ: EventTemplate
-        get() = state.data!!.eventTemplate
+        get() = data.eventTemplate
 
     override fun componentDidMount() {
         super.componentDidMount()
+        if (data.event != null) {
+            data.eventFormSchema.setData(data.event)
+        }
     }
 
     override fun componentWillUnmount() {
@@ -480,24 +542,23 @@ class EventEditorModal() : ModalWindow<EventEditorModalState?>() {
     }
 
     override fun content(): ReactElement {
-        return Form(templ.name, state.data!!.eventFormSchema).render()!!
+        return Form(templ.name, data.eventFormSchema).render()!!
     }
 
     override fun footer(): ReactElement {
         return div("className" to "row") {
             +div("className" to "col-md-1") {
-                +button(ButtonType.BUTTON, "className" to "btn btn-success btn-xs", "onClick" to state.data!!.onSave) { +"Save" }
+                +button(ButtonType.BUTTON, "className" to "btn btn-success btn-xs", "onClick" to data.onSave) { +"Save" }
             }
             +div("className" to "col-md-1") {
-                val onClick = { changeState { ModalData(false, null) } }
-                +button(ButtonType.BUTTON, "className" to "btn btn-warning btn-xs", "onClick" to onClick) { +"Cancel" }
+                +button(ButtonType.BUTTON, "className" to "btn btn-warning btn-xs", "onClick" to onCancel) { +"Cancel" }
             }
         }
     }
 
 }
 
-class TimelineApp() : StatefulReactClass<TimelineAppState>(TimelineAppState(emptyList(), false), array(), {}) {
+class TimelineApp() : StatefulReactClass<TimelineAppState>(TimelineAppState(emptyList(), false)) {
 
     override fun componentDidMount() {
         EventStore.addChangeListener(this) {
@@ -527,25 +588,35 @@ class TimelineApp() : StatefulReactClass<TimelineAppState>(TimelineAppState(empt
 
     override fun render(): ReactElement? {
         return div {
-            +h1 { +"Events" }
-            val eventEditorModal = EventEditorModal()
-            +AddEventDropDownButton() {(eventEditorModalState: EventEditorModalState) ->
-                eventEditorModal.changeState {
-                    ModalData(true, eventEditorModalState)
+            +div("className" to "row") {
+                val eventEditorModalParent = EventEditorModalParent()
+                +div("className" to "col-md-6") {
+                    +h1 { +"Events" }
+                    +AddEventDropDownButton() {(eventEditorModalState: EventEditorModalState) ->
+                        eventEditorModalParent.changeState {
+                            ModalData(true, eventEditorModalState)
+                        }
+                    }
+                    +EventFilter(state.filteringTemplateIds) { selectedId ->
+                        changeState {
+                            state.copy(filteringTemplateIds = state.filteringTemplateIds + selectedId)
+                        }
+                    }
+                    +EventGrid(state) {(eventEditorModalState: EventEditorModalState) ->
+                        eventEditorModalParent.changeState {
+                            ModalData(true, eventEditorModalState)
+                        }
+                    }
                 }
-            }
-            +EventFilter(state.filteringTemplateIds) { selectedId ->
-                changeState {
-                    state.copy(filteringTemplateIds = state.filteringTemplateIds + selectedId)
+                +div("className" to "col-md-4 col-md-offset-2") {
+                    +EventTemplateGrid(state) {(eventEditorModalState: EventEditorModalState) ->
+                        eventEditorModalParent.changeState {
+                            ModalData(true, eventEditorModalState)
+                        }
+                    }
                 }
+                +eventEditorModalParent
             }
-            +EventGrid(state) {(eventEditorModalState: EventEditorModalState) ->
-                eventEditorModal.changeState {
-                    ModalData(true, eventEditorModalState)
-                }
-            }
-
-            +eventEditorModal
         }
     }
 }

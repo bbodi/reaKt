@@ -142,6 +142,10 @@ public fun thead(vararg options: Pair<String, String>, body: ReactElementContain
 	return createReactElementJs("thead", options, {}, body)
 }
 
+public fun tbody(vararg options: Pair<String, String>, body: ReactElementContainer.() -> Unit): ReactElement {
+    return createReactElementJs("tbody", options, {}, body)
+}
+
 public fun td(vararg options: Pair<String, Any>, body: ReactElementContainer.() -> Unit): ReactElement {
 	return createReactElementJs("td", options, {}, body)
 }
@@ -283,7 +287,7 @@ public data class ReactRef(val reactClass: ReactClass, val name: String) {
 }
 
 
-abstract public class StatefulReactClass<STATE>(initialState: STATE, constructorOptions: Array<out PropertyPair<out Any>>, body: ReactElementContainer.() -> Unit) : ReactClass(constructorOptions, body) {
+abstract public class StatefulReactClass<STATE>(initialState: STATE, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
 
     var state: STATE = initialState
         private set
@@ -306,23 +310,13 @@ abstract public class StatefulReactClass<STATE>(initialState: STATE, constructor
     }
 }
 
-public data class PropertyDefinition<V> {
-    public val id: String = "name_${hashCode()}"
-}
-
-public fun <V> PropertyDefinition<V>.set(param: V): PropertyPair<V> {
-    return PropertyPair(this, param)
-}
-
-public data class PropertyPair<V>(val key: PropertyDefinition<V>, val value: V)
-
 private class ReactClassRuntimeRepr {
     native fun <STATE> setState(newState: STATE): Unit = noImpl
 
     native fun forceUpdate(): Unit = noImpl
 }
 
-abstract public class ReactClass(private val constructorOptions: Array<out PropertyPair<out Any>>, val body: ReactElementContainer.() -> Unit) {
+abstract public class ReactClass(val body: ReactElementContainer.() -> Unit = {}) {
 
     var reactClassRuntimeRepr: ReactClassRuntimeRepr by Delegates.notNull()
 
@@ -330,9 +324,6 @@ abstract public class ReactClass(private val constructorOptions: Array<out Prope
 
 	// TODO private
     var propsJs: ReactPropsJs? = null
-	public fun <V> props(prop: PropertyDefinition<V>): V {
-        return propsJs!!.get<V>(prop.id)
-    }
     var refs: ReactRefs? = null
 
 	public val children: Array<Any>
@@ -357,9 +348,9 @@ abstract public class ReactClass(private val constructorOptions: Array<out Prope
 		elementContainer.body()
 
 		val fullOptions = arrayListOf<Pair<String, Any>>()
-        constructorOptions.forEach {
+        /*constructorOptions.forEach {
             fullOptions.add(Pair(it.key.id, it.value))
-        }
+        }*/
 
 		fullOptions.addAll(elementContainer.options)
 

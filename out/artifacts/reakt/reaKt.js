@@ -317,6 +317,11 @@
           thead_3topnc$: function (options, body) {
             return _.hu.nevermind.reakt.createReactElementJs('thead', options, _.hu.nevermind.reakt.thead_3topnc$f, body);
           },
+          tbody_3topnc$f: function (it) {
+          },
+          tbody_3topnc$: function (options, body) {
+            return _.hu.nevermind.reakt.createReactElementJs('tbody', options, _.hu.nevermind.reakt.tbody_3topnc$f, body);
+          },
           td_3topnc$f: function (it) {
           },
           td_3topnc$: function (options, body) {
@@ -662,8 +667,8 @@
                   return tmp$2;
                 },
                 set: function (v) {
-                  var tmp$0, tmp$1, tmp$2;
-                  ((tmp$2 = ((tmp$1 = this.parent) != null ? tmp$1 : Kotlin.throwNPE()).idsToRefs.get_za3rmp$(this.id)) != null ? tmp$2 : Kotlin.throwNPE()).getDOMNode().value = (tmp$0 = this.value) != null ? tmp$0 : '';
+                  var tmp$0, tmp$1;
+                  ((tmp$1 = ((tmp$0 = this.parent) != null ? tmp$0 : Kotlin.throwNPE()).idsToRefs.get_za3rmp$(this.id)) != null ? tmp$1 : Kotlin.throwNPE()).getDOMNode().value = v != null ? v : '';
                 }
               },
               component1: function () {
@@ -809,36 +814,64 @@
             }),
             EventFormSchema: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.example.FormSchema];
-            }, function $fun(dateFormat, event) {
+            }, function $fun(eventTemplate) {
               var tmp$0;
               $fun.baseInitializer.call(this);
-              this.dateFormat_hec8kg$ = dateFormat;
-              this.event = event;
-              this.dateInput = this.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, void 0, void 0, this.event.date.format_k6n0qe$(this.dateFormat_hec8kg$));
-              this.commentInput = this.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, void 0, void 0, (tmp$0 = this.event.comment) != null ? tmp$0 : '');
-              this.fieldInputs = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this.event.fieldIds, _.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f), _.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_0(this));
-            }, null, /** @lends _.hu.nevermind.reakt.example.EventFormSchema */ {
-              EventFormSchema$f: function (it) {
-                return _.hu.nevermind.timeline.store.EventStore.getField(it);
+              this.eventTemplate = eventTemplate;
+              if (this.eventTemplate.useDateTime) {
+                tmp$0 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f);
+              }
+               else {
+                tmp$0 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_0);
+              }
+              this.dateFormat = tmp$0;
+              this.dateInput = this.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Date');
+              this.commentInput = this.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Comment');
+              this.fieldInputs = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this.eventTemplate.fieldIds, _.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_1), _.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_2(this));
+            }, /** @lends _.hu.nevermind.reakt.example.EventFormSchema.prototype */ {
+              setData: function (event) {
+                var tmp$1, tmp$2, tmp$3;
+                this.dateInput.value = event.date.format_k6n0qe$(this.dateFormat);
+                tmp$2 = this.fieldInputs;
+                tmp$1 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(event.fieldIds, _.hu.nevermind.reakt.example.EventFormSchema.setData$f);
+                tmp$3 = Kotlin.modules['stdlib'].kotlin.zip_84aay$(tmp$2, tmp$1).iterator();
+                while (tmp$3.hasNext()) {
+                  var tmp$0 = tmp$3.next()
+                  , fieldInput = tmp$0.component1()
+                  , field = tmp$0.component2();
+                  fieldInput.value = Kotlin.toString(field.fieldValue);
+                }
+              }
+            }, /** @lends _.hu.nevermind.reakt.example.EventFormSchema */ {
+              EventFormSchema$f: function () {
+                return this.year.fourDigits.plus('.').plus_9xull5$(this.month.twoDigits).plus_61zpoe$('.').plus_9xull5$(this.dayOfMonth.twoDigits).plus_61zpoe$(' ').plus_9xull5$(this.hour24.twoDigits).plus_61zpoe$(':').plus_9xull5$(this.minutes.twoDigits);
               },
-              EventFormSchema$f_0: function (this$EventFormSchema) {
-                return function (field) {
+              EventFormSchema$f_0: function () {
+                return this.year.fourDigits.plus('.').plus_9xull5$(this.month.twoDigits).plus_61zpoe$('.').plus_9xull5$(this.dayOfMonth.twoDigits);
+              },
+              EventFormSchema$f_1: function (it) {
+                return _.hu.nevermind.timeline.store.EventTemplateFieldStore.get(it);
+              },
+              EventFormSchema$f_2: function (this$EventFormSchema) {
+                return function (fieldTemplate) {
                   var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6;
-                  var fieldTemplate = _.hu.nevermind.timeline.store.EventTemplateFieldStore.get(field.templateFieldId);
                   tmp$0 = fieldTemplate.type;
                   if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.INT)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$1 = fieldTemplate.hint) != null ? tmp$1 : '', Kotlin.toString(field.fieldValue));
+                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$1 = fieldTemplate.hint) != null ? tmp$1 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$2 = fieldTemplate.hint) != null ? tmp$2 : '', Kotlin.toString(field.fieldValue));
+                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$2 = fieldTemplate.hint) != null ? tmp$2 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.STRING)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$3 = fieldTemplate.hint) != null ? tmp$3 : '', Kotlin.toString(field.fieldValue));
+                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$3 = fieldTemplate.hint) != null ? tmp$3 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$4 = fieldTemplate.hint) != null ? tmp$4 : '', Kotlin.toString(field.fieldValue));
+                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$4 = fieldTemplate.hint) != null ? tmp$4 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$5 = fieldTemplate.hint) != null ? tmp$5 : '', Kotlin.toString(field.fieldValue));
+                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$5 = fieldTemplate.hint) != null ? tmp$5 : '');
                   var inputField = tmp$6;
                   return inputField;
                 };
+              },
+              setData$f: function (it) {
+                return _.hu.nevermind.timeline.store.EventStore.getField(it);
               }
             }),
             InputField: Kotlin.createClass(function () {
@@ -887,6 +920,40 @@
             DropDownButtonItem: Kotlin.createClass(null, function (name, callback) {
               this.name = name;
               this.callback = callback;
+            }, /** @lends _.hu.nevermind.reakt.example.DropDownButtonItem.prototype */ {
+              component1: function () {
+                return this.name;
+              },
+              component2: function () {
+                return this.callback;
+              },
+              copy_ayzjzk$: function (name, callback) {
+                return new _.hu.nevermind.reakt.example.DropDownButtonItem(name === void 0 ? this.name : name, callback === void 0 ? this.callback : callback);
+              },
+              toString: function () {
+                return 'DropDownButtonItem(name=' + Kotlin.toString(this.name) + (', callback=' + Kotlin.toString(this.callback)) + ')';
+              },
+              hashCode: function () {
+                var result = 0;
+                result = result * 31 + Kotlin.hashCode(this.name) | 0;
+                result = result * 31 + Kotlin.hashCode(this.callback) | 0;
+                return result;
+              },
+              equals_za3rmp$: function (other) {
+                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.callback, other.callback))));
+              }
+            }),
+            DropDownDivider: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.example.DropDownButtonItem];
+            }, function $fun() {
+              $fun.baseInitializer.call(this, '', _.hu.nevermind.reakt.example.DropDownDivider.DropDownDivider$f);
+            }, /** @lends _.hu.nevermind.reakt.example.DropDownDivider.prototype */ {
+              copy: function () {
+                return new _.hu.nevermind.reakt.example.DropDownDivider();
+              }
+            }, /** @lends _.hu.nevermind.reakt.example.DropDownDivider */ {
+              DropDownDivider$f: function () {
+              }
             }),
             DropDownButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
@@ -913,8 +980,7 @@
               },
               f_1: function (it) {
                 return function () {
-                  var tmp$0;
-                  (tmp$0 = it.callback) != null ? tmp$0() : null;
+                  it.callback();
                 };
               },
               f_2: function (it) {
@@ -941,6 +1007,69 @@
                 return function () {
                   this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-primary btn-default dropdown-toggle'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('data-toggle', 'dropdown')], _.hu.nevermind.reakt.example.DropDownButton.f_0(this$DropDownButton)));
                   this.plus_oclkc7$(_.hu.nevermind.reakt.ul_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'dropdown-menu'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menu')], _.hu.nevermind.reakt.example.DropDownButton.f_5(this$DropDownButton)));
+                };
+              }
+            }),
+            SplitDropDownButton: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.ReactClass];
+            }, function $fun(mainItem, items, props, body) {
+              if (body === void 0)
+                body = _.hu.nevermind.reakt.example.SplitDropDownButton.SplitDropDownButton$f;
+              $fun.baseInitializer.call(this, props, body);
+              this.mainItem = mainItem;
+              this.items = items;
+            }, /** @lends _.hu.nevermind.reakt.example.SplitDropDownButton.prototype */ {
+              render: function () {
+                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn-group')], _.hu.nevermind.reakt.example.SplitDropDownButton.render$f(this));
+              }
+            }, /** @lends _.hu.nevermind.reakt.example.SplitDropDownButton */ {
+              SplitDropDownButton$f: function () {
+              },
+              f: function (this$SplitDropDownButton) {
+                return function () {
+                  this$SplitDropDownButton.mainItem.callback();
+                };
+              },
+              f_0: function (this$SplitDropDownButton) {
+                return function () {
+                  this.plus_pdl1w0$(this$SplitDropDownButton.mainItem.name);
+                };
+              },
+              f_1: function () {
+              },
+              f_2: function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.span_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'caret')], _.hu.nevermind.reakt.example.SplitDropDownButton.f_1));
+              },
+              f_3: function (it) {
+                return function () {
+                  it.callback();
+                };
+              },
+              f_4: function (it) {
+                return function () {
+                  this.plus_pdl1w0$(it.name);
+                };
+              },
+              f_5: function (this$) {
+                return function (it) {
+                  this$.plus_oclkc7$(_.hu.nevermind.reakt.a_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menuItem'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', _.hu.nevermind.reakt.example.SplitDropDownButton.f_3(it))], _.hu.nevermind.reakt.example.SplitDropDownButton.f_4(it)));
+                };
+              },
+              f_6: function (this$SplitDropDownButton) {
+                return function () {
+                  Kotlin.modules['stdlib'].kotlin.forEach_5wd4f$(this$SplitDropDownButton.items, _.hu.nevermind.reakt.example.SplitDropDownButton.f_5(this));
+                };
+              },
+              f_7: function (this$SplitDropDownButton) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.li_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'presentation')], _.hu.nevermind.reakt.example.SplitDropDownButton.f_6(this$SplitDropDownButton)));
+                };
+              },
+              render$f: function (this$SplitDropDownButton) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-default'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', _.hu.nevermind.reakt.example.SplitDropDownButton.f(this$SplitDropDownButton))], _.hu.nevermind.reakt.example.SplitDropDownButton.f_0(this$SplitDropDownButton)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-default dropdown-toggle'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('data-toggle', 'dropdown')], _.hu.nevermind.reakt.example.SplitDropDownButton.f_2));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.ul_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'dropdown-menu'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menu')], _.hu.nevermind.reakt.example.SplitDropDownButton.f_7(this$SplitDropDownButton)));
                 };
               }
             }),
@@ -1032,10 +1161,9 @@
             }),
             AddEventDropDownButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(props, body) {
-              if (body === void 0)
-                body = _.hu.nevermind.reakt.example.AddEventDropDownButton.AddEventDropDownButton$f;
-              $fun.baseInitializer.call(this, props, body);
+            }, function $fun(callback) {
+              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.AddEventDropDownButton.AddEventDropDownButton$f);
+              this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.AddEventDropDownButton.prototype */ {
               render: function () {
                 var tmp$0, tmp$1;
@@ -1044,7 +1172,7 @@
                 Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventStore.getEvents().values(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_0(eventsByTemplateIds));
                 tmp$0 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(eventsByTemplateIds.entrySet(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_1);
                 var orderedTemplateIds = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(tmp$0, _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_2);
-                tmp$1 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(orderedTemplateIds), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_3);
+                tmp$1 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(orderedTemplateIds), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_3(this));
                 var items = tmp$1;
                 return (new _.hu.nevermind.reakt.example.DropDownButton('Add', items, [])).render();
               }
@@ -1068,9 +1196,48 @@
               render$f_2: function (it) {
                 return it.getKey();
               },
-              render$f_3: function (it) {
-                var template = _.hu.nevermind.timeline.store.EventTemplateStore.get(it);
-                return new _.hu.nevermind.reakt.example.DropDownButtonItem(template.name, null);
+              createEventCreationPayload$f: function (it) {
+                return it.value;
+              },
+              createEventCreationPayload$f_0: function (template) {
+                return function (index, value) {
+                  var templateFieldId = template.fieldIds.get_za3lpa$(index);
+                  var fieldTemplate = _.hu.nevermind.timeline.store.EventTemplateFieldStore.get(templateFieldId);
+                  var extractedValue = fieldTemplate.type.readValue(value);
+                  return new _.hu.nevermind.timeline.EventFieldCreationPayload(fieldTemplate.id, extractedValue);
+                };
+              },
+              createEventCreationPayload: function (eventFormSchema, template) {
+                return function () {
+                  var tmp$0, tmp$1;
+                  var date = _.net.yested.utils.Moment.object.parse_puj7f4$(eventFormSchema.dateInput.value, eventFormSchema.dateFormat.toString());
+                  var comment = eventFormSchema.commentInput.value;
+                  tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(eventFormSchema.fieldInputs, _.hu.nevermind.reakt.example.AddEventDropDownButton.createEventCreationPayload$f);
+                  tmp$1 = Kotlin.modules['stdlib'].kotlin.mapIndexed_v62v4j$(tmp$0, _.hu.nevermind.reakt.example.AddEventDropDownButton.createEventCreationPayload$f_0(template));
+                  var eventFieldCreationPayload = tmp$1;
+                  var eventChangePayload = new _.hu.nevermind.timeline.EventCreationPayload(template.id, date, comment, eventFieldCreationPayload);
+                  return eventChangePayload;
+                };
+              },
+              f: function (createEventCreationPayload) {
+                return function () {
+                  var eventCreationPayload = createEventCreationPayload();
+                  _.hu.nevermind.timeline.Actions.eventCreated.dispatch_za3rmp$(eventCreationPayload);
+                };
+              },
+              f_0: function (template, this$AddEventDropDownButton) {
+                return function () {
+                  var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(template);
+                  var createEventCreationPayload = _.hu.nevermind.reakt.example.AddEventDropDownButton.createEventCreationPayload(eventFormSchema, template);
+                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(template, eventFormSchema, null, _.hu.nevermind.reakt.example.AddEventDropDownButton.f(createEventCreationPayload));
+                  this$AddEventDropDownButton.callback(eventEditorModalWindowState);
+                };
+              },
+              render$f_3: function (this$AddEventDropDownButton) {
+                return function (it) {
+                  var template = _.hu.nevermind.timeline.store.EventTemplateStore.get(it);
+                  return new _.hu.nevermind.reakt.example.DropDownButtonItem(template.name, _.hu.nevermind.reakt.example.AddEventDropDownButton.f_0(template, this$AddEventDropDownButton));
+                };
               }
             }),
             EventGridRow: Kotlin.createClass(function () {
@@ -1081,7 +1248,7 @@
               this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.EventGridRow.prototype */ {
               render: function () {
-                var tmp$0, tmp$1;
+                var tmp$0;
                 var templ = _.hu.nevermind.timeline.store.EventTemplateStore.get(this.event.templateId);
                 if (templ.useDateTime) {
                   tmp$0 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventGridRow.render$f);
@@ -1090,14 +1257,7 @@
                   tmp$0 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventGridRow.render$f_0);
                 }
                 var dateFormat = tmp$0;
-                if (Kotlin.equals(this.event.id, new _.hu.nevermind.timeline.entities.Id(0))) {
-                  tmp$1 = 'warning';
-                }
-                 else {
-                  tmp$1 = '';
-                }
-                var className = tmp$1;
-                return _.hu.nevermind.reakt.tr_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', className)], _.hu.nevermind.reakt.example.EventGridRow.render$f_1(this, dateFormat, templ));
+                return _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.render$f_1(this, dateFormat, templ));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventGridRow */ {
               EventGridRow$f: function () {
@@ -1120,9 +1280,6 @@
               },
               f_1: function (field) {
                 return function () {
-                  if (_.hu.nevermind.timeline.store.EventTemplateFieldStore.getFields().get_za3rmp$(field.templateFieldId) == null) {
-                    this.plus_pdl1w0$('asd');
-                  }
                   var fieldTemplate = _.hu.nevermind.timeline.store.EventTemplateFieldStore.get(field.templateFieldId);
                   this.plus_pdl1w0$(fieldTemplate.name);
                 };
@@ -1143,7 +1300,7 @@
                   return new _.hu.nevermind.timeline.EventFieldCreationPayload(fieldTemplate.id, extractedValue);
                 };
               },
-              createEventCreationPayload: function (eventFormSchema, dateFormat, this$EventGridRow, copyEvent) {
+              createEventCreationPayload: function (eventFormSchema, dateFormat, this$EventGridRow) {
                 return function () {
                   var tmp$0, tmp$1;
                   var date = _.net.yested.utils.Moment.object.parse_puj7f4$(eventFormSchema.dateInput.value, dateFormat.toString());
@@ -1151,6 +1308,7 @@
                   tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(eventFormSchema.fieldInputs, _.hu.nevermind.reakt.example.EventGridRow.createEventCreationPayload$f);
                   tmp$1 = Kotlin.modules['stdlib'].kotlin.mapIndexed_v62v4j$(tmp$0, _.hu.nevermind.reakt.example.EventGridRow.createEventCreationPayload$f_0(this$EventGridRow));
                   var eventFieldChangesPayload = tmp$1;
+                  var copyEvent = this$EventGridRow.event.copy_qjs4h0$(new _.hu.nevermind.timeline.entities.Id(0));
                   var eventChangePayload = new _.hu.nevermind.timeline.EventCreationPayload(copyEvent.templateId, date, comment, eventFieldChangesPayload);
                   return eventChangePayload;
                 };
@@ -1161,22 +1319,12 @@
                   _.hu.nevermind.timeline.Actions.eventCreated.dispatch_za3rmp$(eventCreationPayload);
                 };
               },
-              f_4: function (dateFormat, this$EventGridRow, copyEvent) {
+              f_4: function (templ, dateFormat, this$EventGridRow) {
                 return function () {
-                  var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(dateFormat, this$EventGridRow.event);
-                  var createEventCreationPayload = _.hu.nevermind.reakt.example.EventGridRow.createEventCreationPayload(eventFormSchema, dateFormat, this$EventGridRow, copyEvent);
-                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(this$EventGridRow.event, eventFormSchema, _.hu.nevermind.reakt.example.EventGridRow.f_3(createEventCreationPayload));
+                  var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(templ);
+                  var createEventCreationPayload = _.hu.nevermind.reakt.example.EventGridRow.createEventCreationPayload(eventFormSchema, dateFormat, this$EventGridRow);
+                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(templ, eventFormSchema, this$EventGridRow.event, _.hu.nevermind.reakt.example.EventGridRow.f_3(createEventCreationPayload));
                   this$EventGridRow.callback(eventEditorModalWindowState);
-                };
-              },
-              f_5: function () {
-                this.plus_pdl1w0$('Copy');
-              },
-              f_6: function (this$EventGridRow, dateFormat) {
-                return function () {
-                  var copyEvent = this$EventGridRow.event.copy_qjs4h0$(new _.hu.nevermind.timeline.entities.Id(0));
-                  var onClick = _.hu.nevermind.reakt.example.EventGridRow.f_4(dateFormat, this$EventGridRow, copyEvent);
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-info btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', onClick)], _.hu.nevermind.reakt.example.EventGridRow.f_5));
                 };
               },
               createEventChangePayload$f: function (it) {
@@ -1201,45 +1349,27 @@
                   return eventChangePayload;
                 };
               },
-              f_7: function (createEventChangePayload) {
+              f_5: function (createEventChangePayload) {
                 return function () {
                   var eventChangePayload = createEventChangePayload();
                   _.hu.nevermind.timeline.Actions.eventEdited.dispatch_za3rmp$(eventChangePayload);
                 };
               },
-              f_8: function (dateFormat, this$EventGridRow) {
+              f_6: function (templ, dateFormat, this$EventGridRow) {
                 return function () {
-                  var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(dateFormat, this$EventGridRow.event);
+                  var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(templ);
                   var createEventChangePayload = _.hu.nevermind.reakt.example.EventGridRow.createEventChangePayload(eventFormSchema, dateFormat, this$EventGridRow);
-                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(this$EventGridRow.event, eventFormSchema, _.hu.nevermind.reakt.example.EventGridRow.f_7(createEventChangePayload));
+                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(templ, eventFormSchema, this$EventGridRow.event, _.hu.nevermind.reakt.example.EventGridRow.f_5(createEventChangePayload));
                   this$EventGridRow.callback(eventEditorModalWindowState);
                 };
               },
-              f_9: function () {
-                this.plus_pdl1w0$('Edit');
+              f_7: function () {
               },
-              f_10: function (dateFormat, this$EventGridRow) {
+              f_8: function (templ, dateFormat, this$EventGridRow) {
                 return function () {
-                  var onClick = _.hu.nevermind.reakt.example.EventGridRow.f_8(dateFormat, this$EventGridRow);
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-warning btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', onClick)], _.hu.nevermind.reakt.example.EventGridRow.f_9));
-                };
-              },
-              f_11: function () {
-                this.plus_pdl1w0$('Delete');
-              },
-              f_12: function () {
-                this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(void 0, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-danger btn-xs')], _.hu.nevermind.reakt.example.EventGridRow.f_11));
-              },
-              f_13: function (this$EventGridRow, dateFormat) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_6(this$EventGridRow, dateFormat)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_10(dateFormat, this$EventGridRow)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventGridRow.f_12));
-                };
-              },
-              f_14: function (this$EventGridRow, dateFormat) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.EventGridRow.f_13(this$EventGridRow, dateFormat)));
+                  var onCopyClick = _.hu.nevermind.reakt.example.EventGridRow.f_4(templ, dateFormat, this$EventGridRow);
+                  var onEditClick = _.hu.nevermind.reakt.example.EventGridRow.f_6(templ, dateFormat, this$EventGridRow);
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.SplitDropDownButton(new _.hu.nevermind.reakt.example.DropDownButtonItem('Edit', onEditClick), [new _.hu.nevermind.reakt.example.DropDownButtonItem('Copy', onCopyClick), new _.hu.nevermind.reakt.example.DropDownButtonItem('Delete', _.hu.nevermind.reakt.example.EventGridRow.f_7)], []));
                 };
               },
               render$f_1: function (this$EventGridRow, dateFormat, templ) {
@@ -1249,7 +1379,84 @@
                   var field = _.hu.nevermind.timeline.store.EventStore.getField(this$EventGridRow.event.fieldIds.get_za3lpa$(0));
                   this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_1(field)));
                   this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.f_2(field)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGridRow.f_14(this$EventGridRow, dateFormat)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGridRow.f_8(templ, dateFormat, this$EventGridRow)));
+                };
+              }
+            }),
+            EventTemplateGridRow: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.ReactClass];
+            }, function $fun(template, callback) {
+              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.EventTemplateGridRow.EventTemplateGridRow$f);
+              this.template = template;
+              this.callback = callback;
+            }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGridRow.prototype */ {
+              render: function () {
+                return _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGridRow.render$f(this));
+              }
+            }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGridRow */ {
+              EventTemplateGridRow$f: function () {
+              },
+              f: function (this$EventTemplateGridRow) {
+                return function () {
+                  this.plus_pdl1w0$(this$EventTemplateGridRow.template.name);
+                };
+              },
+              f_0: function () {
+              },
+              f_1: function () {
+              },
+              f_2: function () {
+              },
+              f_3: function () {
+                this.plus_zhpcab$(new _.hu.nevermind.reakt.example.SplitDropDownButton(new _.hu.nevermind.reakt.example.DropDownButtonItem('Edit', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_0), [new _.hu.nevermind.reakt.example.DropDownButtonItem('Copy', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_1), new _.hu.nevermind.reakt.example.DropDownButtonItem('Delete', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_2)], []));
+              },
+              render$f: function (this$EventTemplateGridRow) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGridRow.f(this$EventTemplateGridRow)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.td_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventTemplateGridRow.f_3));
+                };
+              }
+            }),
+            EventTemplateGrid: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.ReactClass];
+            }, function $fun(appState, callback) {
+              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.EventTemplateGrid.EventTemplateGrid$f);
+              this.appState = appState;
+              this.callback = callback;
+            }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGrid.prototype */ {
+              render: function () {
+                return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover table-condensed')], _.hu.nevermind.reakt.example.EventTemplateGrid.render$f(this));
+              }
+            }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGrid */ {
+              EventTemplateGrid$f: function () {
+              },
+              f: function () {
+                this.plus_pdl1w0$('Name');
+              },
+              f_0: function () {
+                this.plus_pdl1w0$('');
+              },
+              f_1: function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-2')], _.hu.nevermind.reakt.example.EventTemplateGrid.f));
+                this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventTemplateGrid.f_0));
+              },
+              f_2: function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_1));
+              },
+              f_3: function (this$EventTemplateGrid, this$) {
+                return function (it) {
+                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventTemplateGridRow(it, this$EventTemplateGrid.callback));
+                };
+              },
+              f_4: function (this$EventTemplateGrid) {
+                return function () {
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventTemplateStore.getTemplates().values(), _.hu.nevermind.reakt.example.EventTemplateGrid.f_3(this$EventTemplateGrid, this));
+                };
+              },
+              render$f: function (this$EventTemplateGrid) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_2));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.tbody_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_4(this$EventTemplateGrid)));
                 };
               }
             }),
@@ -1261,7 +1468,7 @@
               this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.EventGrid.prototype */ {
               render: function () {
-                return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover')], _.hu.nevermind.reakt.example.EventGrid.render$f(this));
+                return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover table-condensed')], _.hu.nevermind.reakt.example.EventGrid.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventGrid */ {
               EventGrid$f: function () {
@@ -1288,37 +1495,40 @@
                 this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGrid.f_2));
                 this.plus_oclkc7$(_.hu.nevermind.reakt.th_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-3')], _.hu.nevermind.reakt.example.EventGrid.f_3));
               },
-              f_5: function (this$EventGrid) {
+              f_5: function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_4));
+              },
+              f_6: function (this$EventGrid) {
                 return function (it) {
                   return this$EventGrid.appState.filteringTemplateIds.contains_za3rmp$(it.templateId);
                 };
               },
-              f_6: function (it) {
+              f_7: function (it) {
                 return it.date.millisecondsSinceUnixEpoch;
               },
-              f_7: function (this$EventGrid, this$) {
+              f_8: function (this$EventGrid, this$) {
                 return function (it) {
                   this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGridRow(it, this$EventGrid.callback));
                 };
               },
-              f_8: function (this$EventGrid) {
+              f_9: function (this$EventGrid) {
                 return function () {
                   var tmp$0, tmp$1, tmp$2;
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_4));
                   if (this$EventGrid.appState.filteringTemplateIds.isEmpty()) {
                     tmp$1 = _.hu.nevermind.timeline.store.EventStore.getEvents().values();
                   }
                    else {
-                    tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_azvtw4$(_.hu.nevermind.timeline.store.EventStore.getEvents().values(), _.hu.nevermind.reakt.example.EventGrid.f_5(this$EventGrid));
+                    tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_azvtw4$(_.hu.nevermind.timeline.store.EventStore.getEvents().values(), _.hu.nevermind.reakt.example.EventGrid.f_6(this$EventGrid));
                     tmp$1 = tmp$0;
                   }
-                  tmp$2 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(tmp$1, _.hu.nevermind.reakt.example.EventGrid.f_6);
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(tmp$2), _.hu.nevermind.reakt.example.EventGrid.f_7(this$EventGrid, this));
+                  tmp$2 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(tmp$1, _.hu.nevermind.reakt.example.EventGrid.f_7);
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(tmp$2), _.hu.nevermind.reakt.example.EventGrid.f_8(this$EventGrid, this));
                 };
               },
               render$f: function (this$EventGrid) {
                 return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_8(this$EventGrid)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_5));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.tbody_3topnc$([], _.hu.nevermind.reakt.example.EventGrid.f_9(this$EventGrid)));
                 };
               }
             }),
@@ -1375,22 +1585,13 @@
               }
             }),
             ModalWindow: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.StatefulReactClass];
+              return [_.hu.nevermind.reakt.ReactClass];
             }, function $fun() {
-              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.ModalData(false, null), [], _.hu.nevermind.reakt.example.ModalWindow.ModalWindow$f);
+              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.ModalWindow.ModalWindow$f);
             }, /** @lends _.hu.nevermind.reakt.example.ModalWindow.prototype */ {
               render: function () {
-                var tmp$0;
-                if (this.state.visible) {
-                  tmp$0 = new Kotlin.modules['stdlib'].kotlin.Pair('modal fade in', _.hu.nevermind.reakt.example.ModalWindow.render$f());
-                }
-                 else {
-                  tmp$0 = new Kotlin.modules['stdlib'].kotlin.Pair('modal fade hide', _.hu.nevermind.reakt.example.ModalWindow.render$f_0());
-                }
-                var tmp$1 = tmp$0
-                , className = tmp$1.component1()
-                , style = tmp$1.component2();
-                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', className), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('style', style)], _.hu.nevermind.reakt.example.ModalWindow.render$f_1(this));
+                var style = _.hu.nevermind.reakt.example.ModalWindow.render$f();
+                return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'modal fade in'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('style', style)], _.hu.nevermind.reakt.example.ModalWindow.render$f_0(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.ModalWindow */ {
               ModalWindow$f: function () {
@@ -1399,9 +1600,6 @@
                 return Kotlin.createObject(null, function () {
                   this.display = 'block';
                 });
-              },
-              render$f_0: function () {
-                return Kotlin.createObject(null, null);
               },
               f: function (this$ModalWindow) {
                 return function () {
@@ -1430,11 +1628,9 @@
                   this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'modal-content')], _.hu.nevermind.reakt.example.ModalWindow.f_2(this$ModalWindow)));
                 };
               },
-              render$f_1: function (this$ModalWindow) {
+              render$f_0: function (this$ModalWindow) {
                 return function () {
-                  if (this$ModalWindow.state.visible) {
-                    this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'modal-dialog')], _.hu.nevermind.reakt.example.ModalWindow.f_3(this$ModalWindow)));
-                  }
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'modal-dialog')], _.hu.nevermind.reakt.example.ModalWindow.f_3(this$ModalWindow)));
                 };
               }
             }),
@@ -1455,70 +1651,105 @@
               }
               return tmp$0;
             },
-            EventEditorModalState: Kotlin.createClass(null, function (event, eventFormSchema, onSave) {
-              this.event = event;
+            EventEditorModalState: Kotlin.createClass(null, function (eventTemplate, eventFormSchema, event, onSave) {
+              this.eventTemplate = eventTemplate;
               this.eventFormSchema = eventFormSchema;
+              this.event = event;
               this.onSave = onSave;
             }, /** @lends _.hu.nevermind.reakt.example.EventEditorModalState.prototype */ {
               component1: function () {
-                return this.event;
+                return this.eventTemplate;
               },
               component2: function () {
                 return this.eventFormSchema;
               },
               component3: function () {
+                return this.event;
+              },
+              component4: function () {
                 return this.onSave;
               },
-              copy: function (event, eventFormSchema, onSave) {
-                return new _.hu.nevermind.reakt.example.EventEditorModalState(event === void 0 ? this.event : event, eventFormSchema === void 0 ? this.eventFormSchema : eventFormSchema, onSave === void 0 ? this.onSave : onSave);
+              copy: function (eventTemplate, eventFormSchema, event, onSave) {
+                return new _.hu.nevermind.reakt.example.EventEditorModalState(eventTemplate === void 0 ? this.eventTemplate : eventTemplate, eventFormSchema === void 0 ? this.eventFormSchema : eventFormSchema, event === void 0 ? this.event : event, onSave === void 0 ? this.onSave : onSave);
               },
               toString: function () {
-                return 'EventEditorModalState(event=' + Kotlin.toString(this.event) + (', eventFormSchema=' + Kotlin.toString(this.eventFormSchema)) + (', onSave=' + Kotlin.toString(this.onSave)) + ')';
+                return 'EventEditorModalState(eventTemplate=' + Kotlin.toString(this.eventTemplate) + (', eventFormSchema=' + Kotlin.toString(this.eventFormSchema)) + (', event=' + Kotlin.toString(this.event)) + (', onSave=' + Kotlin.toString(this.onSave)) + ')';
               },
               hashCode: function () {
                 var result = 0;
-                result = result * 31 + Kotlin.hashCode(this.event) | 0;
+                result = result * 31 + Kotlin.hashCode(this.eventTemplate) | 0;
                 result = result * 31 + Kotlin.hashCode(this.eventFormSchema) | 0;
+                result = result * 31 + Kotlin.hashCode(this.event) | 0;
                 result = result * 31 + Kotlin.hashCode(this.onSave) | 0;
                 return result;
               },
               equals_za3rmp$: function (other) {
-                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.event, other.event) && Kotlin.equals(this.eventFormSchema, other.eventFormSchema) && Kotlin.equals(this.onSave, other.onSave))));
+                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.eventTemplate, other.eventTemplate) && Kotlin.equals(this.eventFormSchema, other.eventFormSchema) && Kotlin.equals(this.event, other.event) && Kotlin.equals(this.onSave, other.onSave))));
+              }
+            }),
+            EventEditorModalParent: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.StatefulReactClass];
+            }, function $fun() {
+              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.ModalData(false, null), [], _.hu.nevermind.reakt.example.EventEditorModalParent.EventEditorModalParent$f);
+            }, /** @lends _.hu.nevermind.reakt.example.EventEditorModalParent.prototype */ {
+              render: function () {
+                var tmp$0, tmp$1;
+                if (this.state.visible) {
+                  tmp$1 = (new _.hu.nevermind.reakt.example.EventEditorModal((tmp$0 = this.state.data) != null ? tmp$0 : Kotlin.throwNPE(), _.hu.nevermind.reakt.example.EventEditorModalParent.render$f(this))).createElement();
+                }
+                 else {
+                  tmp$1 = _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.example.EventEditorModalParent.render$f_0);
+                }
+                return tmp$1;
+              }
+            }, /** @lends _.hu.nevermind.reakt.example.EventEditorModalParent */ {
+              EventEditorModalParent$f: function () {
+              },
+              f: function () {
+                return new _.hu.nevermind.reakt.example.ModalData(false, null);
+              },
+              render$f: function (this$EventEditorModalParent) {
+                return function () {
+                  this$EventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.EventEditorModalParent.f);
+                };
+              },
+              render$f_0: function () {
               }
             }),
             EventEditorModal: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.example.ModalWindow];
-            }, function $fun() {
+            }, function $fun(data, onCancel) {
               $fun.baseInitializer.call(this);
+              this.data = data;
+              this.onCancel = onCancel;
             }, /** @lends _.hu.nevermind.reakt.example.EventEditorModal.prototype */ {
-              event_hovmv6$: {
+              templ_hgxero$: {
                 get: function () {
-                  var tmp$0;
-                  return ((tmp$0 = this.state.data) != null ? tmp$0 : Kotlin.throwNPE()).event;
+                  return this.data.eventTemplate;
                 }
               },
               componentDidMount: function () {
                 _.hu.nevermind.reakt.example.ModalWindow.prototype.componentDidMount.call(this);
+                if (this.data.event != null) {
+                  this.data.eventFormSchema.setData(this.data.event);
+                }
               },
               componentWillUnmount: function () {
               },
               header: function () {
-                var templ = _.hu.nevermind.timeline.store.EventTemplateStore.get(this.event_hovmv6$.templateId);
-                return _.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.EventEditorModal.header$f(templ));
+                return _.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.EventEditorModal.header$f(this));
               },
               content: function () {
-                var tmp$0, tmp$1;
-                var subTitle = Kotlin.equals(this.event_hovmv6$.id, new _.hu.nevermind.timeline.entities.Id(0)) ? 'Copy' : null;
-                var templ = _.hu.nevermind.timeline.store.EventTemplateStore.get(this.event_hovmv6$.templateId);
-                return (tmp$1 = (new _.hu.nevermind.reakt.example.Form(templ.name, ((tmp$0 = this.state.data) != null ? tmp$0 : Kotlin.throwNPE()).eventFormSchema, subTitle)).render()) != null ? tmp$1 : Kotlin.throwNPE();
+                var tmp$0;
+                return (tmp$0 = (new _.hu.nevermind.reakt.example.Form(this.templ_hgxero$.name, this.data.eventFormSchema)).render()) != null ? tmp$0 : Kotlin.throwNPE();
               },
               footer: function () {
                 return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.EventEditorModal.footer$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventEditorModal */ {
-              header$f: function (templ) {
+              header$f: function (this$EventEditorModal) {
                 return function () {
-                  this.plus_pdl1w0$(templ.name);
+                  this.plus_pdl1w0$(this$EventEditorModal.templ_hgxero$.name);
                 };
               },
               f: function () {
@@ -1526,31 +1757,21 @@
               },
               f_0: function (this$EventEditorModal) {
                 return function () {
-                  var tmp$0;
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-success btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', ((tmp$0 = this$EventEditorModal.state.data) != null ? tmp$0 : Kotlin.throwNPE()).onSave)], _.hu.nevermind.reakt.example.EventEditorModal.f));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-success btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', this$EventEditorModal.data.onSave)], _.hu.nevermind.reakt.example.EventEditorModal.f));
                 };
               },
               f_1: function () {
-                return new _.hu.nevermind.reakt.example.ModalData(false, null);
+                this.plus_pdl1w0$('Cancel');
               },
               f_2: function (this$EventEditorModal) {
                 return function () {
-                  this$EventEditorModal.changeState_un3fny$(_.hu.nevermind.reakt.example.EventEditorModal.f_1);
-                };
-              },
-              f_3: function () {
-                this.plus_pdl1w0$('Cancel');
-              },
-              f_4: function (this$EventEditorModal) {
-                return function () {
-                  var onClick = _.hu.nevermind.reakt.example.EventEditorModal.f_2(this$EventEditorModal);
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-warning btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', onClick)], _.hu.nevermind.reakt.example.EventEditorModal.f_3));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-warning btn-xs'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', this$EventEditorModal.onCancel)], _.hu.nevermind.reakt.example.EventEditorModal.f_1));
                 };
               },
               footer$f: function (this$EventEditorModal) {
                 return function () {
                   this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventEditorModal.f_0(this$EventEditorModal)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventEditorModal.f_4(this$EventEditorModal)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-1')], _.hu.nevermind.reakt.example.EventEditorModal.f_2(this$EventEditorModal)));
                 };
               }
             }),
@@ -1600,34 +1821,70 @@
               f_1: function () {
                 this.plus_pdl1w0$('Events');
               },
-              f_2: function (this$TimelineApp, selectedId) {
-                return function () {
-                  return this$TimelineApp.state.copy(Kotlin.modules['stdlib'].kotlin.plus_pjxz11$(this$TimelineApp.state.filteringTemplateIds, selectedId));
-                };
-              },
-              f_3: function (this$TimelineApp) {
-                return function (selectedId) {
-                  this$TimelineApp.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_2(this$TimelineApp, selectedId));
-                };
-              },
-              f_4: function (eventEditorModalState) {
+              f_2: function (eventEditorModalState) {
                 return function () {
                   return new _.hu.nevermind.reakt.example.ModalData(true, eventEditorModalState);
                 };
               },
-              f_5: function (eventEditorModal) {
+              f_3: function (eventEditorModalParent) {
                 return function (eventEditorModalState) {
-                  eventEditorModal.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_4(eventEditorModalState));
+                  eventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_2(eventEditorModalState));
+                };
+              },
+              f_4: function (this$TimelineApp, selectedId) {
+                return function () {
+                  return this$TimelineApp.state.copy(Kotlin.modules['stdlib'].kotlin.plus_pjxz11$(this$TimelineApp.state.filteringTemplateIds, selectedId));
+                };
+              },
+              f_5: function (this$TimelineApp) {
+                return function (selectedId) {
+                  this$TimelineApp.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_4(this$TimelineApp, selectedId));
+                };
+              },
+              f_6: function (eventEditorModalState) {
+                return function () {
+                  return new _.hu.nevermind.reakt.example.ModalData(true, eventEditorModalState);
+                };
+              },
+              f_7: function (eventEditorModalParent) {
+                return function (eventEditorModalState) {
+                  eventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_6(eventEditorModalState));
+                };
+              },
+              f_8: function (eventEditorModalParent, this$TimelineApp) {
+                return function () {
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.TimelineApp.f_1));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.AddEventDropDownButton(_.hu.nevermind.reakt.example.TimelineApp.f_3(eventEditorModalParent)));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventFilter(this$TimelineApp.state.filteringTemplateIds, _.hu.nevermind.reakt.example.TimelineApp.f_5(this$TimelineApp)));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGrid(this$TimelineApp.state, _.hu.nevermind.reakt.example.TimelineApp.f_7(eventEditorModalParent)));
+                };
+              },
+              f_9: function (eventEditorModalState) {
+                return function () {
+                  return new _.hu.nevermind.reakt.example.ModalData(true, eventEditorModalState);
+                };
+              },
+              f_10: function (eventEditorModalParent) {
+                return function (eventEditorModalState) {
+                  eventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_9(eventEditorModalState));
+                };
+              },
+              f_11: function (this$TimelineApp, eventEditorModalParent) {
+                return function () {
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventTemplateGrid(this$TimelineApp.state, _.hu.nevermind.reakt.example.TimelineApp.f_10(eventEditorModalParent)));
+                };
+              },
+              f_12: function (this$TimelineApp) {
+                return function () {
+                  var eventEditorModalParent = new _.hu.nevermind.reakt.example.EventEditorModalParent();
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-6')], _.hu.nevermind.reakt.example.TimelineApp.f_8(eventEditorModalParent, this$TimelineApp)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-4 col-md-offset-2')], _.hu.nevermind.reakt.example.TimelineApp.f_11(this$TimelineApp, eventEditorModalParent)));
+                  this.plus_zhpcab$(eventEditorModalParent);
                 };
               },
               render$f: function (this$TimelineApp) {
                 return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.TimelineApp.f_1));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.AddEventDropDownButton([]));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventFilter(this$TimelineApp.state.filteringTemplateIds, _.hu.nevermind.reakt.example.TimelineApp.f_3(this$TimelineApp)));
-                  var eventEditorModal = new _.hu.nevermind.reakt.example.EventEditorModal();
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGrid(this$TimelineApp.state, _.hu.nevermind.reakt.example.TimelineApp.f_5(eventEditorModal)));
-                  this.plus_zhpcab$(eventEditorModal);
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.TimelineApp.f_12(this$TimelineApp)));
                 };
               }
             }),
