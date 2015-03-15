@@ -68,6 +68,28 @@
               this.dispatching_1gxqlx$ = false;
             }
           });
+          this.testAction1 = new _.hu.nevermind.flux.ActionDef();
+          this.CTestStore = Kotlin.createObject(function () {
+            return [_.hu.nevermind.flux.Store];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+            this.callbacks = '';
+            this.register_x5ky9g$(_.hu.nevermind.flux.testAction1, _.hu.nevermind.flux.CTestStore$f(this));
+          });
+          this.ATestStore = Kotlin.createObject(function () {
+            return [_.hu.nevermind.flux.Store];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+            this.callbacks = '';
+            this.register_x5ky9g$(_.hu.nevermind.flux.testAction1, _.hu.nevermind.flux.ATestStore$f(this));
+          });
+          this.BTestStore = Kotlin.createObject(function () {
+            return [_.hu.nevermind.flux.Store];
+          }, function $fun() {
+            $fun.baseInitializer.call(this);
+            this.callbacks = '';
+            this.register_x5ky9g$(_.hu.nevermind.flux.testAction1, _.hu.nevermind.flux.BTestStore$f(this));
+          });
         }, /** @lends _.hu.nevermind.flux */ {
           Store: Kotlin.createClass(null, function () {
             this.changeListeners_pcuery$ = Kotlin.modules['stdlib'].kotlin.hashMapOf_eoa9s7$([]);
@@ -152,63 +174,330 @@
           startDispatching$f: function (it) {
             it.pending = false;
             it.handled = false;
-          }
+          },
+          TestAction1Payload: Kotlin.createClass(null, null),
+          CTestStore$f: function (this$CTestStore) {
+            return function (count) {
+              this.waitFor([_.hu.nevermind.flux.ATestStore, _.hu.nevermind.flux.BTestStore]);
+              this$CTestStore.callbacks = _.hu.nevermind.flux.ATestStore.callbacks + _.hu.nevermind.flux.BTestStore.callbacks;
+            };
+          },
+          ATestStore$f: function (this$ATestStore) {
+            return function (count) {
+              this$ATestStore.callbacks = this$ATestStore.callbacks + ('a(' + count + ')');
+            };
+          },
+          BTestStore$f: function (this$BTestStore) {
+            return function (count) {
+              this$BTestStore.callbacks = this$BTestStore.callbacks + ('b(' + count + ')');
+            };
+          },
+          DispatcherSpecs: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.flux.DispatcherSpecs.prototype */ {
+            dispatcherShouldExecuteAllSubscriber: function () {
+              _.hu.nevermind.flux.testAction1.dispatch_za3rmp$(2);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)', _.hu.nevermind.flux.ATestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('b(2)', _.hu.nevermind.flux.BTestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)b(2)', _.hu.nevermind.flux.CTestStore.callbacks);
+              _.hu.nevermind.flux.testAction1.dispatch_za3rmp$(3);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)a(3)', _.hu.nevermind.flux.ATestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('b(2)b(3)', _.hu.nevermind.flux.BTestStore.callbacks);
+              Kotlin.modules['stdlib'].kotlin.test.assertEquals_8vv676$('a(2)a(3)b(2)b(3)', _.hu.nevermind.flux.CTestStore.callbacks);
+            }
+          })
         }),
-        reakt: Kotlin.definePackage(null, /** @lends _.hu.nevermind.reakt */ {
-          ReactElementContainer: Kotlin.createClass(null, function () {
-            this.elements = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
-            this.options = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
-          }, /** @lends _.hu.nevermind.reakt.ReactElementContainer.prototype */ {
-            ref: {
+        reakt: Kotlin.definePackage(function () {
+          this.React = Kotlin.createObject(null, function () {
+            this.DOM = React.DOM;
+          }, {
+            render_40g7my$: function (element, container, callback) {
+              if (callback === void 0)
+                callback = _.hu.nevermind.reakt.render_40g7my$f;
+              React.render(element != null ? element.backend : null, container, callback);
+            },
+            createClass_ew72dd$: function (reactClass) {
+              return React.createClass(_.hu.nevermind.reakt.createClass_ew72dd$f(reactClass, this));
+            },
+            readStateFromJsToKotlin: function (self, reactClass) {
+              var props = self.props;
+              var refs = self.refs;
+              reactClass.refs = refs;
+              reactClass.reactComponentJs = self;
+            }
+          });
+        }, /** @lends _.hu.nevermind.reakt */ {
+          ReactClass: Kotlin.createClass(null, function (body) {
+            if (body === void 0)
+              body = _.hu.nevermind.reakt.ReactClass.ReactClass$f;
+            this.children = (new _.hu.nevermind.reakt.ReactElementCollecter(body)).elements;
+            this.reactComponentJs$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
+            this.refs = null;
+            this.reactClassJs = _.hu.nevermind.reakt.React.createClass_ew72dd$(this);
+          }, /** @lends _.hu.nevermind.reakt.ReactClass.prototype */ {
+            componentDidMount: function () {
+            },
+            componentWillUnmount: function () {
+            },
+            reactComponentJs: {
               get: function () {
-                return Kotlin.modules['stdlib'].kotlin.error_za3rmp$('');
+                return this.reactComponentJs$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('reactComponentJs'));
               },
-              set: function (value) {
-                this.options.add_za3rmp$(Kotlin.modules['stdlib'].kotlin.to_l1ob02$('ref', value.name));
+              set: function (reactComponentJs) {
+                this.reactComponentJs$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('reactComponentJs'), reactComponentJs);
               }
             },
+            ref_61zpoe$: function (name) {
+              return new _.hu.nevermind.reakt.ReactRef(this, name);
+            },
+            createElement: function () {
+              var tmp$0;
+              var fullOptions = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+              var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
+              return new _.hu.nevermind.reakt.ReactElement((tmp$0 = React).createElement.apply(tmp$0, [this.reactClassJs, constructorParams].concat(this.children)));
+            }
+          }, /** @lends _.hu.nevermind.reakt.ReactClass */ {
+            ReactClass$f: function () {
+            }
+          }),
+          ReactElement: Kotlin.createClass(null, function (backend) {
+            this.backend = backend;
+          }),
+          ReactDom: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactDom.prototype */ {
+            get: function (tagName) {
+              return noImpl;
+            }
+          }),
+          render_40g7my$f: function () {
+          },
+          f: function (reactClass, this$React) {
+            return function () {
+              var tmp$0;
+              var self = null;
+              self = this;
+              this$React.readStateFromJsToKotlin(self, reactClass);
+              return (tmp$0 = reactClass.render()) != null ? tmp$0.backend : null;
+            };
+          },
+          f_0: function (reactClass, this$React) {
+            return function () {
+              var self = null;
+              self = this;
+              this$React.readStateFromJsToKotlin(self, reactClass);
+              reactClass.componentDidMount();
+            };
+          },
+          f_1: function (reactClass, this$React) {
+            return function () {
+              var self = null;
+              self = this;
+              this$React.readStateFromJsToKotlin(self, reactClass);
+              reactClass.componentWillUnmount();
+            };
+          },
+          createClass_ew72dd$f: function (reactClass, this$React) {
+            return Kotlin.createObject(null, function () {
+              this.render = _.hu.nevermind.reakt.f(reactClass, this$React);
+              this.componentDidMount = _.hu.nevermind.reakt.f_0(reactClass, this$React);
+              this.componentWillUnmount = _.hu.nevermind.reakt.f_1(reactClass, this$React);
+            });
+          },
+          ReactPropsJs: Kotlin.createClass(null, function () {
+            this.children = noImpl;
+          }, /** @lends _.hu.nevermind.reakt.ReactPropsJs.prototype */ {
+            get: function (name) {
+              return noImpl;
+            },
+            set: function (name, value) {
+              noImpl;
+            }
+          }),
+          ReactRefs: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactRefs.prototype */ {
+            get: function (name) {
+              return noImpl;
+            },
+            set: function (name, value) {
+              noImpl;
+            }
+          }),
+          ReactRef: Kotlin.createClass(null, function (reactClass, name) {
+            this.reactClass = reactClass;
+            this.name = name;
+          }, /** @lends _.hu.nevermind.reakt.ReactRef.prototype */ {
+            getDOMNode: function () {
+              var tmp$0;
+              var ref = ((tmp$0 = this.reactClass.refs) != null ? tmp$0 : Kotlin.throwNPE())[this.name];
+              return ref.getDOMNode();
+            },
+            component1: function () {
+              return this.reactClass;
+            },
+            component2: function () {
+              return this.name;
+            },
+            copy_7dm7l9$: function (reactClass, name) {
+              return new _.hu.nevermind.reakt.ReactRef(reactClass === void 0 ? this.reactClass : reactClass, name === void 0 ? this.name : name);
+            },
+            toString: function () {
+              return 'ReactRef(reactClass=' + Kotlin.toString(this.reactClass) + (', name=' + Kotlin.toString(this.name)) + ')';
+            },
+            hashCode: function () {
+              var result = 0;
+              result = result * 31 + Kotlin.hashCode(this.reactClass) | 0;
+              result = result * 31 + Kotlin.hashCode(this.name) | 0;
+              return result;
+            },
+            equals_za3rmp$: function (other) {
+              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.reactClass, other.reactClass) && Kotlin.equals(this.name, other.name))));
+            }
+          }),
+          StatefulReactClass: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.ReactClass];
+          }, function $fun(initialState, body) {
+            if (body === void 0)
+              body = _.hu.nevermind.reakt.StatefulReactClass.StatefulReactClass$f;
+            $fun.baseInitializer.call(this, body);
+            this.$state_poix00$ = initialState;
+          }, /** @lends _.hu.nevermind.reakt.StatefulReactClass.prototype */ {
+            state: {
+              get: function () {
+                return this.$state_poix00$;
+              },
+              set: function (state) {
+                this.$state_poix00$ = state;
+              }
+            },
+            changeState_un3fny$: function (body) {
+              this.state = body();
+              this.forceUpdate();
+            },
+            forceUpdate: function () {
+              this.reactComponentJs.forceUpdate();
+            }
+          }, /** @lends _.hu.nevermind.reakt.StatefulReactClass */ {
+            StatefulReactClass$f: function () {
+            }
+          }),
+          ReactComponentJs: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactComponentJs.prototype */ {
+            setState: function (newState) {
+              noImpl;
+            },
+            forceUpdate: function () {
+              noImpl;
+            }
+          }),
+          ReactElementCollecter: Kotlin.createClass(null, function (body) {
+            this.body = body;
+            var reactElementContainer = new _.hu.nevermind.reakt.ReactElementContainer();
+            this.body.call(reactElementContainer);
+            this.elements = Kotlin.copyToArray(reactElementContainer.elements);
+          }),
+          ReactNode: Kotlin.createTrait(null),
+          ReactElementNode: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.ReactNode];
+          }, function (value) {
+            this.$value_fn8hau$ = value;
+          }, /** @lends _.hu.nevermind.reakt.ReactElementNode.prototype */ {
+            value: {
+              get: function () {
+                return this.$value_fn8hau$;
+              }
+            }
+          }),
+          ReactTextNode: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.ReactNode];
+          }, function (value) {
+            this.$value_8k391z$ = value;
+          }, /** @lends _.hu.nevermind.reakt.ReactTextNode.prototype */ {
+            value: {
+              get: function () {
+                return this.$value_8k391z$;
+              }
+            }
+          }),
+          ReactNumberNode: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.ReactNode];
+          }, function (value) {
+            this.$value_pwcgxx$ = value;
+          }, /** @lends _.hu.nevermind.reakt.ReactNumberNode.prototype */ {
+            value: {
+              get: function () {
+                return this.$value_pwcgxx$;
+              }
+            }
+          }),
+          ReactElementContainer: Kotlin.createClass(null, function () {
+            this.elements = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+          }, /** @lends _.hu.nevermind.reakt.ReactElementContainer.prototype */ {
             plus_ow6yss$: function ($receiver) {
               Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$($receiver, _.hu.nevermind.reakt.ReactElementContainer.plus_ow6yss$f(this));
             },
             plus_zhpcab$: function ($receiver) {
-              var reactElementJs = $receiver.createElement().backend;
-              this.elements.add_za3rmp$(reactElementJs);
+              var reactElement = $receiver.createElement();
+              this.elements.add_za3rmp$(new _.hu.nevermind.reakt.ReactElementNode(reactElement));
             },
             plus_oclkc7$: function ($receiver) {
-              this.elements.add_za3rmp$($receiver.backend);
+              this.elements.add_za3rmp$(new _.hu.nevermind.reakt.ReactElementNode($receiver));
             },
-            plus_eg9ybj$: function ($receiver) {
-              Kotlin.modules['stdlib'].kotlin.forEach_5wd4f$($receiver, _.hu.nevermind.reakt.ReactElementContainer.plus_eg9ybj$f(this));
+            plus_ehgxxh$: function ($receiver) {
+              var tmp$0, tmp$1;
+              tmp$1 = this.elements;
+              tmp$0 = Kotlin.modules['stdlib'].kotlin.map_rie7ol$($receiver, _.hu.nevermind.reakt.ReactElementContainer.plus_ehgxxh$f);
+              tmp$1.addAll_4fm7v2$(tmp$0);
             },
             plus_pdl1w0$: function ($receiver) {
+              this.elements.add_za3rmp$(new _.hu.nevermind.reakt.ReactTextNode($receiver));
+            },
+            plus_f2arp1$: function ($receiver) {
               this.elements.add_za3rmp$($receiver);
+            },
+            plus_ms6h6u$: function ($receiver) {
+              Kotlin.modules['stdlib'].kotlin.addAll_p6ac9a$(this.elements, $receiver);
             }
           }, /** @lends _.hu.nevermind.reakt.ReactElementContainer */ {
             plus_ow6yss$f: function (this$ReactElementContainer) {
               return function (it) {
-                this$ReactElementContainer.elements.add_za3rmp$(it.createElement().backend);
+                this$ReactElementContainer.elements.add_za3rmp$(new _.hu.nevermind.reakt.ReactElementNode(it.createElement()));
               };
             },
-            plus_eg9ybj$f: function (this$ReactElementContainer) {
-              return function (it) {
-                this$ReactElementContainer.elements.add_za3rmp$(Kotlin.isType(it, _.hu.nevermind.reakt.ReactElement) ? it.backend : it);
-              };
+            plus_ehgxxh$f: function (it) {
+              return new _.hu.nevermind.reakt.ReactElementNode(it);
             }
           }),
+          createReactElementJs$f: function (it) {
+            return it.value;
+          },
           createReactElementJs: function (tagName, options, addOptions, body) {
+            var tmp$0;
             var fullOptions = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
             Kotlin.modules['stdlib'].kotlin.addAll_7g2der$(fullOptions, options);
             var elements = [];
             if (body != null) {
               var elementContainer = new _.hu.nevermind.reakt.ReactElementContainer();
               body.call(elementContainer);
-              fullOptions.addAll_4fm7v2$(elementContainer.options);
               elements = Kotlin.copyToArray(elementContainer.elements);
             }
             addOptions(fullOptions);
             var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
-            var reactElementJs = _.hu.nevermind.reakt.React.object.DOM[tagName];
-            return new _.hu.nevermind.reakt.ReactElement(reactElementJs(constructorParams, elements));
+            var reactElementJs = _.hu.nevermind.reakt.React.DOM[tagName];
+            tmp$0 = Kotlin.modules['stdlib'].kotlin.map_rie7ol$(elements, _.hu.nevermind.reakt.createReactElementJs$f);
+            var childrenArray = Kotlin.copyToArray(tmp$0);
+            return new _.hu.nevermind.reakt.ReactElement(reactElementJs(constructorParams, childrenArray));
+          },
+          createObjectWithDynamicFields: function (options) {
+            var tmp$1, tmp$2;
+            var tmpObj = Kotlin.createObject(null, null);
+            tmp$1 = options.iterator();
+            while (tmp$1.hasNext()) {
+              var tmp$0 = tmp$1.next()
+              , key = tmp$0.component1()
+              , value = tmp$0.component2();
+              if (Kotlin.isType(value, _.hu.nevermind.reakt.ReactRef))
+                tmp$2 = value.name;
+              else
+                tmp$2 = value;
+              var convertedValue = tmp$2;
+              tmpObj[key] = convertedValue;
+            }
+            return tmpObj;
           },
           div_3topnc$f: function (it) {
           },
@@ -378,269 +667,94 @@
           a_3topnc$: function (options, body) {
             return _.hu.nevermind.reakt.createReactElementJs('a', options, _.hu.nevermind.reakt.a_3topnc$f, body);
           },
-          ReactElement: Kotlin.createClass(null, function (backend) {
-            this.backend = backend;
-          }),
-          ReactDom: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactDom.prototype */ {
-            get: function (tagName) {
-              return noImpl;
+          ContentToggle: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.ReactClass];
+          }, function $fun(body) {
+            $fun.baseInitializer.call(this, body);
+          }, /** @lends _.hu.nevermind.reakt.ContentToggle.prototype */ {
+            render: function () {
+              return _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.ContentToggle.render$f(this));
             }
-          }),
-          React: Kotlin.createClass(null, null, null, /** @lends _.hu.nevermind.reakt.React */ {
-            render_40g7my$f: function () {
+          }, /** @lends _.hu.nevermind.reakt.ContentToggle */ {
+            f: function (it) {
+              return it.value.state;
             },
-            f: function (reactClass, this$React$) {
+            f_0: function (this$) {
+              return function (it) {
+                this$.plus_f2arp1$(it);
+              };
+            },
+            render$f: function (this$ContentToggle) {
               return function () {
                 var tmp$0;
-                var self = null;
-                self = this;
-                this$React$.readStateFromJsToKotlin(self, reactClass);
-                return (tmp$0 = reactClass.render()) != null ? tmp$0.backend : null;
+                var allElements = this$ContentToggle.children.length;
+                tmp$0 = Kotlin.modules['stdlib'].kotlin.filter_dgtl0h$(this$ContentToggle.children, _.hu.nevermind.reakt.ContentToggle.f);
+                var openedElements = tmp$0.size();
+                this.plus_pdl1w0$(openedElements.toString() + ' are open from ' + allElements);
+                Kotlin.modules['stdlib'].kotlin.forEach_5wd4f$(this$ContentToggle.children, _.hu.nevermind.reakt.ContentToggle.f_0(this));
               };
-            },
-            f_0: function (reactClass, this$React$) {
+            }
+          }),
+          ContentElement: Kotlin.createClass(function () {
+            return [_.hu.nevermind.reakt.StatefulReactClass];
+          }, function $fun(opened, content) {
+            $fun.baseInitializer.call(this, opened);
+            this.content = content;
+            this.onClick = _.hu.nevermind.reakt.ContentElement.ContentElement$f(this);
+          }, /** @lends _.hu.nevermind.reakt.ContentElement.prototype */ {
+            render: function () {
+              return _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.ContentElement.render$f(this));
+            }
+          }, /** @lends _.hu.nevermind.reakt.ContentElement */ {
+            f: function (this$ContentElement) {
               return function () {
-                var self = null;
-                self = this;
-                this$React$.readStateFromJsToKotlin(self, reactClass);
-                reactClass.componentDidMount();
+                return !this$ContentElement.state;
               };
             },
-            f_1: function (reactClass, this$React$) {
+            ContentElement$f: function (this$ContentElement) {
               return function () {
-                var self = null;
-                self = this;
-                this$React$.readStateFromJsToKotlin(self, reactClass);
-                reactClass.componentWillUnmount();
+                this$ContentElement.changeState_un3fny$(_.hu.nevermind.reakt.ContentElement.f(this$ContentElement));
               };
             },
-            createClass_ew72dd$f: function (reactClass, this$React$) {
-              return Kotlin.createObject(null, function () {
-                this.render = _.hu.nevermind.reakt.React.f(reactClass, this$React$);
-                this.componentDidMount = _.hu.nevermind.reakt.React.f_0(reactClass, this$React$);
-                this.componentWillUnmount = _.hu.nevermind.reakt.React.f_1(reactClass, this$React$);
-              });
+            f_0: function (this$ContentElement) {
+              return function () {
+                this.plus_pdl1w0$(this$ContentElement.state ? 'Close' : 'Open');
+              };
             },
-            object_initializer$: function () {
-              return Kotlin.createObject(null, function () {
-                this.DOM = React.DOM;
-              }, {
-                render_40g7my$: function (element, container, callback) {
-                  if (callback === void 0)
-                    callback = _.hu.nevermind.reakt.React.render_40g7my$f;
-                  React.render(element != null ? element.backend : null, container, callback);
-                },
-                createClass_ew72dd$: function (reactClass) {
-                  return React.createClass(_.hu.nevermind.reakt.React.createClass_ew72dd$f(reactClass, this));
-                },
-                readStateFromJsToKotlin: function (self, reactClass) {
-                  var props = self.props;
-                  reactClass.propsJs = props;
-                  var refs = self.refs;
-                  reactClass.refs = refs;
-                  if (Kotlin.isType(reactClass, _.hu.nevermind.reakt.StatefulReactClass)) {
-                    var state = self.state;
-                    reactClass.setStateJs_za3rmp$(state);
-                  }
-                  reactClass.reactClassRuntimeRepr = self;
+            render$f: function (this$ContentElement) {
+              return function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', this$ContentElement.onClick)], _.hu.nevermind.reakt.ContentElement.f_0(this$ContentElement)));
+                if (this$ContentElement.state) {
+                  this.plus_oclkc7$(this$ContentElement.content);
                 }
-              });
-            }
-          }),
-          ReactPropsJs: Kotlin.createClass(null, function () {
-            this.children = noImpl;
-          }, /** @lends _.hu.nevermind.reakt.ReactPropsJs.prototype */ {
-            get: function (name) {
-              return noImpl;
-            },
-            set: function (name, value) {
-              noImpl;
-            }
-          }),
-          ReactRefs: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactRefs.prototype */ {
-            get: function (name) {
-              return noImpl;
-            },
-            set: function (name, value) {
-              noImpl;
-            }
-          }),
-          ReactRef: Kotlin.createClass(null, function (reactClass, name) {
-            this.reactClass = reactClass;
-            this.name = name;
-          }, /** @lends _.hu.nevermind.reakt.ReactRef.prototype */ {
-            getDOMNode: function () {
-              var tmp$0;
-              var ref = ((tmp$0 = this.reactClass.refs) != null ? tmp$0 : Kotlin.throwNPE())[this.name];
-              return ref.getDOMNode();
-            },
-            component1: function () {
-              return this.reactClass;
-            },
-            component2: function () {
-              return this.name;
-            },
-            copy_7dm7l9$: function (reactClass, name) {
-              return new _.hu.nevermind.reakt.ReactRef(reactClass === void 0 ? this.reactClass : reactClass, name === void 0 ? this.name : name);
-            },
-            toString: function () {
-              return 'ReactRef(reactClass=' + Kotlin.toString(this.reactClass) + (', name=' + Kotlin.toString(this.name)) + ')';
-            },
-            hashCode: function () {
-              var result = 0;
-              result = result * 31 + Kotlin.hashCode(this.reactClass) | 0;
-              result = result * 31 + Kotlin.hashCode(this.name) | 0;
-              return result;
-            },
-            equals_za3rmp$: function (other) {
-              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.reactClass, other.reactClass) && Kotlin.equals(this.name, other.name))));
-            }
-          }),
-          StatefulReactClass: Kotlin.createClass(function () {
-            return [_.hu.nevermind.reakt.ReactClass];
-          }, function $fun(initialState, constructorOptions, body) {
-            $fun.baseInitializer.call(this, constructorOptions, body);
-            this.$state_poix00$ = initialState;
-          }, /** @lends _.hu.nevermind.reakt.StatefulReactClass.prototype */ {
-            state: {
-              get: function () {
-                return this.$state_poix00$;
-              },
-              set: function (state) {
-                this.$state_poix00$ = state;
-              }
-            },
-            changeState_un3fny$: function (body) {
-              this.state = body();
-              this.forceUpdate();
-            },
-            setState_za3rmp$: function (newState) {
-              this.reactClassRuntimeRepr.setState(newState);
-            },
-            forceUpdate: function () {
-              this.reactClassRuntimeRepr.forceUpdate();
-            },
-            setStateJs_za3rmp$: function (st) {
-            }
-          }),
-          PropertyDefinition: Kotlin.createClass(null, function () {
-            this.id = 'name_' + Kotlin.hashCode(this);
-          }, /** @lends _.hu.nevermind.reakt.PropertyDefinition.prototype */ {
-            copy: function () {
-              return new _.hu.nevermind.reakt.PropertyDefinition();
-            }
-          }),
-          set_ife7hi$: function ($receiver, param) {
-            return new _.hu.nevermind.reakt.PropertyPair($receiver, param);
-          },
-          PropertyPair: Kotlin.createClass(null, function (key, value) {
-            this.key = key;
-            this.value = value;
-          }, /** @lends _.hu.nevermind.reakt.PropertyPair.prototype */ {
-            component1: function () {
-              return this.key;
-            },
-            component2: function () {
-              return this.value;
-            },
-            copy_u0sgdk$: function (key, value) {
-              return new _.hu.nevermind.reakt.PropertyPair(key === void 0 ? this.key : key, value === void 0 ? this.value : value);
-            },
-            toString: function () {
-              return 'PropertyPair(key=' + Kotlin.toString(this.key) + (', value=' + Kotlin.toString(this.value)) + ')';
-            },
-            hashCode: function () {
-              var result = 0;
-              result = result * 31 + Kotlin.hashCode(this.key) | 0;
-              result = result * 31 + Kotlin.hashCode(this.value) | 0;
-              return result;
-            },
-            equals_za3rmp$: function (other) {
-              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.key, other.key) && Kotlin.equals(this.value, other.value))));
-            }
-          }),
-          ReactClassRuntimeRepr: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReactClassRuntimeRepr.prototype */ {
-            setState: function (newState) {
-              noImpl;
-            },
-            forceUpdate: function () {
-              noImpl;
-            }
-          }),
-          ReactClass: Kotlin.createClass(null, function (constructorOptions, body) {
-            this.constructorOptions_c8d5yn$ = constructorOptions;
-            this.body = body;
-            this.reactClassRuntimeRepr$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
-            this.propsJs = null;
-            this.refs = null;
-            this.backend = _.hu.nevermind.reakt.React.object.createClass_ew72dd$(this);
-          }, /** @lends _.hu.nevermind.reakt.ReactClass.prototype */ {
-            reactClassRuntimeRepr: {
-              get: function () {
-                return this.reactClassRuntimeRepr$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('reactClassRuntimeRepr'));
-              },
-              set: function (reactClassRuntimeRepr) {
-                this.reactClassRuntimeRepr$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('reactClassRuntimeRepr'), reactClassRuntimeRepr);
-              }
-            },
-            ref_61zpoe$: function (name) {
-              return new _.hu.nevermind.reakt.ReactRef(this, name);
-            },
-            props_wh2x03$: function (prop) {
-              var tmp$0;
-              return ((tmp$0 = this.propsJs) != null ? tmp$0 : Kotlin.throwNPE())[prop.id];
-            },
-            children: {
-              get: function () {
-                var tmp$0, tmp$1;
-                var children = ((tmp$0 = this.propsJs) != null ? tmp$0 : Kotlin.throwNPE()).children;
-                if (Kotlin.isType(children, Kotlin.modules['builtins'].kotlin.Array)) {
-                  tmp$1 = children;
-                }
-                 else {
-                  tmp$1 = [children];
-                }
-                return tmp$1;
-              }
-            },
-            componentDidMount: function () {
-            },
-            componentWillUnmount: function () {
-            },
-            createElement: function () {
-              var tmp$0;
-              var elementContainer = new _.hu.nevermind.reakt.ReactElementContainer();
-              this.body.call(elementContainer);
-              var fullOptions = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
-              Kotlin.modules['stdlib'].kotlin.forEach_5wd4f$(this.constructorOptions_c8d5yn$, _.hu.nevermind.reakt.ReactClass.createElement$f(fullOptions));
-              fullOptions.addAll_4fm7v2$(elementContainer.options);
-              var constructorParams = _.hu.nevermind.reakt.createObjectWithDynamicFields(fullOptions);
-              return new _.hu.nevermind.reakt.ReactElement((tmp$0 = React).createElement.apply(tmp$0, [this.backend, constructorParams].concat(Kotlin.copyToArray(elementContainer.elements))));
-            }
-          }, /** @lends _.hu.nevermind.reakt.ReactClass */ {
-            createElement$f: function (fullOptions) {
-              return function (it) {
-                fullOptions.add_za3rmp$(new Kotlin.modules['stdlib'].kotlin.Pair(it.key.id, it.value));
               };
             }
           }),
-          createObjectWithDynamicFields: function (options) {
-            var tmp$1, tmp$2;
-            var tmpObj = Kotlin.createObject(null, null);
-            tmp$1 = options.iterator();
-            while (tmp$1.hasNext()) {
-              var tmp$0 = tmp$1.next()
-              , key = tmp$0.component1()
-              , value = tmp$0.component2();
-              if (Kotlin.isType(value, _.hu.nevermind.reakt.ReactRef))
-                tmp$2 = value.name;
-              else
-                tmp$2 = value;
-              var convertedValue = tmp$2;
-              tmpObj[key] = convertedValue;
+          ReaktTest: Kotlin.createClass(null, null, /** @lends _.hu.nevermind.reakt.ReaktTest.prototype */ {
+            asd: function () {
+              var node = document.getElementById('testContent');
+              var component = new _.hu.nevermind.reakt.ContentToggle(_.hu.nevermind.reakt.ReaktTest.asd$f);
             }
-            return tmpObj;
-          },
+          }, /** @lends _.hu.nevermind.reakt.ReaktTest */ {
+            f: function () {
+              this.plus_pdl1w0$('Hello');
+            },
+            f_0: function () {
+              this.plus_pdl1w0$('World');
+            },
+            f_1: function () {
+              this.plus_pdl1w0$('!');
+            },
+            f_2: function () {
+              this.plus_pdl1w0$('Toggle me!');
+            },
+            asd$f: function () {
+              this.plus_zhpcab$(new _.hu.nevermind.reakt.ContentElement(true, _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.ReaktTest.f)));
+              this.plus_zhpcab$(new _.hu.nevermind.reakt.ContentElement(false, _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.ReaktTest.f_0)));
+              this.plus_zhpcab$(new _.hu.nevermind.reakt.ContentElement(false, _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.ReaktTest.f_1)));
+              this.plus_zhpcab$(new _.hu.nevermind.reakt.ContentElement(false, _.hu.nevermind.reakt.button_tqynw0$(void 0, [], _.hu.nevermind.reakt.ReaktTest.f_2)));
+            }
+          }),
           example: Kotlin.definePackage(null, /** @lends _.hu.nevermind.reakt.example */ {
             FormField: Kotlin.createClass(null, function (id, inputType, labelText, placeHolder, value) {
               if (placeHolder === void 0)
@@ -728,7 +842,7 @@
               this.id_laigbc$ = 0;
               this.fields = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
             }, /** @lends _.hu.nevermind.reakt.example.FormSchema.prototype */ {
-              inputField_tzrxoy$: function (inputType, labelText, placeHolder, value) {
+              formField_tzrxoy$: function (inputType, labelText, placeHolder, value) {
                 if (labelText === void 0)
                   labelText = '';
                 if (placeHolder === void 0)
@@ -745,7 +859,7 @@
             }, function $fun(title, schema, subTitle) {
               if (subTitle === void 0)
                 subTitle = null;
-              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.FormState(schema.fields), [], _.hu.nevermind.reakt.example.Form.Form$f);
+              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.FormState(schema.fields));
               this.title = title;
               this.subTitle = subTitle;
               this.idsToRefs = Kotlin.modules['stdlib'].kotlin.hashMapOf_eoa9s7$([]);
@@ -754,8 +868,6 @@
                 return _.hu.nevermind.reakt.form_djsqtr$([], void 0, _.hu.nevermind.reakt.example.Form.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.Form */ {
-              Form$f: function () {
-              },
               f: function (this$Form) {
                 return function () {
                   this.plus_pdl1w0$(this$Form.subTitle);
@@ -812,6 +924,24 @@
                 };
               }
             }),
+            EventTemplateFieldFormSchema: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.example.FormSchema];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.nameField = this.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Name');
+              this.hintField = this.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Name');
+            }),
+            EventTemplateFormSchema: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.example.FormSchema];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.nameField = this.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Name');
+              this.useTime = this.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.CHECKBOX, 'A d\xE1tumon k\xEDv\xFCl mentse az id\u0151pontot is!');
+              this.fieldFields = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+            }, /** @lends _.hu.nevermind.reakt.example.EventTemplateFormSchema.prototype */ {
+              setData: function (event) {
+              }
+            }),
             EventFormSchema: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.example.FormSchema];
             }, function $fun(eventTemplate) {
@@ -825,8 +955,8 @@
                 tmp$0 = _.net.yested.utils.format_hliocp$(_.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_0);
               }
               this.dateFormat = tmp$0;
-              this.dateInput = this.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Date');
-              this.commentInput = this.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Comment');
+              this.dateInput = this.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Date');
+              this.commentInput = this.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, 'Comment');
               this.fieldInputs = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(this.eventTemplate.fieldIds, _.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_1), _.hu.nevermind.reakt.example.EventFormSchema.EventFormSchema$f_2(this));
             }, /** @lends _.hu.nevermind.reakt.example.EventFormSchema.prototype */ {
               setData: function (event) {
@@ -857,15 +987,15 @@
                   var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6;
                   tmp$0 = fieldTemplate.type;
                   if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.INT)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$1 = fieldTemplate.hint) != null ? tmp$1 : '');
+                    tmp$6 = this$EventFormSchema.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$1 = fieldTemplate.hint) != null ? tmp$1 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.FLOAT)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$2 = fieldTemplate.hint) != null ? tmp$2 : '');
+                    tmp$6 = this$EventFormSchema.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.NUMBER, fieldTemplate.name, (tmp$2 = fieldTemplate.hint) != null ? tmp$2 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.STRING)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$3 = fieldTemplate.hint) != null ? tmp$3 : '');
+                    tmp$6 = this$EventFormSchema.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$3 = fieldTemplate.hint) != null ? tmp$3 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.TEXTAREA)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$4 = fieldTemplate.hint) != null ? tmp$4 : '');
+                    tmp$6 = this$EventFormSchema.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$4 = fieldTemplate.hint) != null ? tmp$4 : '');
                   else if (tmp$0 === _.hu.nevermind.timeline.entities.EventFieldType.object.SELECT)
-                    tmp$6 = this$EventFormSchema.inputField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$5 = fieldTemplate.hint) != null ? tmp$5 : '');
+                    tmp$6 = this$EventFormSchema.formField_tzrxoy$(_.hu.nevermind.reakt.InputType.object.TEXT, fieldTemplate.name, (tmp$5 = fieldTemplate.hint) != null ? tmp$5 : '');
                   var inputField = tmp$6;
                   return inputField;
                 };
@@ -876,16 +1006,14 @@
             }),
             InputField: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(inputType, labelText, placeHolder, value, onChange, body) {
+            }, function $fun(inputType, labelText, placeHolder, value, onChange) {
               if (placeHolder === void 0)
                 placeHolder = '';
               if (value === void 0)
                 value = null;
               if (onChange === void 0)
                 onChange = _.hu.nevermind.reakt.example.InputField.InputField$f;
-              if (body === void 0)
-                body = _.hu.nevermind.reakt.example.InputField.InputField$f_0;
-              $fun.baseInitializer.call(this, [], body);
+              $fun.baseInitializer.call(this);
               this.inputType = inputType;
               this.labelText = labelText;
               this.placeHolder = placeHolder;
@@ -903,8 +1031,6 @@
             }, /** @lends _.hu.nevermind.reakt.example.InputField */ {
               InputField$f: function (it) {
               },
-              InputField$f_0: function () {
-              },
               f: function (this$InputField) {
                 return function () {
                   this.plus_pdl1w0$(this$InputField.labelText);
@@ -917,52 +1043,35 @@
                 };
               }
             }),
-            DropDownButtonItem: Kotlin.createClass(null, function (name, callback) {
+            DropDownButtonItem: Kotlin.createClass(function () {
+              return [_.hu.nevermind.reakt.ReactClass];
+            }, function $fun(name, callback) {
+              $fun.baseInitializer.call(this);
               this.name = name;
               this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.DropDownButtonItem.prototype */ {
-              component1: function () {
-                return this.name;
-              },
-              component2: function () {
-                return this.callback;
-              },
-              copy_ayzjzk$: function (name, callback) {
-                return new _.hu.nevermind.reakt.example.DropDownButtonItem(name === void 0 ? this.name : name, callback === void 0 ? this.callback : callback);
-              },
-              toString: function () {
-                return 'DropDownButtonItem(name=' + Kotlin.toString(this.name) + (', callback=' + Kotlin.toString(this.callback)) + ')';
-              },
-              hashCode: function () {
-                var result = 0;
-                result = result * 31 + Kotlin.hashCode(this.name) | 0;
-                result = result * 31 + Kotlin.hashCode(this.callback) | 0;
-                return result;
-              },
-              equals_za3rmp$: function (other) {
-                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.name, other.name) && Kotlin.equals(this.callback, other.callback))));
+              render: function () {
+                return _.hu.nevermind.reakt.a_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menuItem'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', _.hu.nevermind.reakt.example.DropDownButtonItem.render$f(this))], _.hu.nevermind.reakt.example.DropDownButtonItem.render$f_0(this));
               }
-            }),
-            DropDownDivider: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.example.DropDownButtonItem];
-            }, function $fun() {
-              $fun.baseInitializer.call(this, '', _.hu.nevermind.reakt.example.DropDownDivider.DropDownDivider$f);
-            }, /** @lends _.hu.nevermind.reakt.example.DropDownDivider.prototype */ {
-              copy: function () {
-                return new _.hu.nevermind.reakt.example.DropDownDivider();
-              }
-            }, /** @lends _.hu.nevermind.reakt.example.DropDownDivider */ {
-              DropDownDivider$f: function () {
+            }, /** @lends _.hu.nevermind.reakt.example.DropDownButtonItem */ {
+              render$f: function (this$DropDownButtonItem) {
+                return function () {
+                  this$DropDownButtonItem.callback();
+                };
+              },
+              render$f_0: function (this$DropDownButtonItem) {
+                return function () {
+                  this.plus_pdl1w0$(this$DropDownButtonItem.name);
+                };
               }
             }),
             DropDownButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(buttonText, items, props, body) {
+            }, function $fun(buttonText, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.DropDownButton.DropDownButton$f;
-              $fun.baseInitializer.call(this, props, body);
+              $fun.baseInitializer.call(this, body);
               this.buttonText = buttonText;
-              this.items = items;
             }, /** @lends _.hu.nevermind.reakt.example.DropDownButton.prototype */ {
               render: function () {
                 return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'dropdown')], _.hu.nevermind.reakt.example.DropDownButton.render$f(this));
@@ -979,43 +1088,35 @@
                 };
               },
               f_1: function (it) {
-                return function () {
-                  it.callback();
-                };
+                return it.value;
               },
               f_2: function (it) {
-                return function () {
-                  this.plus_pdl1w0$(it.name);
-                };
               },
-              f_3: function (this$) {
-                return function (it) {
-                  this$.plus_oclkc7$(_.hu.nevermind.reakt.a_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menuItem'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('onClick', _.hu.nevermind.reakt.example.DropDownButton.f_1(it))], _.hu.nevermind.reakt.example.DropDownButton.f_2(it)));
+              f_3: function (this$DropDownButton) {
+                return function () {
+                  var tmp$0;
+                  tmp$0 = Kotlin.modules['stdlib'].kotlin.map_rie7ol$(this$DropDownButton.children, _.hu.nevermind.reakt.example.DropDownButton.f_1);
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(tmp$0, _.hu.nevermind.reakt.example.DropDownButton.f_2);
                 };
               },
               f_4: function (this$DropDownButton) {
                 return function () {
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(this$DropDownButton.items, _.hu.nevermind.reakt.example.DropDownButton.f_3(this));
-                };
-              },
-              f_5: function (this$DropDownButton) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.li_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'presentation')], _.hu.nevermind.reakt.example.DropDownButton.f_4(this$DropDownButton)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.li_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'presentation')], _.hu.nevermind.reakt.example.DropDownButton.f_3(this$DropDownButton)));
                 };
               },
               render$f: function (this$DropDownButton) {
                 return function () {
                   this.plus_oclkc7$(_.hu.nevermind.reakt.button_tqynw0$(_.hu.nevermind.reakt.ButtonType.object.BUTTON, [Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'btn btn-primary btn-default dropdown-toggle'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('data-toggle', 'dropdown')], _.hu.nevermind.reakt.example.DropDownButton.f_0(this$DropDownButton)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.ul_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'dropdown-menu'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menu')], _.hu.nevermind.reakt.example.DropDownButton.f_5(this$DropDownButton)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.ul_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'dropdown-menu'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('role', 'menu')], _.hu.nevermind.reakt.example.DropDownButton.f_4(this$DropDownButton)));
                 };
               }
             }),
             SplitDropDownButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(mainItem, items, props, body) {
+            }, function $fun(mainItem, items, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.SplitDropDownButton.SplitDropDownButton$f;
-              $fun.baseInitializer.call(this, props, body);
+              $fun.baseInitializer.call(this, body);
               this.mainItem = mainItem;
               this.items = items;
             }, /** @lends _.hu.nevermind.reakt.example.SplitDropDownButton.prototype */ {
@@ -1073,41 +1174,12 @@
                 };
               }
             }),
-            FilterSelectorButton: Kotlin.createClass(function () {
-              return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(onFilteringTemplateSelected, props, body) {
-              if (body === void 0)
-                body = _.hu.nevermind.reakt.example.FilterSelectorButton.FilterSelectorButton$f;
-              $fun.baseInitializer.call(this, props, body);
-              this.onFilteringTemplateSelected = onFilteringTemplateSelected;
-            }, /** @lends _.hu.nevermind.reakt.example.FilterSelectorButton.prototype */ {
-              render: function () {
-                var tmp$0, tmp$1, tmp$2;
-                tmp$0 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(_.hu.nevermind.timeline.store.EventTemplateStore.getTemplates().values(), _.hu.nevermind.reakt.example.FilterSelectorButton.render$f(this));
-                tmp$1 = [];
-                tmp$2 = void 0;
-                return (new _.hu.nevermind.reakt.example.DropDownButton('Filter', tmp$0, tmp$1, tmp$2)).render();
-              }
-            }, /** @lends _.hu.nevermind.reakt.example.FilterSelectorButton */ {
-              FilterSelectorButton$f: function () {
-              },
-              f: function (this$FilterSelectorButton, it) {
-                return function () {
-                  this$FilterSelectorButton.onFilteringTemplateSelected(it.id);
-                };
-              },
-              render$f: function (this$FilterSelectorButton) {
-                return function (it) {
-                  return new _.hu.nevermind.reakt.example.DropDownButtonItem(it.name, _.hu.nevermind.reakt.example.FilterSelectorButton.f(this$FilterSelectorButton, it));
-                };
-              }
-            }),
             FilterSelectorField: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(filteringTemplateIds, props, body) {
+            }, function $fun(filteringTemplateIds, body) {
               if (body === void 0)
                 body = _.hu.nevermind.reakt.example.FilterSelectorField.FilterSelectorField$f;
-              $fun.baseInitializer.call(this, props, body);
+              $fun.baseInitializer.call(this, body);
               this.filteringTemplateIds = filteringTemplateIds;
               this.inputRef = this.ref_61zpoe$('inputRef');
             }, /** @lends _.hu.nevermind.reakt.example.FilterSelectorField.prototype */ {
@@ -1129,41 +1201,40 @@
             }),
             EventFilter: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.StatefulReactClass];
-            }, function $fun(filteringIds, onFilteringTemplateSelectedParentCallback) {
-              $fun.baseInitializer.call(this, filteringIds, [], _.hu.nevermind.reakt.example.EventFilter.EventFilter$f);
-              this.filteringIds = filteringIds;
-              this.onFilteringTemplateSelectedParentCallback = onFilteringTemplateSelectedParentCallback;
-              this.onFilteringTemplateSelected_lbmgfc$ = _.hu.nevermind.reakt.example.EventFilter.EventFilter$f_0(this);
+            }, function $fun(filteringTemplateIds) {
+              $fun.baseInitializer.call(this, filteringTemplateIds);
+              this.filteringTemplateIds = filteringTemplateIds;
             }, /** @lends _.hu.nevermind.reakt.example.EventFilter.prototype */ {
               render: function () {
                 return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.EventFilter.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventFilter */ {
-              EventFilter$f: function () {
-              },
-              f: function (this$EventFilter, id) {
+              f: function (this$EventFilter, it) {
                 return function () {
-                  return Kotlin.modules['stdlib'].kotlin.plus_pjxz11$(this$EventFilter.state, id);
+                  _.hu.nevermind.timeline.Actions.filteringTemplateIdsChanged.dispatch_za3rmp$(new _.hu.nevermind.timeline.FilteringTemplateIdsChangedPayload(Kotlin.modules['stdlib'].kotlin.plus_pjxz11$(this$EventFilter.filteringTemplateIds, it.id)));
                 };
               },
-              EventFilter$f_0: function (this$EventFilter) {
-                return function (id) {
-                  this$EventFilter.changeState_un3fny$(_.hu.nevermind.reakt.example.EventFilter.f(this$EventFilter, id));
-                  this$EventFilter.onFilteringTemplateSelectedParentCallback(id);
+              f_0: function (this$EventFilter, this$) {
+                return function (it) {
+                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.DropDownButtonItem(it.name, _.hu.nevermind.reakt.example.EventFilter.f(this$EventFilter, it)));
+                };
+              },
+              f_1: function (this$EventFilter) {
+                return function () {
+                  Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(_.hu.nevermind.timeline.store.EventTemplateStore.getTemplates().values(), _.hu.nevermind.reakt.example.EventFilter.f_0(this$EventFilter, this));
                 };
               },
               render$f: function (this$EventFilter) {
                 return function () {
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorButton(this$EventFilter.onFilteringTemplateSelected_lbmgfc$, []));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorField(this$EventFilter.state, []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.DropDownButton('Filter', _.hu.nevermind.reakt.example.EventFilter.f_1(this$EventFilter)));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.FilterSelectorField(this$EventFilter.state));
                 };
               }
             }),
             AddEventDropDownButton: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(callback) {
-              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.AddEventDropDownButton.AddEventDropDownButton$f);
-              this.callback = callback;
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
             }, /** @lends _.hu.nevermind.reakt.example.AddEventDropDownButton.prototype */ {
               render: function () {
                 var tmp$0, tmp$1;
@@ -1172,13 +1243,11 @@
                 Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventStore.getEvents().values(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_0(eventsByTemplateIds));
                 tmp$0 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(eventsByTemplateIds.entrySet(), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_1);
                 var orderedTemplateIds = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(tmp$0, _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_2);
-                tmp$1 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(orderedTemplateIds), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_3(this));
+                tmp$1 = Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(orderedTemplateIds), _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_3);
                 var items = tmp$1;
-                return (new _.hu.nevermind.reakt.example.DropDownButton('Add', items, [])).render();
+                return (new _.hu.nevermind.reakt.example.DropDownButton('Add', _.hu.nevermind.reakt.example.AddEventDropDownButton.render$f_4(items))).render();
               }
             }, /** @lends _.hu.nevermind.reakt.example.AddEventDropDownButton */ {
-              AddEventDropDownButton$f: function () {
-              },
               render$f: function (eventsByTemplateIds) {
                 return function (it) {
                   eventsByTemplateIds.put_wn2jw4$(it.id, 0);
@@ -1225,27 +1294,29 @@
                   _.hu.nevermind.timeline.Actions.eventCreated.dispatch_za3rmp$(eventCreationPayload);
                 };
               },
-              f_0: function (template, this$AddEventDropDownButton) {
+              f_0: function (template) {
                 return function () {
                   var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(template);
                   var createEventCreationPayload = _.hu.nevermind.reakt.example.AddEventDropDownButton.createEventCreationPayload(eventFormSchema, template);
-                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(template, eventFormSchema, null, _.hu.nevermind.reakt.example.AddEventDropDownButton.f(createEventCreationPayload));
-                  this$AddEventDropDownButton.callback(eventEditorModalWindowState);
+                  var eventEditorModalWindowState = new _.hu.nevermind.timeline.EventEditorModalState(template, eventFormSchema, null, _.hu.nevermind.reakt.example.AddEventDropDownButton.f(createEventCreationPayload));
+                  _.hu.nevermind.timeline.Actions.eventEditorModalStateChanged.dispatch_za3rmp$(eventEditorModalWindowState);
                 };
               },
-              render$f_3: function (this$AddEventDropDownButton) {
-                return function (it) {
-                  var template = _.hu.nevermind.timeline.store.EventTemplateStore.get(it);
-                  return new _.hu.nevermind.reakt.example.DropDownButtonItem(template.name, _.hu.nevermind.reakt.example.AddEventDropDownButton.f_0(template, this$AddEventDropDownButton));
+              render$f_3: function (it) {
+                var template = _.hu.nevermind.timeline.store.EventTemplateStore.get(it);
+                return new _.hu.nevermind.reakt.example.DropDownButtonItem(template.name, _.hu.nevermind.reakt.example.AddEventDropDownButton.f_0(template));
+              },
+              render$f_4: function (items) {
+                return function () {
+                  this.plus_ow6yss$(items);
                 };
               }
             }),
             EventGridRow: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(event, callback) {
-              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.EventGridRow.EventGridRow$f);
+            }, function $fun(event) {
+              $fun.baseInitializer.call(this);
               this.event = event;
-              this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.EventGridRow.prototype */ {
               render: function () {
                 var tmp$0;
@@ -1260,8 +1331,6 @@
                 return _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventGridRow.render$f_1(this, dateFormat, templ));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventGridRow */ {
-              EventGridRow$f: function () {
-              },
               render$f: function () {
                 return this.year.fourDigits.plus('.').plus_9xull5$(this.month.twoDigits).plus_61zpoe$('.').plus_9xull5$(this.dayOfMonth.twoDigits).plus_61zpoe$(' ').plus_9xull5$(this.hour24.twoDigits).plus_61zpoe$(':').plus_9xull5$(this.minutes.twoDigits);
               },
@@ -1323,8 +1392,8 @@
                 return function () {
                   var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(templ);
                   var createEventCreationPayload = _.hu.nevermind.reakt.example.EventGridRow.createEventCreationPayload(eventFormSchema, dateFormat, this$EventGridRow);
-                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(templ, eventFormSchema, this$EventGridRow.event, _.hu.nevermind.reakt.example.EventGridRow.f_3(createEventCreationPayload));
-                  this$EventGridRow.callback(eventEditorModalWindowState);
+                  var eventEditorModalWindowState = new _.hu.nevermind.timeline.EventEditorModalState(templ, eventFormSchema, this$EventGridRow.event, _.hu.nevermind.reakt.example.EventGridRow.f_3(createEventCreationPayload));
+                  _.hu.nevermind.timeline.Actions.eventEditorModalStateChanged.dispatch_za3rmp$(eventEditorModalWindowState);
                 };
               },
               createEventChangePayload$f: function (it) {
@@ -1359,8 +1428,8 @@
                 return function () {
                   var eventFormSchema = new _.hu.nevermind.reakt.example.EventFormSchema(templ);
                   var createEventChangePayload = _.hu.nevermind.reakt.example.EventGridRow.createEventChangePayload(eventFormSchema, dateFormat, this$EventGridRow);
-                  var eventEditorModalWindowState = new _.hu.nevermind.reakt.example.EventEditorModalState(templ, eventFormSchema, this$EventGridRow.event, _.hu.nevermind.reakt.example.EventGridRow.f_5(createEventChangePayload));
-                  this$EventGridRow.callback(eventEditorModalWindowState);
+                  var eventEditorModalWindowState = new _.hu.nevermind.timeline.EventEditorModalState(templ, eventFormSchema, this$EventGridRow.event, _.hu.nevermind.reakt.example.EventGridRow.f_5(createEventChangePayload));
+                  _.hu.nevermind.timeline.Actions.eventEditorModalStateChanged.dispatch_za3rmp$(eventEditorModalWindowState);
                 };
               },
               f_7: function () {
@@ -1369,7 +1438,7 @@
                 return function () {
                   var onCopyClick = _.hu.nevermind.reakt.example.EventGridRow.f_4(templ, dateFormat, this$EventGridRow);
                   var onEditClick = _.hu.nevermind.reakt.example.EventGridRow.f_6(templ, dateFormat, this$EventGridRow);
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.SplitDropDownButton(new _.hu.nevermind.reakt.example.DropDownButtonItem('Edit', onEditClick), [new _.hu.nevermind.reakt.example.DropDownButtonItem('Copy', onCopyClick), new _.hu.nevermind.reakt.example.DropDownButtonItem('Delete', _.hu.nevermind.reakt.example.EventGridRow.f_7)], []));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.SplitDropDownButton(new _.hu.nevermind.reakt.example.DropDownButtonItem('Edit', onEditClick), [new _.hu.nevermind.reakt.example.DropDownButtonItem('Copy', onCopyClick), new _.hu.nevermind.reakt.example.DropDownButtonItem('Delete', _.hu.nevermind.reakt.example.EventGridRow.f_7)]));
                 };
               },
               render$f_1: function (this$EventGridRow, dateFormat, templ) {
@@ -1385,17 +1454,14 @@
             }),
             EventTemplateGridRow: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(template, callback) {
-              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.EventTemplateGridRow.EventTemplateGridRow$f);
+            }, function $fun(template) {
+              $fun.baseInitializer.call(this);
               this.template = template;
-              this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGridRow.prototype */ {
               render: function () {
                 return _.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGridRow.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGridRow */ {
-              EventTemplateGridRow$f: function () {
-              },
               f: function (this$EventTemplateGridRow) {
                 return function () {
                   this.plus_pdl1w0$(this$EventTemplateGridRow.template.name);
@@ -1408,7 +1474,7 @@
               f_2: function () {
               },
               f_3: function () {
-                this.plus_zhpcab$(new _.hu.nevermind.reakt.example.SplitDropDownButton(new _.hu.nevermind.reakt.example.DropDownButtonItem('Edit', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_0), [new _.hu.nevermind.reakt.example.DropDownButtonItem('Copy', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_1), new _.hu.nevermind.reakt.example.DropDownButtonItem('Delete', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_2)], []));
+                this.plus_zhpcab$(new _.hu.nevermind.reakt.example.SplitDropDownButton(new _.hu.nevermind.reakt.example.DropDownButtonItem('Edit', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_0), [new _.hu.nevermind.reakt.example.DropDownButtonItem('Copy', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_1), new _.hu.nevermind.reakt.example.DropDownButtonItem('Delete', _.hu.nevermind.reakt.example.EventTemplateGridRow.f_2)]));
               },
               render$f: function (this$EventTemplateGridRow) {
                 return function () {
@@ -1419,17 +1485,14 @@
             }),
             EventTemplateGrid: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(appState, callback) {
-              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.EventTemplateGrid.EventTemplateGrid$f);
+            }, function $fun(appState) {
+              $fun.baseInitializer.call(this);
               this.appState = appState;
-              this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGrid.prototype */ {
               render: function () {
-                return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover table-condensed')], _.hu.nevermind.reakt.example.EventTemplateGrid.render$f(this));
+                return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover table-condensed')], _.hu.nevermind.reakt.example.EventTemplateGrid.render$f);
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventTemplateGrid */ {
-              EventTemplateGrid$f: function () {
-              },
               f: function () {
                 this.plus_pdl1w0$('Name');
               },
@@ -1443,36 +1506,29 @@
               f_2: function () {
                 this.plus_oclkc7$(_.hu.nevermind.reakt.tr_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_1));
               },
-              f_3: function (this$EventTemplateGrid, this$) {
+              f_3: function (this$) {
                 return function (it) {
-                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventTemplateGridRow(it, this$EventTemplateGrid.callback));
+                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventTemplateGridRow(it));
                 };
               },
-              f_4: function (this$EventTemplateGrid) {
-                return function () {
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventTemplateStore.getTemplates().values(), _.hu.nevermind.reakt.example.EventTemplateGrid.f_3(this$EventTemplateGrid, this));
-                };
+              f_4: function () {
+                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventTemplateStore.getTemplates().values(), _.hu.nevermind.reakt.example.EventTemplateGrid.f_3(this));
               },
-              render$f: function (this$EventTemplateGrid) {
-                return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_2));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.tbody_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_4(this$EventTemplateGrid)));
-                };
+              render$f: function () {
+                this.plus_oclkc7$(_.hu.nevermind.reakt.thead_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_2));
+                this.plus_oclkc7$(_.hu.nevermind.reakt.tbody_3topnc$([], _.hu.nevermind.reakt.example.EventTemplateGrid.f_4));
               }
             }),
             EventGrid: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
-            }, function $fun(appState, callback) {
-              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.EventGrid.EventGrid$f);
+            }, function $fun(appState) {
+              $fun.baseInitializer.call(this);
               this.appState = appState;
-              this.callback = callback;
             }, /** @lends _.hu.nevermind.reakt.example.EventGrid.prototype */ {
               render: function () {
                 return _.hu.nevermind.reakt.table_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'table table-striped table-bordered table-hover table-condensed')], _.hu.nevermind.reakt.example.EventGrid.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventGrid */ {
-              EventGrid$f: function () {
-              },
               f: function () {
                 this.plus_pdl1w0$('Date');
               },
@@ -1506,9 +1562,9 @@
               f_7: function (it) {
                 return it.date.millisecondsSinceUnixEpoch;
               },
-              f_8: function (this$EventGrid, this$) {
+              f_8: function (this$) {
                 return function (it) {
-                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGridRow(it, this$EventGrid.callback));
+                  this$.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGridRow(it));
                 };
               },
               f_9: function (this$EventGrid) {
@@ -1522,7 +1578,7 @@
                     tmp$1 = tmp$0;
                   }
                   tmp$2 = Kotlin.modules['stdlib'].kotlin.sortBy_cvgzri$(tmp$1, _.hu.nevermind.reakt.example.EventGrid.f_7);
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(tmp$2), _.hu.nevermind.reakt.example.EventGrid.f_8(this$EventGrid, this));
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(Kotlin.modules['stdlib'].kotlin.reverse_ir3nkc$(tmp$2), _.hu.nevermind.reakt.example.EventGrid.f_8(this));
                 };
               },
               render$f: function (this$EventGrid) {
@@ -1587,15 +1643,13 @@
             ModalWindow: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.ReactClass];
             }, function $fun() {
-              $fun.baseInitializer.call(this, [], _.hu.nevermind.reakt.example.ModalWindow.ModalWindow$f);
+              $fun.baseInitializer.call(this);
             }, /** @lends _.hu.nevermind.reakt.example.ModalWindow.prototype */ {
               render: function () {
                 var style = _.hu.nevermind.reakt.example.ModalWindow.render$f();
                 return _.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'modal fade in'), Kotlin.modules['stdlib'].kotlin.to_l1ob02$('style', style)], _.hu.nevermind.reakt.example.ModalWindow.render$f_0(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.ModalWindow */ {
-              ModalWindow$f: function () {
-              },
               render$f: function () {
                 return Kotlin.createObject(null, function () {
                   this.display = 'block';
@@ -1651,69 +1705,41 @@
               }
               return tmp$0;
             },
-            EventEditorModalState: Kotlin.createClass(null, function (eventTemplate, eventFormSchema, event, onSave) {
-              this.eventTemplate = eventTemplate;
-              this.eventFormSchema = eventFormSchema;
-              this.event = event;
-              this.onSave = onSave;
-            }, /** @lends _.hu.nevermind.reakt.example.EventEditorModalState.prototype */ {
-              component1: function () {
-                return this.eventTemplate;
-              },
-              component2: function () {
-                return this.eventFormSchema;
-              },
-              component3: function () {
-                return this.event;
-              },
-              component4: function () {
-                return this.onSave;
-              },
-              copy: function (eventTemplate, eventFormSchema, event, onSave) {
-                return new _.hu.nevermind.reakt.example.EventEditorModalState(eventTemplate === void 0 ? this.eventTemplate : eventTemplate, eventFormSchema === void 0 ? this.eventFormSchema : eventFormSchema, event === void 0 ? this.event : event, onSave === void 0 ? this.onSave : onSave);
-              },
-              toString: function () {
-                return 'EventEditorModalState(eventTemplate=' + Kotlin.toString(this.eventTemplate) + (', eventFormSchema=' + Kotlin.toString(this.eventFormSchema)) + (', event=' + Kotlin.toString(this.event)) + (', onSave=' + Kotlin.toString(this.onSave)) + ')';
-              },
-              hashCode: function () {
-                var result = 0;
-                result = result * 31 + Kotlin.hashCode(this.eventTemplate) | 0;
-                result = result * 31 + Kotlin.hashCode(this.eventFormSchema) | 0;
-                result = result * 31 + Kotlin.hashCode(this.event) | 0;
-                result = result * 31 + Kotlin.hashCode(this.onSave) | 0;
-                return result;
-              },
-              equals_za3rmp$: function (other) {
-                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.eventTemplate, other.eventTemplate) && Kotlin.equals(this.eventFormSchema, other.eventFormSchema) && Kotlin.equals(this.event, other.event) && Kotlin.equals(this.onSave, other.onSave))));
-              }
-            }),
             EventEditorModalParent: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.StatefulReactClass];
             }, function $fun() {
-              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.ModalData(false, null), [], _.hu.nevermind.reakt.example.EventEditorModalParent.EventEditorModalParent$f);
+              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.ModalData(false, null));
             }, /** @lends _.hu.nevermind.reakt.example.EventEditorModalParent.prototype */ {
               render: function () {
                 var tmp$0, tmp$1;
                 if (this.state.visible) {
-                  tmp$1 = (new _.hu.nevermind.reakt.example.EventEditorModal((tmp$0 = this.state.data) != null ? tmp$0 : Kotlin.throwNPE(), _.hu.nevermind.reakt.example.EventEditorModalParent.render$f(this))).createElement();
+                  tmp$1 = (new _.hu.nevermind.reakt.example.EventEditorModal((tmp$0 = this.state.data) != null ? tmp$0 : Kotlin.throwNPE(), _.hu.nevermind.reakt.example.EventEditorModalParent.render$f)).createElement();
                 }
                  else {
                   tmp$1 = _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.example.EventEditorModalParent.render$f_0);
                 }
                 return tmp$1;
+              },
+              componentDidMount: function () {
+                _.hu.nevermind.timeline.store.ModalWindowStore.addChangeListener_o7wwlr$(this, _.hu.nevermind.reakt.example.EventEditorModalParent.componentDidMount$f(this));
+              },
+              componentWillUnmount: function () {
+                _.hu.nevermind.timeline.store.ModalWindowStore.removeListener_za3rmp$(this);
               }
             }, /** @lends _.hu.nevermind.reakt.example.EventEditorModalParent */ {
-              EventEditorModalParent$f: function () {
+              render$f: function () {
+                _.hu.nevermind.timeline.Actions.eventEditorModalStateChanged.dispatch_za3rmp$(null);
+              },
+              render$f_0: function () {
               },
               f: function () {
-                return new _.hu.nevermind.reakt.example.ModalData(false, null);
+                var newState = _.hu.nevermind.timeline.store.ModalWindowStore.eventEditorModalState;
+                return new _.hu.nevermind.reakt.example.ModalData(newState != null, newState);
               },
-              render$f: function (this$EventEditorModalParent) {
+              componentDidMount$f: function (this$EventEditorModalParent) {
                 return function () {
                   this$EventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.EventEditorModalParent.f);
                 };
-              },
-              render$f_0: function () {
               }
             }),
             EventEditorModal: Kotlin.createClass(function () {
@@ -1778,10 +1804,14 @@
             TimelineApp: Kotlin.createClass(function () {
               return [_.hu.nevermind.reakt.StatefulReactClass];
             }, function $fun() {
-              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.TimelineAppState(Kotlin.modules['stdlib'].kotlin.emptyList(), false), [], _.hu.nevermind.reakt.example.TimelineApp.TimelineApp$f);
+              $fun.baseInitializer.call(this, new _.hu.nevermind.reakt.example.TimelineAppState(Kotlin.modules['stdlib'].kotlin.emptyList(), false));
             }, /** @lends _.hu.nevermind.reakt.example.TimelineApp.prototype */ {
               componentDidMount: function () {
                 _.hu.nevermind.timeline.store.EventStore.addChangeListener_o7wwlr$(this, _.hu.nevermind.reakt.example.TimelineApp.componentDidMount$f(this));
+                _.hu.nevermind.timeline.store.AppStore.addChangeListener_o7wwlr$(this, _.hu.nevermind.reakt.example.TimelineApp.componentDidMount$f_0(this));
+              },
+              validate: function (event) {
+                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(event.fieldIds, _.hu.nevermind.reakt.example.TimelineApp.validate$f(event));
               },
               componentWillUnmount: function () {
                 _.hu.nevermind.timeline.store.EventStore.removeListener_za3rmp$(this);
@@ -1790,9 +1820,28 @@
                 return _.hu.nevermind.reakt.div_3topnc$([], _.hu.nevermind.reakt.example.TimelineApp.render$f(this));
               }
             }, /** @lends _.hu.nevermind.reakt.example.TimelineApp */ {
-              TimelineApp$f: function () {
+              f: function (this$TimelineApp) {
+                return function (event) {
+                  this$TimelineApp.validate(event);
+                };
               },
-              f: function (event) {
+              componentDidMount$f: function (this$TimelineApp) {
+                return function () {
+                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventStore.getEvents().values(), _.hu.nevermind.reakt.example.TimelineApp.f(this$TimelineApp));
+                  this$TimelineApp.forceUpdate();
+                };
+              },
+              f_0: function (this$TimelineApp) {
+                return function () {
+                  return this$TimelineApp.state.copy(_.hu.nevermind.timeline.store.AppStore.filteringTemplateIds);
+                };
+              },
+              componentDidMount$f_0: function (this$TimelineApp) {
+                return function () {
+                  this$TimelineApp.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_0(this$TimelineApp));
+                };
+              },
+              validate$f: function (event) {
                 return function (fieldId) {
                   var eventTemplate = _.hu.nevermind.timeline.store.EventTemplateStore.getTemplates().get_za3rmp$(event.templateId);
                   if (eventTemplate == null) {
@@ -1809,87 +1858,38 @@
                   }
                 };
               },
-              f_0: function (event) {
-                Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(event.fieldIds, _.hu.nevermind.reakt.example.TimelineApp.f(event));
-              },
-              componentDidMount$f: function (this$TimelineApp) {
-                return function () {
-                  Kotlin.modules['stdlib'].kotlin.forEach_p7e0bo$(_.hu.nevermind.timeline.store.EventStore.getEvents().values(), _.hu.nevermind.reakt.example.TimelineApp.f_0);
-                  this$TimelineApp.forceUpdate();
-                };
-              },
               f_1: function () {
                 this.plus_pdl1w0$('Events');
               },
-              f_2: function (eventEditorModalState) {
-                return function () {
-                  return new _.hu.nevermind.reakt.example.ModalData(true, eventEditorModalState);
-                };
-              },
-              f_3: function (eventEditorModalParent) {
-                return function (eventEditorModalState) {
-                  eventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_2(eventEditorModalState));
-                };
-              },
-              f_4: function (this$TimelineApp, selectedId) {
-                return function () {
-                  return this$TimelineApp.state.copy(Kotlin.modules['stdlib'].kotlin.plus_pjxz11$(this$TimelineApp.state.filteringTemplateIds, selectedId));
-                };
-              },
-              f_5: function (this$TimelineApp) {
-                return function (selectedId) {
-                  this$TimelineApp.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_4(this$TimelineApp, selectedId));
-                };
-              },
-              f_6: function (eventEditorModalState) {
-                return function () {
-                  return new _.hu.nevermind.reakt.example.ModalData(true, eventEditorModalState);
-                };
-              },
-              f_7: function (eventEditorModalParent) {
-                return function (eventEditorModalState) {
-                  eventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_6(eventEditorModalState));
-                };
-              },
-              f_8: function (eventEditorModalParent, this$TimelineApp) {
+              f_2: function (this$TimelineApp) {
                 return function () {
                   this.plus_oclkc7$(_.hu.nevermind.reakt.h1_3topnc$(void 0, _.hu.nevermind.reakt.example.TimelineApp.f_1));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.AddEventDropDownButton(_.hu.nevermind.reakt.example.TimelineApp.f_3(eventEditorModalParent)));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventFilter(this$TimelineApp.state.filteringTemplateIds, _.hu.nevermind.reakt.example.TimelineApp.f_5(this$TimelineApp)));
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGrid(this$TimelineApp.state, _.hu.nevermind.reakt.example.TimelineApp.f_7(eventEditorModalParent)));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.AddEventDropDownButton());
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventFilter(this$TimelineApp.state.filteringTemplateIds));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventGrid(this$TimelineApp.state));
                 };
               },
-              f_9: function (eventEditorModalState) {
+              f_3: function (this$TimelineApp) {
                 return function () {
-                  return new _.hu.nevermind.reakt.example.ModalData(true, eventEditorModalState);
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventTemplateGrid(this$TimelineApp.state));
                 };
               },
-              f_10: function (eventEditorModalParent) {
-                return function (eventEditorModalState) {
-                  eventEditorModalParent.changeState_un3fny$(_.hu.nevermind.reakt.example.TimelineApp.f_9(eventEditorModalState));
-                };
-              },
-              f_11: function (this$TimelineApp, eventEditorModalParent) {
+              f_4: function (this$TimelineApp) {
                 return function () {
-                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventTemplateGrid(this$TimelineApp.state, _.hu.nevermind.reakt.example.TimelineApp.f_10(eventEditorModalParent)));
-                };
-              },
-              f_12: function (this$TimelineApp) {
-                return function () {
-                  var eventEditorModalParent = new _.hu.nevermind.reakt.example.EventEditorModalParent();
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-6')], _.hu.nevermind.reakt.example.TimelineApp.f_8(eventEditorModalParent, this$TimelineApp)));
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-4 col-md-offset-2')], _.hu.nevermind.reakt.example.TimelineApp.f_11(this$TimelineApp, eventEditorModalParent)));
-                  this.plus_zhpcab$(eventEditorModalParent);
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-6')], _.hu.nevermind.reakt.example.TimelineApp.f_2(this$TimelineApp)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'col-md-4 col-md-offset-2')], _.hu.nevermind.reakt.example.TimelineApp.f_3(this$TimelineApp)));
+                  this.plus_zhpcab$(new _.hu.nevermind.reakt.example.EventEditorModalParent());
                 };
               },
               render$f: function (this$TimelineApp) {
                 return function () {
-                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.TimelineApp.f_12(this$TimelineApp)));
+                  this.plus_oclkc7$(_.hu.nevermind.reakt.div_3topnc$([Kotlin.modules['stdlib'].kotlin.to_l1ob02$('className', 'row')], _.hu.nevermind.reakt.example.TimelineApp.f_4(this$TimelineApp)));
                 };
               }
             }),
             main_kand9s$: function (args) {
               var tmp$0;
+              React.createElement('div');
               if (!window.location.href.endsWith('?test')) {
                 _.hu.nevermind.timeline.username = (tmp$0 = localStorage.getItem('username')) != null ? tmp$0 : '';
                 if (Kotlin.equals(_.hu.nevermind.timeline.username, '')) {
@@ -1899,7 +1899,7 @@
                   localStorage.setItem('username', _.hu.nevermind.timeline.username);
                 }
                 _.net.yested.utils.Moment.object.setLocale('hu');
-                _.hu.nevermind.reakt.React.object.render_40g7my$((new _.hu.nevermind.reakt.example.TimelineApp()).createElement(), document.getElementById('timelineApp'));
+                _.hu.nevermind.reakt.React.render_40g7my$((new _.hu.nevermind.reakt.example.TimelineApp()).createElement(), document.getElementById('timelineApp'));
                 _.hu.nevermind.reakt.example.queryEntitiesFromServer();
               }
             },
@@ -1955,6 +1955,8 @@
             this.dataFromServer = new _.hu.nevermind.flux.ActionDef();
             this.eventEdited = new _.hu.nevermind.flux.ActionDef();
             this.eventCreated = new _.hu.nevermind.flux.ActionDef();
+            this.filteringTemplateIdsChanged = new _.hu.nevermind.flux.ActionDef();
+            this.eventEditorModalStateChanged = new _.hu.nevermind.flux.ActionDef();
           });
         }, /** @lends _.hu.nevermind.timeline */ {
           AjaxResult: Kotlin.createClass(null, function (status, data) {
@@ -2280,6 +2282,63 @@
             },
             equals_za3rmp$: function (other) {
               return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.templateId, other.templateId) && Kotlin.equals(this.date, other.date) && Kotlin.equals(this.comment, other.comment) && Kotlin.equals(this.fieldCreations, other.fieldCreations))));
+            }
+          }),
+          FilteringTemplateIdsChangedPayload: Kotlin.createClass(null, function (filteringTemplateIds) {
+            this.filteringTemplateIds = filteringTemplateIds;
+          }, /** @lends _.hu.nevermind.timeline.FilteringTemplateIdsChangedPayload.prototype */ {
+            component1: function () {
+              return this.filteringTemplateIds;
+            },
+            copy_3dy865$: function (filteringTemplateIds) {
+              return new _.hu.nevermind.timeline.FilteringTemplateIdsChangedPayload(filteringTemplateIds === void 0 ? this.filteringTemplateIds : filteringTemplateIds);
+            },
+            toString: function () {
+              return 'FilteringTemplateIdsChangedPayload(filteringTemplateIds=' + Kotlin.toString(this.filteringTemplateIds) + ')';
+            },
+            hashCode: function () {
+              var result = 0;
+              result = result * 31 + Kotlin.hashCode(this.filteringTemplateIds) | 0;
+              return result;
+            },
+            equals_za3rmp$: function (other) {
+              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && Kotlin.equals(this.filteringTemplateIds, other.filteringTemplateIds)));
+            }
+          }),
+          EventEditorModalState: Kotlin.createClass(null, function (eventTemplate, eventFormSchema, event, onSave) {
+            this.eventTemplate = eventTemplate;
+            this.eventFormSchema = eventFormSchema;
+            this.event = event;
+            this.onSave = onSave;
+          }, /** @lends _.hu.nevermind.timeline.EventEditorModalState.prototype */ {
+            component1: function () {
+              return this.eventTemplate;
+            },
+            component2: function () {
+              return this.eventFormSchema;
+            },
+            component3: function () {
+              return this.event;
+            },
+            component4: function () {
+              return this.onSave;
+            },
+            copy_g1cxwg$: function (eventTemplate, eventFormSchema, event, onSave) {
+              return new _.hu.nevermind.timeline.EventEditorModalState(eventTemplate === void 0 ? this.eventTemplate : eventTemplate, eventFormSchema === void 0 ? this.eventFormSchema : eventFormSchema, event === void 0 ? this.event : event, onSave === void 0 ? this.onSave : onSave);
+            },
+            toString: function () {
+              return 'EventEditorModalState(eventTemplate=' + Kotlin.toString(this.eventTemplate) + (', eventFormSchema=' + Kotlin.toString(this.eventFormSchema)) + (', event=' + Kotlin.toString(this.event)) + (', onSave=' + Kotlin.toString(this.onSave)) + ')';
+            },
+            hashCode: function () {
+              var result = 0;
+              result = result * 31 + Kotlin.hashCode(this.eventTemplate) | 0;
+              result = result * 31 + Kotlin.hashCode(this.eventFormSchema) | 0;
+              result = result * 31 + Kotlin.hashCode(this.event) | 0;
+              result = result * 31 + Kotlin.hashCode(this.onSave) | 0;
+              return result;
+            },
+            equals_za3rmp$: function (other) {
+              return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.eventTemplate, other.eventTemplate) && Kotlin.equals(this.eventFormSchema, other.eventFormSchema) && Kotlin.equals(this.event, other.event) && Kotlin.equals(this.onSave, other.onSave))));
             }
           }),
           entities: Kotlin.definePackage(null, /** @lends _.hu.nevermind.timeline.entities */ {
@@ -2720,6 +2779,22 @@
             })
           }),
           store: Kotlin.definePackage(function () {
+            this.AppStore = Kotlin.createObject(function () {
+              return [_.hu.nevermind.flux.Store];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.$filteringTemplateIds_9u7hq1$ = Kotlin.modules['stdlib'].kotlin.arrayListOf_9mqe4v$([]);
+              this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.filteringTemplateIdsChanged, _.hu.nevermind.timeline.store.AppStore$f(this));
+            }, {
+              filteringTemplateIds: {
+                get: function () {
+                  return this.$filteringTemplateIds_9u7hq1$;
+                },
+                set: function (filteringTemplateIds) {
+                  this.$filteringTemplateIds_9u7hq1$ = filteringTemplateIds;
+                }
+              }
+            });
             this.EventStore = Kotlin.createObject(function () {
               return [_.hu.nevermind.flux.Store];
             }, function $fun() {
@@ -2774,7 +2849,30 @@
                 return this.templates_s30ren$;
               }
             });
+            this.ModalWindowStore = Kotlin.createObject(function () {
+              return [_.hu.nevermind.flux.Store];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.$eventEditorModalState_1vkekq$ = null;
+              this.register_x5ky9g$(_.hu.nevermind.timeline.Actions.eventEditorModalStateChanged, _.hu.nevermind.timeline.store.ModalWindowStore$f(this));
+            }, {
+              eventEditorModalState: {
+                get: function () {
+                  return this.$eventEditorModalState_1vkekq$;
+                },
+                set: function (eventEditorModalState) {
+                  this.$eventEditorModalState_1vkekq$ = eventEditorModalState;
+                }
+              }
+            });
           }, /** @lends _.hu.nevermind.timeline.store */ {
+            AppStore$f: function (this$AppStore) {
+              return function (payload) {
+                this$AppStore.filteringTemplateIds.clear();
+                this$AppStore.filteringTemplateIds.addAll_4fm7v2$(payload.filteringTemplateIds);
+                this$AppStore.emitChange();
+              };
+            },
             f: function (this$EventStore) {
               return function (it) {
                 this$EventStore.fields_h4i2af$.put_wn2jw4$(it.id, it);
@@ -2945,6 +3043,12 @@
             get$f_0: function (templateId) {
               return function () {
                 return Kotlin.modules['stdlib'].kotlin.error_za3rmp$('TemplateStore: ' + templateId);
+              };
+            },
+            ModalWindowStore$f: function (this$ModalWindowStore) {
+              return function (newEventEditorModalState) {
+                this$ModalWindowStore.eventEditorModalState = newEventEditorModalState;
+                this$ModalWindowStore.emitChange();
               };
             }
           })
@@ -3243,4 +3347,7 @@
   });
   Kotlin.defineModule('reaKt', _);
   _.hu.nevermind.reakt.example.main_kand9s$([]);
+  QUnit.test('DispatcherSpecs.dispatcherShouldExecuteAllSubscriber', function () {
+    (new _.hu.nevermind.flux.DispatcherSpecs()).dispatcherShouldExecuteAllSubscriber();
+  });
 }(Kotlin));

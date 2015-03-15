@@ -8,7 +8,7 @@ import hu.nevermind.timeline.entities.EventTemplate
 import hu.nevermind.timeline.entities.EventTemplateField
 import hu.nevermind.timeline.entities.Id
 import net.yested.utils.Moment
-import hu.nevermind.reakt.example.EventEditorModalState
+import hu.nevermind.reakt.example.EventFormSchema
 
 public data class DataFromServer(val events: MutableList<EventInstance>, val eventFields: MutableList<EventField>, val templates: MutableList<EventTemplate>, val templateFields: MutableList<EventTemplateField>)
 
@@ -20,10 +20,17 @@ public data class EventFieldCreationPayload(val templateFieldId: Id<EventTemplat
 public data class EventFieldCreated(val date: Moment)
 public data class EventCreationPayload(val templateId: Id<EventTemplate>, val date: Moment, val comment: String?, val fieldCreations: Iterable<EventFieldCreationPayload>)
 
+public data class FilteringTemplateIdsChangedPayload(val filteringTemplateIds: List<Id<EventTemplate>>)
+
+public data class EventEditorModalState(val eventTemplate: EventTemplate, val eventFormSchema: EventFormSchema, val event: EventInstance?, val onSave: () -> Unit)
+
 public object Actions {
 	val dataFromServer = ActionDef<DataFromServer>()
 
     val eventEdited = ActionDef<EventChangePayload>()
     val eventCreated = ActionDef<EventCreationPayload>()
+
+	val filteringTemplateIdsChanged = ActionDef<FilteringTemplateIdsChangedPayload>()
+	val eventEditorModalStateChanged = ActionDef<EventEditorModalState?>()
 
 }
