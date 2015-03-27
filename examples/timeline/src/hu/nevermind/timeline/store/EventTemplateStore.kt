@@ -12,7 +12,7 @@ import hu.nevermind.timeline.entities.Id
 
 object EventTemplateStore : Store (){
 
-	{
+	init {
 		register(Actions.dataFromServer) { appState ->
 			templates.clear()
 			appState.templates.forEach {

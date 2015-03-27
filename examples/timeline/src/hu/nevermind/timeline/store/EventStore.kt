@@ -11,9 +11,9 @@ import hu.nevermind.timeline.entities.EventField
 object EventStore : Store() {
 
     private var events: MutableMap<Id<EventInstance>, EventInstance> = hashMapOf();
-    private var fields: MutableMap<Id<EventField>, EventField> = hashMapOf();
+    private var fields: MutableMap<Id<EventField>, EventField> = hashMapOf()
 
-	{
+    init {
 		register(Actions.dataFromServer) { payload ->
 			waitFor(EventTemplateStore, EventTemplateFieldStore)
             fields.clear()

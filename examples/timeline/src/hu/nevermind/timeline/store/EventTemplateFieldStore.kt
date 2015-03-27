@@ -12,9 +12,9 @@ import hu.nevermind.timeline.entities.EventTemplate
 
 object EventTemplateFieldStore : Store() {
 
-    private var fields: MutableMap<Id<EventTemplateField>, EventTemplateField> = hashMapOf();
+    private var fields: MutableMap<Id<EventTemplateField>, EventTemplateField> = hashMapOf()
 
-    {
+    init {
         register(Actions.dataFromServer) { appState ->
             fields.clear()
             appState.templateFields.sortBy{it.id.id}.forEach {
