@@ -56,6 +56,10 @@ import hu.nevermind.timeline.EventFieldCreationPayload
 import hu.nevermind.timeline.store.EventTemplateFieldStore
 import hu.nevermind.timeline.Local
 import hu.nevermind.reakt.tbody
+import hu.nevermind.timeline.FilteringTemplateIdsChangedPayload
+import hu.nevermind.timeline.store.AppStore
+import hu.nevermind.timeline.store.ModalWindowStore
+import hu.nevermind.timeline.EventEditorModalState
 import kotlin.js.dom.html5.localStorage
 
 data class FormField(val id: Int, val inputType: InputType, val labelText: String, val placeHolder: String = "", value: String = "") {
@@ -73,7 +77,7 @@ data class FormField(val id: Int, val inputType: InputType, val labelText: Strin
             }
         }
         set(v) {
-            (parent!!.idsToRefs[this.id]!!.getDOMNode() as HTMLInputElement).value = v
+            (parent!!.idsToRefs[this.id]!!.getDOMNode() as HTMLInputElement).value = v ?: ""
         }
 }
 
@@ -209,7 +213,6 @@ class InputField(val inputType: InputType, val labelText: String, val placeHolde
 open data class DropDownButtonItem(val name: String, val callback: (() -> Unit))
 data class DropDownDivider() : DropDownButtonItem("", {})
 
-// TODO: a DropDownButtonItem-ek a gyermekei legyenek!
 class DropDownButton(val buttonText: String, val items: Iterable<DropDownButtonItem>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
 
     override fun render(): ReactElement? {
@@ -250,15 +253,6 @@ class SplitDropDownButton(val mainItem: DropDownButtonItem, vararg val items: Dr
     }
 }
 
-class FilterSelectorButton(val onFilteringTemplateSelected: (Id<EventTemplate>) -> Unit, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
-
-    override fun render(): ReactElement? {
-        return DropDownButton("Filter", EventTemplateStore.getTemplates().values().map {
-            DropDownButtonItem(it.name, { onFilteringTemplateSelected(it.id) })
-        }).render()
-    }
-}
-
 class FilterSelectorField(val filteringTemplateIds: Iterable<Id<EventTemplate>>, body: ReactElementContainer.() -> Unit = {}) : ReactClass(body) {
 
     val inputRef = ref("inputRef")
@@ -273,25 +267,22 @@ class FilterSelectorField(val filteringTemplateIds: Iterable<Id<EventTemplate>>,
 }
 
 
-class EventFilter(val filteringIds: List<Id<EventTemplate>>, val onFilteringTemplateSelectedParentCallback: (Id<EventTemplate>) -> Unit) : StatefulReactClass<List<Id<EventTemplate>>>(filteringIds) {
+class EventFilter(val filteringTemplateIds: List<Id<EventTemplate>>) : StatefulReactClass<List<Id<EventTemplate>>>(filteringTemplateIds) {
 
 
     override fun render(): ReactElement? {
         return div("className" to "row") {
-            +FilterSelectorButton(onFilteringTemplateSelected)
+            +DropDownButton("Filter", EventTemplateStore.getTemplates().values().map {
+                DropDownButtonItem(it.name, {
+                    Actions.filteringTemplateIdsChanged.dispatch(FilteringTemplateIdsChangedPayload(filteringTemplateIds + it.id))
+                })
+            })
             +FilterSelectorField(state)
         }
     }
-
-    private val onFilteringTemplateSelected = { id: Id<EventTemplate> ->
-        changeState {
-            state + id
-        }
-        onFilteringTemplateSelectedParentCallback(id)
-    }
 }
 
-class AddEventDropDownButton(val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+class AddEventDropDownButton() : ReactClass() {
 
     override fun render(): ReactElement? {
         val eventsByTemplateIds = hashMapOf<Id<EventTemplate>, Int>()
@@ -308,7 +299,7 @@ class AddEventDropDownButton(val callback: (EventEditorModalState) -> Unit) : Re
                     val comment = eventFormSchema.commentInput.value
                     val eventFieldCreationPayload = eventFormSchema.fieldInputs
                             .map { it.value }
-                            .mapIndexed { index, value ->
+                            .mapIndexed {(index, value) ->
                                 val templateFieldId = template.fieldIds[index]
                                 val fieldTemplate = EventTemplateFieldStore[templateFieldId]
                                 val extractedValue = fieldTemplate.type.readValue(value)
@@ -322,14 +313,14 @@ class AddEventDropDownButton(val callback: (EventEditorModalState) -> Unit) : Re
                     val eventCreationPayload = createEventCreationPayload()
                     Actions.eventCreated.dispatch(eventCreationPayload)
                 }
-                callback(eventEditorModalWindowState)
+                Actions.eventEditorModalStateChanged.dispatch(eventEditorModalWindowState)
             }
         }
         return DropDownButton("Add", items).render()
     }
 }
 
-class EventGridRow(val event: EventInstance, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+class EventGridRow(val event: EventInstance) : ReactClass() {
 
     override fun render(): ReactElement? {
         val templ = EventTemplateStore[event.templateId]
@@ -364,7 +355,7 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
                         val comment = eventFormSchema.commentInput.value
                         val eventFieldChangesPayload = eventFormSchema.fieldInputs
                                 .map { it.value }
-                                .mapIndexed { index, value ->
+                                .mapIndexed {(index, value) ->
                                     val field = EventStore.getField(event.fieldIds[index])
                                     val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
                                     val extractedValue = fieldTemplate.type.readValue(value)
@@ -379,7 +370,7 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
                         val eventCreationPayload = createEventCreationPayload()
                         Actions.eventCreated.dispatch(eventCreationPayload)
                     }
-                    callback(eventEditorModalWindowState)
+                    Actions.eventEditorModalStateChanged.dispatch(eventEditorModalWindowState)
                 }
                 val onEditClick = {
                     val eventFormSchema = EventFormSchema(templ)
@@ -387,7 +378,7 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
                         val date = Moment.parse(eventFormSchema.dateInput.value, dateFormat.toString())
                         val eventFieldChangesPayload = eventFormSchema.fieldInputs
                                 .map { it.value }
-                                .mapIndexed { index, value ->
+                                .mapIndexed {(index, value) ->
                                     val field = EventStore.getField(event.fieldIds[index])
                                     val fieldTemplate = EventTemplateFieldStore[field.templateFieldId]
                                     val extractedValue = fieldTemplate.type.readValue(value)
@@ -401,7 +392,7 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
                         val eventChangePayload = createEventChangePayload()
                         Actions.eventEdited.dispatch(eventChangePayload)
                     }
-                    callback(eventEditorModalWindowState)
+                    Actions.eventEditorModalStateChanged.dispatch(eventEditorModalWindowState)
                 }
                 +SplitDropDownButton(DropDownButtonItem("Edit", onEditClick), DropDownButtonItem("Copy", onCopyClick), DropDownButtonItem("Delete", {}))
             }
@@ -410,7 +401,7 @@ class EventGridRow(val event: EventInstance, val callback: (EventEditorModalStat
 }
 
 
-class EventTemplateGridRow(val template: EventTemplate, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+class EventTemplateGridRow(val template: EventTemplate) : ReactClass() {
 
     override fun render(): ReactElement? {
 
@@ -425,7 +416,7 @@ class EventTemplateGridRow(val template: EventTemplate, val callback: (EventEdit
     }
 }
 
-class EventTemplateGrid(val appState: TimelineAppState, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+class EventTemplateGrid(val appState: TimelineAppState) : ReactClass() {
     override fun render(): ReactElement? {
         return table("className" to "table table-striped table-bordered table-hover table-condensed") {
             +thead {
@@ -436,14 +427,14 @@ class EventTemplateGrid(val appState: TimelineAppState, val callback: (EventEdit
             }
             +tbody {
                 EventTemplateStore.getTemplates().values().forEach {
-                    +EventTemplateGridRow(it, callback)
+                    +EventTemplateGridRow(it)
                 }
             }
         }
     }
 }
 
-class EventGrid(val appState: TimelineAppState, val callback: (EventEditorModalState) -> Unit) : ReactClass() {
+class EventGrid(val appState: TimelineAppState) : ReactClass() {
     override fun render(): ReactElement? {
         return table("className" to "table table-striped table-bordered table-hover table-condensed") {
             +thead {
@@ -461,16 +452,14 @@ class EventGrid(val appState: TimelineAppState, val callback: (EventEditorModalS
                 } else {
                     EventStore.getEvents().values().filter { appState.filteringTemplateIds.contains(it.templateId) }
                 }.sortBy { it.date.millisecondsSinceUnixEpoch }.reverse().forEach {
-                    +EventGridRow(it, callback)
+                    +EventGridRow(it)
                 }
             }
         }
     }
 }
 
-data class TimelineAppState(val filteringTemplateIds: List<Id<EventTemplate>>, val isEventEditorShown: Boolean) {
-
-}
+data class TimelineAppState(val filteringTemplateIds: List<Id<EventTemplate>>, val isEventEditorShown: Boolean)
 
 data class ModalData<T>(val visible: Boolean, val data: T)
 
@@ -511,14 +500,27 @@ private fun eventDateFormat(event: EventInstance): FormatString {
     }
 }
 
-data class EventEditorModalState(val eventTemplate: EventTemplate, val eventFormSchema: EventFormSchema, val event: EventInstance?, val onSave: () -> Unit)
 class EventEditorModalParent() : StatefulReactClass<ModalData<EventEditorModalState?>>(ModalData(false, null)) {
+
     override fun render(): ReactElement? {
         return if (state.visible) {
-            EventEditorModal(state.data!!, onCancel = { changeState { ModalData(false, null) } }).createElement()
+            EventEditorModal(state.data!!, onCancel = { Actions.eventEditorModalStateChanged.dispatch(null) }).createElement()
         } else {
             div {}
         }
+    }
+
+    override fun componentDidMount() {
+        ModalWindowStore.addChangeListener(this) {
+            changeState {
+                val newState = ModalWindowStore.eventEditorModalState
+                ModalData(newState != null, newState)
+            }
+        }
+    }
+
+    override fun componentWillUnmount() {
+        ModalWindowStore.removeListener(this)
     }
 }
 
@@ -563,22 +565,31 @@ class TimelineApp() : StatefulReactClass<TimelineAppState>(TimelineAppState(empt
     override fun componentDidMount() {
         EventStore.addChangeListener(this) {
             EventStore.getEvents().values().forEach { event ->
-                event.fieldIds.forEach { fieldId ->
-                    val eventTemplate = EventTemplateStore.getTemplates()[event.templateId]
-                    if (eventTemplate == null) {
-                        println("Missing templateID: ${event.templateId}\n\t${event}\n\t${eventTemplate}")
-                    }
-                    val eventField = EventStore.getFields()[fieldId]
-                    if (eventField == null) {
-                        println("Missing fieldId: $fieldId\n\t${event}\n\t${eventTemplate}")
-                    } else {
-                        if (EventTemplateFieldStore.getFields()[eventField.templateFieldId] == null) {
-                            println("Missing templateFieldId: ${eventField.templateFieldId}\n\t${event}\n\t${eventField}\n\t${eventTemplate}")
-                        }
-                    }
-                }
+                validate(event)
             }
             this.forceUpdate()
+        }
+        AppStore.addChangeListener(this) {
+            changeState {
+                state.copy(filteringTemplateIds = AppStore.filteringTemplateIds)
+            }
+        }
+    }
+
+    private fun validate(event: EventInstance) {
+        event.fieldIds.forEach { fieldId ->
+            val eventTemplate = EventTemplateStore.getTemplates()[event.templateId]
+            if (eventTemplate == null) {
+                println("Missing templateID: ${event.templateId}\n\t${event}\n\t${eventTemplate}")
+            }
+            val eventField = EventStore.getFields()[fieldId]
+            if (eventField == null) {
+                println("Missing fieldId: $fieldId\n\t${event}\n\t${eventTemplate}")
+            } else {
+                if (EventTemplateFieldStore.getFields()[eventField.templateFieldId] == null) {
+                    println("Missing templateFieldId: ${eventField.templateFieldId}\n\t${event}\n\t${eventField}\n\t${eventTemplate}")
+                }
+            }
         }
     }
 
@@ -589,39 +600,23 @@ class TimelineApp() : StatefulReactClass<TimelineAppState>(TimelineAppState(empt
     override fun render(): ReactElement? {
         return div {
             +div("className" to "row") {
-                val eventEditorModalParent = EventEditorModalParent()
                 +div("className" to "col-md-6") {
                     +h1 { +"Events" }
-                    +AddEventDropDownButton() { eventEditorModalState: EventEditorModalState ->
-                        eventEditorModalParent.changeState {
-                            ModalData(true, eventEditorModalState)
-                        }
-                    }
-                    +EventFilter(state.filteringTemplateIds) { selectedId ->
-                        changeState {
-                            state.copy(filteringTemplateIds = state.filteringTemplateIds + selectedId)
-                        }
-                    }
-                    +EventGrid(state) { eventEditorModalState: EventEditorModalState ->
-                        eventEditorModalParent.changeState {
-                            ModalData(true, eventEditorModalState)
-                        }
-                    }
+                    +AddEventDropDownButton()
+                    +EventFilter(state.filteringTemplateIds)
+                    +EventGrid(state)
                 }
                 +div("className" to "col-md-4 col-md-offset-2") {
-                    +EventTemplateGrid(state) { eventEditorModalState: EventEditorModalState ->
-                        eventEditorModalParent.changeState {
-                            ModalData(true, eventEditorModalState)
-                        }
-                    }
+                    +EventTemplateGrid(state)
                 }
-                +eventEditorModalParent
+                +EventEditorModalParent()
             }
         }
     }
 }
 
 public fun main(args: Array<String>) {
+    js("React.createElement('div')")
     if (!window.location.href.endsWith("?test")) {
         username = localStorage.get("username") as String? ?: ""
         if (username == "") {
@@ -666,14 +661,14 @@ private fun queryEntitiesFromServer() {
         EventInstance.fromJson(event)
     })
     // READ event fields
-    eventFields.addAll((result.events as Array<dynamic>) map { event: dynamic ->
-        (event.fields as Array<dynamic>).map { field: dynamic ->
+    eventFields.addAll((result.events as Array<dynamic>) map {(event: dynamic) ->
+        (event.fields as Array<dynamic>).map {(field: dynamic) ->
             EventField.fromJson(field)
         }
     } flatMap { it })
     // READ template fields
-    templateFields.addAll((result.templates as Array<dynamic>) map { templates: dynamic ->
-        (templates.fields as Array<dynamic>).map { field: dynamic ->
+    templateFields.addAll((result.templates as Array<dynamic>) map {(templates: dynamic) ->
+        (templates.fields as Array<dynamic>).map {(field: dynamic) ->
             EventTemplateField.fromJson(field)
         }
     } flatMap { it })

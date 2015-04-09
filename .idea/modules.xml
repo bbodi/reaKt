@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/reaKt.iml" filepath="$PROJECT_DIR$/reaKt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../reakt2/reakt2.iml" filepath="$PROJECT_DIR$/../reakt2/reakt2.iml" />
     </modules>
   </component>
 </project>
