@@ -7,51 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dbf9215-7ab5-4c69-9691-07225d2f5175" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/timeline/src/hu/nevermind/timeline/store/AppStore.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/showcase/DomProperties.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/timeline/src/hu/nevermind/timeline/store/ModalWindowStore.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/showcase/Property.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/showcase/main.kt" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../reakt2/reakt2.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/hu/nevermind/reakt/reaktTest.kt" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\icon-bg.jpg" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\icon-bg.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\icon-small.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\icon.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\logo.ai" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\logo.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\logo.svg" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\symbol.ai" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\symbol.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\media\symbol.svg" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\editcloud9.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\logo-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\logo.svg" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\main.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\main.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\projects2\reaKt\examples\timeline\web\site-assets\screenshot.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/kotlin-jslib-sources.jar" afterPath="$PROJECT_DIR$/lib/kotlin-jslib-sources.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/kotlin-jslib.jar" afterPath="$PROJECT_DIR$/lib/kotlin-jslib.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/reakt/kotlin-jslib.jar" afterPath="$PROJECT_DIR$/out/artifacts/reakt/kotlin-jslib.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../reakt2/src/com/github/andrewoma/react/Component.kt" afterPath="$PROJECT_DIR$/../reakt2/src/com/github/andrewoma/react/Component.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/showcase/DomProperties.kt" afterPath="$PROJECT_DIR$/examples/showcase/DomProperties.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../reakt2/src/com/github/andrewoma/react/ReactSpec.kt" afterPath="$PROJECT_DIR$/../reakt2/src/com/github/andrewoma/react/ReactSpec.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/timeline/src/hu/nevermind/timeline/actions.kt" afterPath="$PROJECT_DIR$/examples/timeline/src/hu/nevermind/timeline/actions.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hu/nevermind/flux/flux.kt" afterPath="$PROJECT_DIR$/src/hu/nevermind/flux/flux.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/timeline/web/index.html" afterPath="$PROJECT_DIR$/examples/timeline/web/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.html" afterPath="$PROJECT_DIR$/web/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/reakt/lib/kotlin.js" afterPath="$PROJECT_DIR$/out/artifacts/reakt/lib/kotlin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/reaKt/lib/kotlin.js" afterPath="$PROJECT_DIR$/out/production/reaKt/lib/kotlin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/timeline/src/main.kt" afterPath="$PROJECT_DIR$/examples/timeline/src/main.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/reaKt.iml" afterPath="$PROJECT_DIR$/reaKt.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/showcase/main.kt" afterPath="$PROJECT_DIR$/examples/showcase/main.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/reakt/reaKt.js" afterPath="$PROJECT_DIR$/out/artifacts/reakt/reaKt.js" />
-      <change type="MODIFICATION" beforePath="C:\projects2\reaKt\out\production\reaKt\reaKt.js" afterPath="C:\projects2\reaKt\out\production\reaKt\reaKt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/hu/nevermind/reakt/reakt.kt" afterPath="$PROJECT_DIR$/src/hu/nevermind/reakt/reakt.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/reaKt/reaKt.js" afterPath="$PROJECT_DIR$/out/production/reaKt/reaKt.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/artifacts/reakt/reaKt.meta.js" afterPath="$PROJECT_DIR$/out/artifacts/reakt/reaKt.meta.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/reaKt/reaKt.meta.js" afterPath="$PROJECT_DIR$/out/production/reaKt/reaKt.meta.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="reaKt.iws" />
@@ -74,28 +39,46 @@
     <favorites_list name="reaKt" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.57600504">
+    <splitter split-orientation="vertical" split-proportion="0.5537398">
       <split-first>
+        <splitter split-orientation="vertical" split-proportion="0.41847205">
+          <split-first>
+            <leaf>
+              <file leaf-file-name="main.kt" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/examples/showcase/main.kt">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="0.4984326">
+                      <caret line="161" column="1" selection-start-line="161" selection-start-column="1" selection-end-line="161" selection-end-column="1" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-first>
+          <split-second>
+            <leaf>
+              <file leaf-file-name="main.kt" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/examples/showcase/main.kt">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state vertical-scroll-proportion="0.49438202">
+                      <caret line="230" column="19" selection-start-line="230" selection-start-column="19" selection-end-line="230" selection-end-column="19" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+            </leaf>
+          </split-second>
+        </splitter>
+      </split-first>
+      <split-second>
         <leaf>
           <file leaf-file-name="main.kt" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/examples/showcase/main.kt">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.46437994">
-                  <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/examples/timeline/web/index.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7490637">
-                  <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.4528">
+                  <caret line="115" column="51" selection-start-line="115" selection-start-column="51" selection-end-line="115" selection-end-column="51" />
                   <folding />
                 </state>
               </provider>
@@ -131,9 +114,9 @@
         <option value="$PROJECT_DIR$/../reakt2/src/com/github/andrewoma/react/React.kt" />
         <option value="$PROJECT_DIR$/src/hu/nevermind/reakt/reakt.kt" />
         <option value="$PROJECT_DIR$/examples/showcase/Property.kt" />
-        <option value="$PROJECT_DIR$/examples/showcase/DomProperties.kt" />
         <option value="$PROJECT_DIR$/examples/timeline/web/lib/reaKtHelper.js" />
         <option value="$PROJECT_DIR$/examples/showcase/DomComponents.kt" />
+        <option value="$PROJECT_DIR$/examples/showcase/DomProperties.kt" />
         <option value="$PROJECT_DIR$/examples/timeline/web/index.html" />
         <option value="$PROJECT_DIR$/examples/showcase/main.kt" />
       </list>
@@ -373,7 +356,7 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16530484" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.115021996" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998115" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -382,8 +365,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24552684" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24950299" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.10735586" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Metrics" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -392,6 +374,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24950299" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17096166" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -424,6 +407,81 @@
     <option name="showOnlyWarnings" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/examples/showcase/main.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="141" column="14" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/showcase/DomProperties.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
+          <folding>
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/showcase/main.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -511,13 +569,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/hu/nevermind/reakt/reakt.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="113" column="42" selection-start-line="113" selection-start-column="42" selection-end-line="113" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -595,7 +646,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.73614776">
           <caret line="29" column="6" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -607,18 +657,107 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../reakt2/src/com/github/andrewoma/react/DomComponents.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13928571">
+          <caret line="172" column="14" selection-start-line="172" selection-start-column="14" selection-end-line="172" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/showcase/Property.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.74905425">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/hu/nevermind/reakt/reakt.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.49714285">
+          <caret line="223" column="32" selection-start-line="223" selection-start-column="32" selection-end-line="223" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/showcase/DomProperties.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29142857">
+          <caret line="144" column="31" selection-start-line="144" selection-start-column="31" selection-end-line="144" selection-end-column="31" />
+          <folding>
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+            <marker date="1428647720846" expanded="true" signature="-1:-1" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/timeline/web/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7490637">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.23870967">
+          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/examples/showcase/main.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46437994">
-          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.49438202">
+          <caret line="230" column="19" selection-start-line="230" selection-start-column="19" selection-end-line="230" selection-end-column="19" />
           <folding />
         </state>
       </provider>

@@ -31,311 +31,55 @@
           }),
           WheelEvent: Kotlin.createTrait(null),
           ReactProperties: Kotlin.createClass(null, function () {
-            this.key$delegate = new _.hu.nevermind.react.Property();
-            this.ref$delegate = new _.hu.nevermind.react.Property();
-            this.onCopy$delegate = new _.hu.nevermind.react.Property();
-            this.onCut$delegate = new _.hu.nevermind.react.Property();
-            this.onPaste$delegate = new _.hu.nevermind.react.Property();
-            this.onKeyDown$delegate = new _.hu.nevermind.react.Property();
-            this.onKeyPress$delegate = new _.hu.nevermind.react.Property();
-            this.onKeyUp$delegate = new _.hu.nevermind.react.Property();
-            this.onFocus$delegate = new _.hu.nevermind.react.Property();
-            this.onBlur$delegate = new _.hu.nevermind.react.Property();
-            this.onChange$delegate = new _.hu.nevermind.react.Property();
-            this.onInput$delegate = new _.hu.nevermind.react.Property();
-            this.onSubmit$delegate = new _.hu.nevermind.react.Property();
-            this.onClick$delegate = new _.hu.nevermind.react.Property();
-            this.onDoubleClick$delegate = new _.hu.nevermind.react.Property();
-            this.onDrag$delegate = new _.hu.nevermind.react.Property();
-            this.onDragEnd$delegate = new _.hu.nevermind.react.Property();
-            this.onDragEnter$delegate = new _.hu.nevermind.react.Property();
-            this.onDragExit$delegate = new _.hu.nevermind.react.Property();
-            this.onDragLeave$delegate = new _.hu.nevermind.react.Property();
-            this.onDragOver$delegate = new _.hu.nevermind.react.Property();
-            this.onDragStart$delegate = new _.hu.nevermind.react.Property();
-            this.onDrop$delegate = new _.hu.nevermind.react.Property();
-            this.onMouseDown$delegate = new _.hu.nevermind.react.Property();
-            this.onMouseEnter$delegate = new _.hu.nevermind.react.Property();
-            this.onMouseLeave$delegate = new _.hu.nevermind.react.Property();
-            this.onMouseMove$delegate = new _.hu.nevermind.react.Property();
-            this.onMouseUp$delegate = new _.hu.nevermind.react.Property();
-            this.onTouchCancel$delegate = new _.hu.nevermind.react.Property();
-            this.onTouchEnd$delegate = new _.hu.nevermind.react.Property();
-            this.onTouchMove$delegate = new _.hu.nevermind.react.Property();
-            this.onTouchStart$delegate = new _.hu.nevermind.react.Property();
-            this.onScroll$delegate = new _.hu.nevermind.react.Property();
-            this.onWheel$delegate = new _.hu.nevermind.react.Property();
+            this.$key_gp9lob$ = null;
+            this.$ref_gp9qun$ = null;
+            this.onCopy = null;
+            this.onCut = null;
+            this.onPaste = null;
+            this.onKeyDown = null;
+            this.onKeyPress = null;
+            this.onKeyUp = null;
+            this.onFocus = null;
+            this.onBlur = null;
+            this.onChange = null;
+            this.onInput = null;
+            this.onSubmit = null;
+            this.onClick = null;
+            this.onDoubleClick = null;
+            this.onDrag = null;
+            this.onDragEnd = null;
+            this.onDragEnter = null;
+            this.onDragExit = null;
+            this.onDragLeave = null;
+            this.onDragOver = null;
+            this.onDragStart = null;
+            this.onDrop = null;
+            this.onMouseDown = null;
+            this.onMouseEnter = null;
+            this.onMouseLeave = null;
+            this.onMouseMove = null;
+            this.onMouseUp = null;
+            this.onTouchCancel = null;
+            this.onTouchEnd = null;
+            this.onTouchMove = null;
+            this.onTouchStart = null;
+            this.onScroll = null;
+            this.onWheel = null;
           }, /** @lends _.hu.nevermind.reakt.ReactProperties.prototype */ {
             key: {
               get: function () {
-                return this.key$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('key'));
+                return this.$key_gp9lob$;
               },
               set: function (key) {
-                this.key$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('key'), key);
+                this.$key_gp9lob$ = key;
               }
             },
             ref: {
               get: function () {
-                return this.ref$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('ref'));
+                return this.$ref_gp9qun$;
               },
               set: function (ref) {
-                this.ref$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('ref'), ref);
-              }
-            },
-            onCopy: {
-              get: function () {
-                return this.onCopy$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onCopy'));
-              },
-              set: function (onCopy) {
-                this.onCopy$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onCopy'), onCopy);
-              }
-            },
-            onCut: {
-              get: function () {
-                return this.onCut$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onCut'));
-              },
-              set: function (onCut) {
-                this.onCut$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onCut'), onCut);
-              }
-            },
-            onPaste: {
-              get: function () {
-                return this.onPaste$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onPaste'));
-              },
-              set: function (onPaste) {
-                this.onPaste$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onPaste'), onPaste);
-              }
-            },
-            onKeyDown: {
-              get: function () {
-                return this.onKeyDown$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onKeyDown'));
-              },
-              set: function (onKeyDown) {
-                this.onKeyDown$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onKeyDown'), onKeyDown);
-              }
-            },
-            onKeyPress: {
-              get: function () {
-                return this.onKeyPress$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onKeyPress'));
-              },
-              set: function (onKeyPress) {
-                this.onKeyPress$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onKeyPress'), onKeyPress);
-              }
-            },
-            onKeyUp: {
-              get: function () {
-                return this.onKeyUp$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onKeyUp'));
-              },
-              set: function (onKeyUp) {
-                this.onKeyUp$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onKeyUp'), onKeyUp);
-              }
-            },
-            onFocus: {
-              get: function () {
-                return this.onFocus$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onFocus'));
-              },
-              set: function (onFocus) {
-                this.onFocus$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onFocus'), onFocus);
-              }
-            },
-            onBlur: {
-              get: function () {
-                return this.onBlur$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onBlur'));
-              },
-              set: function (onBlur) {
-                this.onBlur$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onBlur'), onBlur);
-              }
-            },
-            onChange: {
-              get: function () {
-                return this.onChange$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onChange'));
-              },
-              set: function (onChange) {
-                this.onChange$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onChange'), onChange);
-              }
-            },
-            onInput: {
-              get: function () {
-                return this.onInput$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onInput'));
-              },
-              set: function (onInput) {
-                this.onInput$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onInput'), onInput);
-              }
-            },
-            onSubmit: {
-              get: function () {
-                return this.onSubmit$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onSubmit'));
-              },
-              set: function (onSubmit) {
-                this.onSubmit$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onSubmit'), onSubmit);
-              }
-            },
-            onClick: {
-              get: function () {
-                return this.onClick$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onClick'));
-              },
-              set: function (onClick) {
-                this.onClick$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onClick'), onClick);
-              }
-            },
-            onDoubleClick: {
-              get: function () {
-                return this.onDoubleClick$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDoubleClick'));
-              },
-              set: function (onDoubleClick) {
-                this.onDoubleClick$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDoubleClick'), onDoubleClick);
-              }
-            },
-            onDrag: {
-              get: function () {
-                return this.onDrag$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDrag'));
-              },
-              set: function (onDrag) {
-                this.onDrag$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDrag'), onDrag);
-              }
-            },
-            onDragEnd: {
-              get: function () {
-                return this.onDragEnd$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDragEnd'));
-              },
-              set: function (onDragEnd) {
-                this.onDragEnd$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDragEnd'), onDragEnd);
-              }
-            },
-            onDragEnter: {
-              get: function () {
-                return this.onDragEnter$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDragEnter'));
-              },
-              set: function (onDragEnter) {
-                this.onDragEnter$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDragEnter'), onDragEnter);
-              }
-            },
-            onDragExit: {
-              get: function () {
-                return this.onDragExit$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDragExit'));
-              },
-              set: function (onDragExit) {
-                this.onDragExit$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDragExit'), onDragExit);
-              }
-            },
-            onDragLeave: {
-              get: function () {
-                return this.onDragLeave$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDragLeave'));
-              },
-              set: function (onDragLeave) {
-                this.onDragLeave$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDragLeave'), onDragLeave);
-              }
-            },
-            onDragOver: {
-              get: function () {
-                return this.onDragOver$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDragOver'));
-              },
-              set: function (onDragOver) {
-                this.onDragOver$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDragOver'), onDragOver);
-              }
-            },
-            onDragStart: {
-              get: function () {
-                return this.onDragStart$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDragStart'));
-              },
-              set: function (onDragStart) {
-                this.onDragStart$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDragStart'), onDragStart);
-              }
-            },
-            onDrop: {
-              get: function () {
-                return this.onDrop$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onDrop'));
-              },
-              set: function (onDrop) {
-                this.onDrop$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onDrop'), onDrop);
-              }
-            },
-            onMouseDown: {
-              get: function () {
-                return this.onMouseDown$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onMouseDown'));
-              },
-              set: function (onMouseDown) {
-                this.onMouseDown$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onMouseDown'), onMouseDown);
-              }
-            },
-            onMouseEnter: {
-              get: function () {
-                return this.onMouseEnter$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onMouseEnter'));
-              },
-              set: function (onMouseEnter) {
-                this.onMouseEnter$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onMouseEnter'), onMouseEnter);
-              }
-            },
-            onMouseLeave: {
-              get: function () {
-                return this.onMouseLeave$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onMouseLeave'));
-              },
-              set: function (onMouseLeave) {
-                this.onMouseLeave$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onMouseLeave'), onMouseLeave);
-              }
-            },
-            onMouseMove: {
-              get: function () {
-                return this.onMouseMove$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onMouseMove'));
-              },
-              set: function (onMouseMove) {
-                this.onMouseMove$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onMouseMove'), onMouseMove);
-              }
-            },
-            onMouseUp: {
-              get: function () {
-                return this.onMouseUp$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onMouseUp'));
-              },
-              set: function (onMouseUp) {
-                this.onMouseUp$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onMouseUp'), onMouseUp);
-              }
-            },
-            onTouchCancel: {
-              get: function () {
-                return this.onTouchCancel$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onTouchCancel'));
-              },
-              set: function (onTouchCancel) {
-                this.onTouchCancel$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onTouchCancel'), onTouchCancel);
-              }
-            },
-            onTouchEnd: {
-              get: function () {
-                return this.onTouchEnd$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onTouchEnd'));
-              },
-              set: function (onTouchEnd) {
-                this.onTouchEnd$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onTouchEnd'), onTouchEnd);
-              }
-            },
-            onTouchMove: {
-              get: function () {
-                return this.onTouchMove$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onTouchMove'));
-              },
-              set: function (onTouchMove) {
-                this.onTouchMove$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onTouchMove'), onTouchMove);
-              }
-            },
-            onTouchStart: {
-              get: function () {
-                return this.onTouchStart$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onTouchStart'));
-              },
-              set: function (onTouchStart) {
-                this.onTouchStart$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onTouchStart'), onTouchStart);
-              }
-            },
-            onScroll: {
-              get: function () {
-                return this.onScroll$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onScroll'));
-              },
-              set: function (onScroll) {
-                this.onScroll$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onScroll'), onScroll);
-              }
-            },
-            onWheel: {
-              get: function () {
-                return this.onWheel$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('onWheel'));
-              },
-              set: function (onWheel) {
-                this.onWheel$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('onWheel'), onWheel);
+                this.$ref_gp9qun$ = ref;
               }
             }
           }),
@@ -343,140 +87,28 @@
             return [_.hu.nevermind.reakt.ReactProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.key$delegate = new _.hu.nevermind.react.Property();
-            this.accessKey$delegate = new _.hu.nevermind.react.Property();
-            this.className$delegate = new _.hu.nevermind.react.Property();
-            this.contentEditable$delegate = new _.hu.nevermind.react.Property();
-            this.contextMenu$delegate = new _.hu.nevermind.react.Property();
-            this.dir$delegate = new _.hu.nevermind.react.Property();
-            this.draggable$delegate = new _.hu.nevermind.react.Property();
-            this.hidden$delegate = new _.hu.nevermind.react.Property();
-            this.id$delegate = new _.hu.nevermind.react.Property();
-            this.lang$delegate = new _.hu.nevermind.react.Property();
-            this.spellCheck$delegate = new _.hu.nevermind.react.Property();
-            this.role$delegate = new _.hu.nevermind.react.Property();
-            this.scrollLeft$delegate = new _.hu.nevermind.react.Property();
-            this.scrollTop$delegate = new _.hu.nevermind.react.Property();
-            this.style$delegate = new _.hu.nevermind.react.Property();
+            this.$key_6kf53a$ = null;
+            this.accessKey = null;
+            this.className = null;
+            this.contentEditable = null;
+            this.contextMenu = null;
+            this.dir = null;
+            this.draggable = null;
+            this.hidden = null;
+            this.id = null;
+            this.lang = null;
+            this.spellCheck = null;
+            this.role = null;
+            this.scrollLeft = null;
+            this.scrollTop = null;
+            this.style = null;
           }, /** @lends _.hu.nevermind.reakt.HtmlGlobalProperties.prototype */ {
             key: {
               get: function () {
-                return this.key$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('key'));
+                return this.$key_6kf53a$;
               },
               set: function (key) {
-                this.key$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('key'), key);
-              }
-            },
-            accessKey: {
-              get: function () {
-                return this.accessKey$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('accessKey'));
-              },
-              set: function (accessKey) {
-                this.accessKey$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('accessKey'), accessKey);
-              }
-            },
-            className: {
-              get: function () {
-                return this.className$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('className'));
-              },
-              set: function (className) {
-                this.className$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('className'), className);
-              }
-            },
-            contentEditable: {
-              get: function () {
-                return this.contentEditable$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('contentEditable'));
-              },
-              set: function (contentEditable) {
-                this.contentEditable$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('contentEditable'), contentEditable);
-              }
-            },
-            contextMenu: {
-              get: function () {
-                return this.contextMenu$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('contextMenu'));
-              },
-              set: function (contextMenu) {
-                this.contextMenu$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('contextMenu'), contextMenu);
-              }
-            },
-            dir: {
-              get: function () {
-                return this.dir$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('dir'));
-              },
-              set: function (dir) {
-                this.dir$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('dir'), dir);
-              }
-            },
-            draggable: {
-              get: function () {
-                return this.draggable$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('draggable'));
-              },
-              set: function (draggable) {
-                this.draggable$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('draggable'), draggable);
-              }
-            },
-            hidden: {
-              get: function () {
-                return this.hidden$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('hidden'));
-              },
-              set: function (hidden) {
-                this.hidden$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('hidden'), hidden);
-              }
-            },
-            id: {
-              get: function () {
-                return this.id$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('id'));
-              },
-              set: function (id) {
-                this.id$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('id'), id);
-              }
-            },
-            lang: {
-              get: function () {
-                return this.lang$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('lang'));
-              },
-              set: function (lang) {
-                this.lang$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('lang'), lang);
-              }
-            },
-            spellCheck: {
-              get: function () {
-                return this.spellCheck$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('spellCheck'));
-              },
-              set: function (spellCheck) {
-                this.spellCheck$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('spellCheck'), spellCheck);
-              }
-            },
-            role: {
-              get: function () {
-                return this.role$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('role'));
-              },
-              set: function (role) {
-                this.role$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('role'), role);
-              }
-            },
-            scrollLeft: {
-              get: function () {
-                return this.scrollLeft$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('scrollLeft'));
-              },
-              set: function (scrollLeft) {
-                this.scrollLeft$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('scrollLeft'), scrollLeft);
-              }
-            },
-            scrollTop: {
-              get: function () {
-                return this.scrollTop$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('scrollTop'));
-              },
-              set: function (scrollTop) {
-                this.scrollTop$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('scrollTop'), scrollTop);
-              }
-            },
-            style: {
-              get: function () {
-                return this.style$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('style'));
-              },
-              set: function (style) {
-                this.style$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('style'), style);
+                this.$key_6kf53a$ = key;
               }
             }
           }),
@@ -484,1910 +116,463 @@
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.accept$delegate = new _.hu.nevermind.react.Property();
-            this.action$delegate = new _.hu.nevermind.react.Property();
-            this.autoCapitalize$delegate = new _.hu.nevermind.react.Property();
-            this.autoComplete$delegate = new _.hu.nevermind.react.Property();
-            this.encType$delegate = new _.hu.nevermind.react.Property();
-            this.method$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.target$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.FormProperties.prototype */ {
-            accept: {
-              get: function () {
-                return this.accept$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('accept'));
-              },
-              set: function (accept) {
-                this.accept$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('accept'), accept);
-              }
-            },
-            action: {
-              get: function () {
-                return this.action$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('action'));
-              },
-              set: function (action) {
-                this.action$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('action'), action);
-              }
-            },
-            autoCapitalize: {
-              get: function () {
-                return this.autoCapitalize$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoCapitalize'));
-              },
-              set: function (autoCapitalize) {
-                this.autoCapitalize$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoCapitalize'), autoCapitalize);
-              }
-            },
-            autoComplete: {
-              get: function () {
-                return this.autoComplete$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoComplete'));
-              },
-              set: function (autoComplete) {
-                this.autoComplete$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoComplete'), autoComplete);
-              }
-            },
-            encType: {
-              get: function () {
-                return this.encType$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('encType'));
-              },
-              set: function (encType) {
-                this.encType$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('encType'), encType);
-              }
-            },
-            method: {
-              get: function () {
-                return this.method$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('method'));
-              },
-              set: function (method) {
-                this.method$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('method'), method);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            target: {
-              get: function () {
-                return this.target$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('target'));
-              },
-              set: function (target) {
-                this.target$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('target'), target);
-              }
-            }
+            this.accept = null;
+            this.action = null;
+            this.autoCapitalize = null;
+            this.autoComplete = null;
+            this.encType = null;
+            this.method = null;
+            this.name = null;
+            this.target = null;
           }),
           InputProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.accept$delegate = new _.hu.nevermind.react.Property();
-            this.alt$delegate = new _.hu.nevermind.react.Property();
-            this.autoCapitalize$delegate = new _.hu.nevermind.react.Property();
-            this.autoComplete$delegate = new _.hu.nevermind.react.Property();
-            this.autoFocus$delegate = new _.hu.nevermind.react.Property();
-            this.checked$delegate = new _.hu.nevermind.react.Property();
-            this.defaultValue$delegate = new _.hu.nevermind.react.Property();
-            this.disabled$delegate = new _.hu.nevermind.react.Property();
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.list$delegate = new _.hu.nevermind.react.Property();
-            this.max$delegate = new _.hu.nevermind.react.Property();
-            this.maxLength$delegate = new _.hu.nevermind.react.Property();
-            this.min$delegate = new _.hu.nevermind.react.Property();
-            this.multiple$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.pattern$delegate = new _.hu.nevermind.react.Property();
-            this.placeholder$delegate = new _.hu.nevermind.react.Property();
-            this.readOnly$delegate = new _.hu.nevermind.react.Property();
-            this.required$delegate = new _.hu.nevermind.react.Property();
-            this.size$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.step$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-            this.value$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.InputProperties.prototype */ {
-            accept: {
-              get: function () {
-                return this.accept$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('accept'));
-              },
-              set: function (accept) {
-                this.accept$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('accept'), accept);
-              }
-            },
-            alt: {
-              get: function () {
-                return this.alt$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('alt'));
-              },
-              set: function (alt) {
-                this.alt$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('alt'), alt);
-              }
-            },
-            autoCapitalize: {
-              get: function () {
-                return this.autoCapitalize$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoCapitalize'));
-              },
-              set: function (autoCapitalize) {
-                this.autoCapitalize$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoCapitalize'), autoCapitalize);
-              }
-            },
-            autoComplete: {
-              get: function () {
-                return this.autoComplete$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoComplete'));
-              },
-              set: function (autoComplete) {
-                this.autoComplete$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoComplete'), autoComplete);
-              }
-            },
-            autoFocus: {
-              get: function () {
-                return this.autoFocus$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoFocus'));
-              },
-              set: function (autoFocus) {
-                this.autoFocus$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoFocus'), autoFocus);
-              }
-            },
-            checked: {
-              get: function () {
-                return this.checked$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('checked'));
-              },
-              set: function (checked) {
-                this.checked$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('checked'), checked);
-              }
-            },
-            defaultValue: {
-              get: function () {
-                return this.defaultValue$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('defaultValue'));
-              },
-              set: function (defaultValue) {
-                this.defaultValue$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('defaultValue'), defaultValue);
-              }
-            },
-            disabled: {
-              get: function () {
-                return this.disabled$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('disabled'));
-              },
-              set: function (disabled) {
-                this.disabled$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('disabled'), disabled);
-              }
-            },
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            list: {
-              get: function () {
-                return this.list$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('list'));
-              },
-              set: function (list) {
-                this.list$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('list'), list);
-              }
-            },
-            max: {
-              get: function () {
-                return this.max$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('max'));
-              },
-              set: function (max) {
-                this.max$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('max'), max);
-              }
-            },
-            maxLength: {
-              get: function () {
-                return this.maxLength$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('maxLength'));
-              },
-              set: function (maxLength) {
-                this.maxLength$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('maxLength'), maxLength);
-              }
-            },
-            min: {
-              get: function () {
-                return this.min$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('min'));
-              },
-              set: function (min) {
-                this.min$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('min'), min);
-              }
-            },
-            multiple: {
-              get: function () {
-                return this.multiple$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('multiple'));
-              },
-              set: function (multiple) {
-                this.multiple$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('multiple'), multiple);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            pattern: {
-              get: function () {
-                return this.pattern$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('pattern'));
-              },
-              set: function (pattern) {
-                this.pattern$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('pattern'), pattern);
-              }
-            },
-            placeholder: {
-              get: function () {
-                return this.placeholder$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('placeholder'));
-              },
-              set: function (placeholder) {
-                this.placeholder$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('placeholder'), placeholder);
-              }
-            },
-            readOnly: {
-              get: function () {
-                return this.readOnly$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('readOnly'));
-              },
-              set: function (readOnly) {
-                this.readOnly$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('readOnly'), readOnly);
-              }
-            },
-            required: {
-              get: function () {
-                return this.required$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('required'));
-              },
-              set: function (required) {
-                this.required$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('required'), required);
-              }
-            },
-            size: {
-              get: function () {
-                return this.size$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('size'));
-              },
-              set: function (size) {
-                this.size$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('size'), size);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            step: {
-              get: function () {
-                return this.step$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('step'));
-              },
-              set: function (step) {
-                this.step$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('step'), step);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            },
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            }
+            this.accept = null;
+            this.alt = null;
+            this.autoCapitalize = null;
+            this.autoComplete = null;
+            this.autoFocus = null;
+            this.checked = null;
+            this.defaultValue = null;
+            this.disabled = null;
+            this.form = null;
+            this.height = null;
+            this.list = null;
+            this.max = null;
+            this.maxLength = null;
+            this.min = null;
+            this.multiple = null;
+            this.name = null;
+            this.pattern = null;
+            this.placeholder = null;
+            this.readOnly = null;
+            this.required = null;
+            this.size = null;
+            this.src = null;
+            this.step = null;
+            this.type = null;
+            this.value = null;
+            this.width = null;
           }),
           IframeProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.allowFullScreen$delegate = new _.hu.nevermind.react.Property();
-            this.allowTransparency$delegate = new _.hu.nevermind.react.Property();
-            this.frameBorder$delegate = new _.hu.nevermind.react.Property();
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.IframeProperties.prototype */ {
-            allowFullScreen: {
-              get: function () {
-                return this.allowFullScreen$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('allowFullScreen'));
-              },
-              set: function (allowFullScreen) {
-                this.allowFullScreen$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('allowFullScreen'), allowFullScreen);
-              }
-            },
-            allowTransparency: {
-              get: function () {
-                return this.allowTransparency$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('allowTransparency'));
-              },
-              set: function (allowTransparency) {
-                this.allowTransparency$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('allowTransparency'), allowTransparency);
-              }
-            },
-            frameBorder: {
-              get: function () {
-                return this.frameBorder$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('frameBorder'));
-              },
-              set: function (frameBorder) {
-                this.frameBorder$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('frameBorder'), frameBorder);
-              }
-            },
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            }
+            this.allowFullScreen = null;
+            this.allowTransparency = null;
+            this.frameBorder = null;
+            this.height = null;
+            this.name = null;
+            this.src = null;
+            this.width = null;
           }),
           AppletProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.alt$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.AppletProperties.prototype */ {
-            alt: {
-              get: function () {
-                return this.alt$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('alt'));
-              },
-              set: function (alt) {
-                this.alt$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('alt'), alt);
-              }
-            }
+            this.alt = null;
           }),
           AreaProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.alt$delegate = new _.hu.nevermind.react.Property();
-            this.href$delegate = new _.hu.nevermind.react.Property();
-            this.rel$delegate = new _.hu.nevermind.react.Property();
-            this.target$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.AreaProperties.prototype */ {
-            alt: {
-              get: function () {
-                return this.alt$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('alt'));
-              },
-              set: function (alt) {
-                this.alt$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('alt'), alt);
-              }
-            },
-            href: {
-              get: function () {
-                return this.href$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('href'));
-              },
-              set: function (href) {
-                this.href$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('href'), href);
-              }
-            },
-            rel: {
-              get: function () {
-                return this.rel$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('rel'));
-              },
-              set: function (rel) {
-                this.rel$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('rel'), rel);
-              }
-            },
-            target: {
-              get: function () {
-                return this.target$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('target'));
-              },
-              set: function (target) {
-                this.target$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('target'), target);
-              }
-            }
+            this.alt = null;
+            this.href = null;
+            this.rel = null;
+            this.target = null;
           }),
           ImgProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.alt$delegate = new _.hu.nevermind.react.Property();
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ImgProperties.prototype */ {
-            alt: {
-              get: function () {
-                return this.alt$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('alt'));
-              },
-              set: function (alt) {
-                this.alt$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('alt'), alt);
-              }
-            },
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            }
+            this.alt = null;
+            this.height = null;
+            this.src = null;
+            this.width = null;
           }),
           ButtonProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.autoFocus$delegate = new _.hu.nevermind.react.Property();
-            this.disabled$delegate = new _.hu.nevermind.react.Property();
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-            this.value$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ButtonProperties.prototype */ {
-            autoFocus: {
-              get: function () {
-                return this.autoFocus$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoFocus'));
-              },
-              set: function (autoFocus) {
-                this.autoFocus$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoFocus'), autoFocus);
-              }
-            },
-            disabled: {
-              get: function () {
-                return this.disabled$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('disabled'));
-              },
-              set: function (disabled) {
-                this.disabled$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('disabled'), disabled);
-              }
-            },
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            },
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            }
+            this.autoFocus = null;
+            this.disabled = null;
+            this.form = null;
+            this.name = null;
+            this.type = null;
+            this.value = null;
           }),
           KeygenProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.autoFocus$delegate = new _.hu.nevermind.react.Property();
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.KeygenProperties.prototype */ {
-            autoFocus: {
-              get: function () {
-                return this.autoFocus$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoFocus'));
-              },
-              set: function (autoFocus) {
-                this.autoFocus$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoFocus'), autoFocus);
-              }
-            },
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            }
+            this.autoFocus = null;
+            this.form = null;
+            this.name = null;
           }),
           SelectProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.autoFocus$delegate = new _.hu.nevermind.react.Property();
-            this.disabled$delegate = new _.hu.nevermind.react.Property();
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.multiple$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.required$delegate = new _.hu.nevermind.react.Property();
-            this.size$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.SelectProperties.prototype */ {
-            autoFocus: {
-              get: function () {
-                return this.autoFocus$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoFocus'));
-              },
-              set: function (autoFocus) {
-                this.autoFocus$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoFocus'), autoFocus);
-              }
-            },
-            disabled: {
-              get: function () {
-                return this.disabled$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('disabled'));
-              },
-              set: function (disabled) {
-                this.disabled$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('disabled'), disabled);
-              }
-            },
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            multiple: {
-              get: function () {
-                return this.multiple$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('multiple'));
-              },
-              set: function (multiple) {
-                this.multiple$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('multiple'), multiple);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            required: {
-              get: function () {
-                return this.required$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('required'));
-              },
-              set: function (required) {
-                this.required$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('required'), required);
-              }
-            },
-            size: {
-              get: function () {
-                return this.size$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('size'));
-              },
-              set: function (size) {
-                this.size$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('size'), size);
-              }
-            }
+            this.autoFocus = null;
+            this.disabled = null;
+            this.form = null;
+            this.multiple = null;
+            this.name = null;
+            this.required = null;
+            this.size = null;
           }),
           TextareaProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.autoFocus$delegate = new _.hu.nevermind.react.Property();
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.maxLength$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.placeholder$delegate = new _.hu.nevermind.react.Property();
-            this.readOnly$delegate = new _.hu.nevermind.react.Property();
-            this.required$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.TextareaProperties.prototype */ {
-            autoFocus: {
-              get: function () {
-                return this.autoFocus$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoFocus'));
-              },
-              set: function (autoFocus) {
-                this.autoFocus$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoFocus'), autoFocus);
-              }
-            },
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            maxLength: {
-              get: function () {
-                return this.maxLength$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('maxLength'));
-              },
-              set: function (maxLength) {
-                this.maxLength$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('maxLength'), maxLength);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            placeholder: {
-              get: function () {
-                return this.placeholder$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('placeholder'));
-              },
-              set: function (placeholder) {
-                this.placeholder$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('placeholder'), placeholder);
-              }
-            },
-            readOnly: {
-              get: function () {
-                return this.readOnly$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('readOnly'));
-              },
-              set: function (readOnly) {
-                this.readOnly$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('readOnly'), readOnly);
-              }
-            },
-            required: {
-              get: function () {
-                return this.required$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('required'));
-              },
-              set: function (required) {
-                this.required$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('required'), required);
-              }
-            }
+            this.autoFocus = null;
+            this.form = null;
+            this.maxLength = null;
+            this.name = null;
+            this.placeholder = null;
+            this.readOnly = null;
+            this.required = null;
           }),
           AudioProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.autoPlay$delegate = new _.hu.nevermind.react.Property();
-            this.controls$delegate = new _.hu.nevermind.react.Property();
-            this.loop$delegate = new _.hu.nevermind.react.Property();
-            this.preload$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.AudioProperties.prototype */ {
-            autoPlay: {
-              get: function () {
-                return this.autoPlay$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoPlay'));
-              },
-              set: function (autoPlay) {
-                this.autoPlay$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoPlay'), autoPlay);
-              }
-            },
-            controls: {
-              get: function () {
-                return this.controls$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('controls'));
-              },
-              set: function (controls) {
-                this.controls$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('controls'), controls);
-              }
-            },
-            loop: {
-              get: function () {
-                return this.loop$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('loop'));
-              },
-              set: function (loop) {
-                this.loop$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('loop'), loop);
-              }
-            },
-            preload: {
-              get: function () {
-                return this.preload$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('preload'));
-              },
-              set: function (preload) {
-                this.preload$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('preload'), preload);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            }
+            this.autoPlay = null;
+            this.controls = null;
+            this.loop = null;
+            this.preload = null;
+            this.src = null;
           }),
           VideoProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.autoPlay$delegate = new _.hu.nevermind.react.Property();
-            this.controls$delegate = new _.hu.nevermind.react.Property();
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.loop$delegate = new _.hu.nevermind.react.Property();
-            this.poster$delegate = new _.hu.nevermind.react.Property();
-            this.preload$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.VideoProperties.prototype */ {
-            autoPlay: {
-              get: function () {
-                return this.autoPlay$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('autoPlay'));
-              },
-              set: function (autoPlay) {
-                this.autoPlay$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('autoPlay'), autoPlay);
-              }
-            },
-            controls: {
-              get: function () {
-                return this.controls$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('controls'));
-              },
-              set: function (controls) {
-                this.controls$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('controls'), controls);
-              }
-            },
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            loop: {
-              get: function () {
-                return this.loop$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('loop'));
-              },
-              set: function (loop) {
-                this.loop$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('loop'), loop);
-              }
-            },
-            poster: {
-              get: function () {
-                return this.poster$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('poster'));
-              },
-              set: function (poster) {
-                this.poster$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('poster'), poster);
-              }
-            },
-            preload: {
-              get: function () {
-                return this.preload$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('preload'));
-              },
-              set: function (preload) {
-                this.preload$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('preload'), preload);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            }
+            this.autoPlay = null;
+            this.controls = null;
+            this.height = null;
+            this.loop = null;
+            this.poster = null;
+            this.preload = null;
+            this.src = null;
+            this.width = null;
           }),
           TableProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.cellPadding$delegate = new _.hu.nevermind.react.Property();
-            this.cellSpacing$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.TableProperties.prototype */ {
-            cellPadding: {
-              get: function () {
-                return this.cellPadding$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('cellPadding'));
-              },
-              set: function (cellPadding) {
-                this.cellPadding$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('cellPadding'), cellPadding);
-              }
-            },
-            cellSpacing: {
-              get: function () {
-                return this.cellSpacing$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('cellSpacing'));
-              },
-              set: function (cellSpacing) {
-                this.cellSpacing$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('cellSpacing'), cellSpacing);
-              }
-            }
+            this.cellPadding = null;
+            this.cellSpacing = null;
           }),
           MetaProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.charSet$delegate = new _.hu.nevermind.react.Property();
-            this.content$delegate = new _.hu.nevermind.react.Property();
-            this.httpEquiv$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.MetaProperties.prototype */ {
-            charSet: {
-              get: function () {
-                return this.charSet$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('charSet'));
-              },
-              set: function (charSet) {
-                this.charSet$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('charSet'), charSet);
-              }
-            },
-            content: {
-              get: function () {
-                return this.content$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('content'));
-              },
-              set: function (content) {
-                this.content$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('content'), content);
-              }
-            },
-            httpEquiv: {
-              get: function () {
-                return this.httpEquiv$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('httpEquiv'));
-              },
-              set: function (httpEquiv) {
-                this.httpEquiv$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('httpEquiv'), httpEquiv);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            }
+            this.charSet = null;
+            this.content = null;
+            this.httpEquiv = null;
+            this.name = null;
           }),
           ScriptProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.charSet$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ScriptProperties.prototype */ {
-            charSet: {
-              get: function () {
-                return this.charSet$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('charSet'));
-              },
-              set: function (charSet) {
-                this.charSet$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('charSet'), charSet);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            }
+            this.charSet = null;
+            this.src = null;
+            this.type = null;
           }),
           CommandProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.checked$delegate = new _.hu.nevermind.react.Property();
-            this.icon$delegate = new _.hu.nevermind.react.Property();
-            this.radioGroup$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.CommandProperties.prototype */ {
-            checked: {
-              get: function () {
-                return this.checked$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('checked'));
-              },
-              set: function (checked) {
-                this.checked$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('checked'), checked);
-              }
-            },
-            icon: {
-              get: function () {
-                return this.icon$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('icon'));
-              },
-              set: function (icon) {
-                this.icon$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('icon'), icon);
-              }
-            },
-            radioGroup: {
-              get: function () {
-                return this.radioGroup$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('radioGroup'));
-              },
-              set: function (radioGroup) {
-                this.radioGroup$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('radioGroup'), radioGroup);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            }
+            this.checked = null;
+            this.icon = null;
+            this.radioGroup = null;
+            this.type = null;
           }),
           TdProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.colSpan$delegate = new _.hu.nevermind.react.Property();
-            this.rowSpan$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.TdProperties.prototype */ {
-            colSpan: {
-              get: function () {
-                return this.colSpan$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('colSpan'));
-              },
-              set: function (colSpan) {
-                this.colSpan$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('colSpan'), colSpan);
-              }
-            },
-            rowSpan: {
-              get: function () {
-                return this.rowSpan$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('rowSpan'));
-              },
-              set: function (rowSpan) {
-                this.rowSpan$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('rowSpan'), rowSpan);
-              }
-            }
+            this.colSpan = null;
+            this.rowSpan = null;
           }),
           ThProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.colSpan$delegate = new _.hu.nevermind.react.Property();
-            this.rowSpan$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ThProperties.prototype */ {
-            colSpan: {
-              get: function () {
-                return this.colSpan$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('colSpan'));
-              },
-              set: function (colSpan) {
-                this.colSpan$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('colSpan'), colSpan);
-              }
-            },
-            rowSpan: {
-              get: function () {
-                return this.rowSpan$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('rowSpan'));
-              },
-              set: function (rowSpan) {
-                this.rowSpan$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('rowSpan'), rowSpan);
-              }
-            }
+            this.colSpan = null;
+            this.rowSpan = null;
           }),
           ObjectProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.data$delegate = new _.hu.nevermind.react.Property();
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-            this.wmode$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ObjectProperties.prototype */ {
-            data: {
-              get: function () {
-                return this.data$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('data'));
-              },
-              set: function (data) {
-                this.data$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('data'), data);
-              }
-            },
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            },
-            wmode: {
-              get: function () {
-                return this.wmode$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('wmode'));
-              },
-              set: function (wmode) {
-                this.wmode$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('wmode'), wmode);
-              }
-            }
+            this.data = null;
+            this.form = null;
+            this.height = null;
+            this.name = null;
+            this.type = null;
+            this.width = null;
+            this.wmode = null;
           }),
           DelProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.dateTime$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.DelProperties.prototype */ {
-            dateTime: {
-              get: function () {
-                return this.dateTime$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('dateTime'));
-              },
-              set: function (dateTime) {
-                this.dateTime$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('dateTime'), dateTime);
-              }
-            }
+            this.dateTime = null;
           }),
           InsProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.dateTime$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.InsProperties.prototype */ {
-            dateTime: {
-              get: function () {
-                return this.dateTime$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('dateTime'));
-              },
-              set: function (dateTime) {
-                this.dateTime$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('dateTime'), dateTime);
-              }
-            }
+            this.dateTime = null;
           }),
           TimeProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.dateTime$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.TimeProperties.prototype */ {
-            dateTime: {
-              get: function () {
-                return this.dateTime$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('dateTime'));
-              },
-              set: function (dateTime) {
-                this.dateTime$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('dateTime'), dateTime);
-              }
-            }
+            this.dateTime = null;
           }),
           FieldsetProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.FieldsetProperties.prototype */ {
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            }
+            this.form = null;
+            this.name = null;
           }),
           LabelProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.htmlFor$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.LabelProperties.prototype */ {
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            htmlFor: {
-              get: function () {
-                return this.htmlFor$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('htmlFor'));
-              },
-              set: function (htmlFor) {
-                this.htmlFor$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('htmlFor'), htmlFor);
-              }
-            }
+            this.form = null;
+            this.htmlFor = null;
           }),
           MeterProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.max$delegate = new _.hu.nevermind.react.Property();
-            this.min$delegate = new _.hu.nevermind.react.Property();
-            this.value$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.MeterProperties.prototype */ {
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            max: {
-              get: function () {
-                return this.max$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('max'));
-              },
-              set: function (max) {
-                this.max$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('max'), max);
-              }
-            },
-            min: {
-              get: function () {
-                return this.min$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('min'));
-              },
-              set: function (min) {
-                this.min$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('min'), min);
-              }
-            },
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            }
+            this.form = null;
+            this.max = null;
+            this.min = null;
+            this.value = null;
           }),
           OutputProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.htmlFor$delegate = new _.hu.nevermind.react.Property();
-            this.name$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.OutputProperties.prototype */ {
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            htmlFor: {
-              get: function () {
-                return this.htmlFor$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('htmlFor'));
-              },
-              set: function (htmlFor) {
-                this.htmlFor$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('htmlFor'), htmlFor);
-              }
-            },
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            }
+            this.form = null;
+            this.htmlFor = null;
+            this.name = null;
           }),
           ProgressProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.form$delegate = new _.hu.nevermind.react.Property();
-            this.max$delegate = new _.hu.nevermind.react.Property();
-            this.value$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ProgressProperties.prototype */ {
-            form: {
-              get: function () {
-                return this.form$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('form'));
-              },
-              set: function (form) {
-                this.form$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('form'), form);
-              }
-            },
-            max: {
-              get: function () {
-                return this.max$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('max'));
-              },
-              set: function (max) {
-                this.max$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('max'), max);
-              }
-            },
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            }
+            this.form = null;
+            this.max = null;
+            this.value = null;
           }),
           CanvasProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.CanvasProperties.prototype */ {
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            }
+            this.height = null;
+            this.width = null;
           }),
           EmbedProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.height$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-            this.width$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.EmbedProperties.prototype */ {
-            height: {
-              get: function () {
-                return this.height$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('height'));
-              },
-              set: function (height) {
-                this.height$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('height'), height);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            },
-            width: {
-              get: function () {
-                return this.width$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('width'));
-              },
-              set: function (width) {
-                this.width$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('width'), width);
-              }
-            }
+            this.height = null;
+            this.src = null;
+            this.type = null;
+            this.width = null;
           }),
           AProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.href$delegate = new _.hu.nevermind.react.Property();
-            this.rel$delegate = new _.hu.nevermind.react.Property();
-            this.target$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.AProperties.prototype */ {
-            href: {
-              get: function () {
-                return this.href$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('href'));
-              },
-              set: function (href) {
-                this.href$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('href'), href);
-              }
-            },
-            rel: {
-              get: function () {
-                return this.rel$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('rel'));
-              },
-              set: function (rel) {
-                this.rel$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('rel'), rel);
-              }
-            },
-            target: {
-              get: function () {
-                return this.target$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('target'));
-              },
-              set: function (target) {
-                this.target$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('target'), target);
-              }
-            }
+            this.href = null;
+            this.rel = null;
+            this.target = null;
           }),
           BaseProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.href$delegate = new _.hu.nevermind.react.Property();
-            this.target$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.BaseProperties.prototype */ {
-            href: {
-              get: function () {
-                return this.href$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('href'));
-              },
-              set: function (href) {
-                this.href$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('href'), href);
-              }
-            },
-            target: {
-              get: function () {
-                return this.target$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('target'));
-              },
-              set: function (target) {
-                this.target$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('target'), target);
-              }
-            }
+            this.href = null;
+            this.target = null;
           }),
           LinkProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.href$delegate = new _.hu.nevermind.react.Property();
-            this.rel$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.LinkProperties.prototype */ {
-            href: {
-              get: function () {
-                return this.href$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('href'));
-              },
-              set: function (href) {
-                this.href$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('href'), href);
-              }
-            },
-            rel: {
-              get: function () {
-                return this.rel$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('rel'));
-              },
-              set: function (rel) {
-                this.rel$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('rel'), rel);
-              }
-            }
+            this.href = null;
+            this.rel = null;
           }),
           TrackProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.label$delegate = new _.hu.nevermind.react.Property();
-            this.src$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.TrackProperties.prototype */ {
-            label: {
-              get: function () {
-                return this.label$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('label'));
-              },
-              set: function (label) {
-                this.label$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('label'), label);
-              }
-            },
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            }
+            this.label = null;
+            this.src = null;
           }),
           BgsoundProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.loop$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.BgsoundProperties.prototype */ {
-            loop: {
-              get: function () {
-                return this.loop$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('loop'));
-              },
-              set: function (loop) {
-                this.loop$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('loop'), loop);
-              }
-            }
+            this.loop = null;
           }),
           MarqueeProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.loop$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.MarqueeProperties.prototype */ {
-            loop: {
-              get: function () {
-                return this.loop$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('loop'));
-              },
-              set: function (loop) {
-                this.loop$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('loop'), loop);
-              }
-            }
+            this.loop = null;
           }),
           MapProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.name$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.MapProperties.prototype */ {
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            }
+            this.name = null;
           }),
           ParamProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.name$delegate = new _.hu.nevermind.react.Property();
-            this.value$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.ParamProperties.prototype */ {
-            name: {
-              get: function () {
-                return this.name$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('name'));
-              },
-              set: function (name) {
-                this.name$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('name'), name);
-              }
-            },
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            }
+            this.name = null;
+            this.value = null;
           }),
           OptionProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.selected$delegate = new _.hu.nevermind.react.Property();
-            this.value$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.OptionProperties.prototype */ {
-            selected: {
-              get: function () {
-                return this.selected$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('selected'));
-              },
-              set: function (selected) {
-                this.selected$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('selected'), selected);
-              }
-            },
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            }
+            this.selected = null;
+            this.value = null;
           }),
           SourceProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.src$delegate = new _.hu.nevermind.react.Property();
-            this.type$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.SourceProperties.prototype */ {
-            src: {
-              get: function () {
-                return this.src$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('src'));
-              },
-              set: function (src) {
-                this.src$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('src'), src);
-              }
-            },
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            }
+            this.src = null;
+            this.type = null;
           }),
           StyleProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.type$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.StyleProperties.prototype */ {
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            }
+            this.type = null;
           }),
           MenuProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.type$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.MenuProperties.prototype */ {
-            type: {
-              get: function () {
-                return this.type$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('type'));
-              },
-              set: function (type) {
-                this.type$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('type'), type);
-              }
-            }
+            this.type = null;
           }),
           LiProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.HtmlGlobalProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.value$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.LiProperties.prototype */ {
-            value: {
-              get: function () {
-                return this.value$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('value'));
-              },
-              set: function (value) {
-                this.value$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('value'), value);
-              }
-            }
+            this.value = null;
           }),
           SvgProperties: Kotlin.createClass(function () {
             return [_.hu.nevermind.reakt.ReactProperties];
           }, function $fun() {
             $fun.baseInitializer.call(this);
-            this.id$delegate = new _.hu.nevermind.react.Property();
-            this.cx$delegate = new _.hu.nevermind.react.Property();
-            this.cy$delegate = new _.hu.nevermind.react.Property();
-            this.d$delegate = new _.hu.nevermind.react.Property();
-            this.fill$delegate = new _.hu.nevermind.react.Property();
-            this.fx$delegate = new _.hu.nevermind.react.Property();
-            this.fy$delegate = new _.hu.nevermind.react.Property();
-            this.gradientTransform$delegate = new _.hu.nevermind.react.Property();
-            this.gradientUnits$delegate = new _.hu.nevermind.react.Property();
-            this.offset$delegate = new _.hu.nevermind.react.Property();
-            this.points$delegate = new _.hu.nevermind.react.Property();
-            this.r$delegate = new _.hu.nevermind.react.Property();
-            this.rx$delegate = new _.hu.nevermind.react.Property();
-            this.ry$delegate = new _.hu.nevermind.react.Property();
-            this.spreadMethod$delegate = new _.hu.nevermind.react.Property();
-            this.stopColor$delegate = new _.hu.nevermind.react.Property();
-            this.stopOpacity$delegate = new _.hu.nevermind.react.Property();
-            this.stroke$delegate = new _.hu.nevermind.react.Property();
-            this.strokeLinecap$delegate = new _.hu.nevermind.react.Property();
-            this.strokeWidth$delegate = new _.hu.nevermind.react.Property();
-            this.transform$delegate = new _.hu.nevermind.react.Property();
-            this.version$delegate = new _.hu.nevermind.react.Property();
-            this.viewBox$delegate = new _.hu.nevermind.react.Property();
-            this.x1$delegate = new _.hu.nevermind.react.Property();
-            this.x2$delegate = new _.hu.nevermind.react.Property();
-            this.x$delegate = new _.hu.nevermind.react.Property();
-            this.y1$delegate = new _.hu.nevermind.react.Property();
-            this.y2$delegate = new _.hu.nevermind.react.Property();
-            this.y$delegate = new _.hu.nevermind.react.Property();
-          }, /** @lends _.hu.nevermind.reakt.SvgProperties.prototype */ {
-            id: {
-              get: function () {
-                return this.id$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('id'));
-              },
-              set: function (id) {
-                this.id$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('id'), id);
-              }
-            },
-            cx: {
-              get: function () {
-                return this.cx$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('cx'));
-              },
-              set: function (cx) {
-                this.cx$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('cx'), cx);
-              }
-            },
-            cy: {
-              get: function () {
-                return this.cy$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('cy'));
-              },
-              set: function (cy) {
-                this.cy$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('cy'), cy);
-              }
-            },
-            d: {
-              get: function () {
-                return this.d$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('d'));
-              },
-              set: function (d) {
-                this.d$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('d'), d);
-              }
-            },
-            fill: {
-              get: function () {
-                return this.fill$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('fill'));
-              },
-              set: function (fill) {
-                this.fill$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('fill'), fill);
-              }
-            },
-            fx: {
-              get: function () {
-                return this.fx$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('fx'));
-              },
-              set: function (fx) {
-                this.fx$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('fx'), fx);
-              }
-            },
-            fy: {
-              get: function () {
-                return this.fy$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('fy'));
-              },
-              set: function (fy) {
-                this.fy$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('fy'), fy);
-              }
-            },
-            gradientTransform: {
-              get: function () {
-                return this.gradientTransform$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('gradientTransform'));
-              },
-              set: function (gradientTransform) {
-                this.gradientTransform$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('gradientTransform'), gradientTransform);
-              }
-            },
-            gradientUnits: {
-              get: function () {
-                return this.gradientUnits$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('gradientUnits'));
-              },
-              set: function (gradientUnits) {
-                this.gradientUnits$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('gradientUnits'), gradientUnits);
-              }
-            },
-            offset: {
-              get: function () {
-                return this.offset$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('offset'));
-              },
-              set: function (offset) {
-                this.offset$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('offset'), offset);
-              }
-            },
-            points: {
-              get: function () {
-                return this.points$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('points'));
-              },
-              set: function (points) {
-                this.points$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('points'), points);
-              }
-            },
-            r: {
-              get: function () {
-                return this.r$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('r'));
-              },
-              set: function (r) {
-                this.r$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('r'), r);
-              }
-            },
-            rx: {
-              get: function () {
-                return this.rx$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('rx'));
-              },
-              set: function (rx) {
-                this.rx$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('rx'), rx);
-              }
-            },
-            ry: {
-              get: function () {
-                return this.ry$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('ry'));
-              },
-              set: function (ry) {
-                this.ry$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('ry'), ry);
-              }
-            },
-            spreadMethod: {
-              get: function () {
-                return this.spreadMethod$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('spreadMethod'));
-              },
-              set: function (spreadMethod) {
-                this.spreadMethod$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('spreadMethod'), spreadMethod);
-              }
-            },
-            stopColor: {
-              get: function () {
-                return this.stopColor$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('stopColor'));
-              },
-              set: function (stopColor) {
-                this.stopColor$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('stopColor'), stopColor);
-              }
-            },
-            stopOpacity: {
-              get: function () {
-                return this.stopOpacity$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('stopOpacity'));
-              },
-              set: function (stopOpacity) {
-                this.stopOpacity$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('stopOpacity'), stopOpacity);
-              }
-            },
-            stroke: {
-              get: function () {
-                return this.stroke$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('stroke'));
-              },
-              set: function (stroke) {
-                this.stroke$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('stroke'), stroke);
-              }
-            },
-            strokeLinecap: {
-              get: function () {
-                return this.strokeLinecap$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('strokeLinecap'));
-              },
-              set: function (strokeLinecap) {
-                this.strokeLinecap$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('strokeLinecap'), strokeLinecap);
-              }
-            },
-            strokeWidth: {
-              get: function () {
-                return this.strokeWidth$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('strokeWidth'));
-              },
-              set: function (strokeWidth) {
-                this.strokeWidth$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('strokeWidth'), strokeWidth);
-              }
-            },
-            transform: {
-              get: function () {
-                return this.transform$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('transform'));
-              },
-              set: function (transform) {
-                this.transform$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('transform'), transform);
-              }
-            },
-            version: {
-              get: function () {
-                return this.version$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('version'));
-              },
-              set: function (version) {
-                this.version$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('version'), version);
-              }
-            },
-            viewBox: {
-              get: function () {
-                return this.viewBox$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('viewBox'));
-              },
-              set: function (viewBox) {
-                this.viewBox$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('viewBox'), viewBox);
-              }
-            },
-            x1: {
-              get: function () {
-                return this.x1$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('x1'));
-              },
-              set: function (x1) {
-                this.x1$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('x1'), x1);
-              }
-            },
-            x2: {
-              get: function () {
-                return this.x2$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('x2'));
-              },
-              set: function (x2) {
-                this.x2$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('x2'), x2);
-              }
-            },
-            x: {
-              get: function () {
-                return this.x$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('x'));
-              },
-              set: function (x) {
-                this.x$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('x'), x);
-              }
-            },
-            y1: {
-              get: function () {
-                return this.y1$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('y1'));
-              },
-              set: function (y1) {
-                this.y1$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('y1'), y1);
-              }
-            },
-            y2: {
-              get: function () {
-                return this.y2$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('y2'));
-              },
-              set: function (y2) {
-                this.y2$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('y2'), y2);
-              }
-            },
-            y: {
-              get: function () {
-                return this.y$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('y'));
-              },
-              set: function (y) {
-                this.y$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('y'), y);
-              }
-            }
+            this.id = null;
+            this.cx = null;
+            this.cy = null;
+            this.d = null;
+            this.fill = null;
+            this.fx = null;
+            this.fy = null;
+            this.gradientTransform = null;
+            this.gradientUnits = null;
+            this.offset = null;
+            this.points = null;
+            this.r = null;
+            this.rx = null;
+            this.ry = null;
+            this.spreadMethod = null;
+            this.stopColor = null;
+            this.stopOpacity = null;
+            this.stroke = null;
+            this.strokeLinecap = null;
+            this.strokeWidth = null;
+            this.transform = null;
+            this.version = null;
+            this.viewBox = null;
+            this.x1 = null;
+            this.x2 = null;
+            this.x = null;
+            this.y1 = null;
+            this.y2 = null;
+            this.y = null;
           })
         }),
         timeline: Kotlin.definePackage(null, /** @lends _.hu.nevermind.timeline */ {
           client: Kotlin.definePackage(function () {
+            this.Rows = Kotlin.createObject(function () {
+              return [_.hu.nevermind.timeline.client.ReactSpec];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.$render_vepgbg$ = _.hu.nevermind.timeline.client.render$f(this);
+            }, {
+              render: {
+                get: function () {
+                  return this.$render_vepgbg$;
+                }
+              },
+              element_1: function (body) {
+                var childrenFromUserSite = _.hu.nevermind.timeline.client.collectChildren(body);
+                return new _.hu.nevermind.timeline.client.ReactSpecInstance(this, null, childrenFromUserSite);
+              }
+            });
+            this.Counter = Kotlin.createObject(function () {
+              return [_.hu.nevermind.timeline.client.ReactSpec];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.handleClick_1q8ijd$ = _.hu.nevermind.timeline.client.handleClick_1q8ijd$f(this);
+              this.$render_di2kpb$ = _.hu.nevermind.timeline.client.render$f_0(this);
+            }, {
+              initialState: function () {
+                return 3;
+              },
+              render: {
+                get: function () {
+                  return this.$render_di2kpb$;
+                }
+              },
+              element_1: function (initialValue) {
+                return new _.hu.nevermind.timeline.client.ReactSpecInstance(this, initialValue, Kotlin.modules['stdlib'].kotlin.emptyList());
+              }
+            });
+            this.CounterAdderSpec = Kotlin.createObject(function () {
+              return [_.hu.nevermind.timeline.client.ReactSpec];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.handleClick_2zba8q$ = _.hu.nevermind.timeline.client.handleClick_2zba8q$f;
+              this.$render_jstopc$ = _.hu.nevermind.timeline.client.render$f_1;
+            }, {
+              render: {
+                get: function () {
+                  return this.$render_jstopc$;
+                }
+              }
+            });
+            this.MyCompSpec = Kotlin.createObject(function () {
+              return [_.hu.nevermind.timeline.client.ReactSpec];
+            }, function $fun() {
+              $fun.baseInitializer.call(this);
+              this.$render_uxqw6f$ = _.hu.nevermind.timeline.client.render$f_2;
+            }, {
+              render: {
+                get: function () {
+                  return this.$render_uxqw6f$;
+                }
+              }
+            });
             this.React = Kotlin.createObject(null, null, {
               render: function (comp, element) {
                 React.render(comp, element);
@@ -2397,15 +582,18 @@
                 tmp$0 = children != null ? Kotlin.modules['stdlib'].kotlin.map_m3yiqg$(children, _.hu.nevermind.timeline.client.createElement$f) : null;
                 var reactElementChildren = tmp$0;
                 return (tmp$2 = React).createElement.apply(tmp$2, [tagNameOrSpec, options].concat((tmp$1 = reactElementChildren != null ? Kotlin.modules['stdlib'].kotlin.toArrayList_ir3nkc$(reactElementChildren) : null) != null ? Kotlin.copyToArray(tmp$1) : null));
+              },
+              findDOMNode: function (component) {
+                return React.findDOMNode(component);
               }
             });
           }, /** @lends _.hu.nevermind.timeline.client */ {
             f: function () {
-              this.plus(new _.hu.nevermind.timeline.client.MyCompSpec());
-              this.plus(new _.hu.nevermind.timeline.client.CounterAdderSpec());
+              this.plus(_.hu.nevermind.timeline.client.MyCompSpec.element());
+              this.plus(_.hu.nevermind.timeline.client.CounterAdderSpec.element());
             },
             main$f: function () {
-              var asd = new _.hu.nevermind.timeline.client.Rows(_.hu.nevermind.timeline.client.f);
+              var asd = _.hu.nevermind.timeline.client.Rows.element_1(_.hu.nevermind.timeline.client.f);
               _.hu.nevermind.timeline.client.React.render(asd.createReactElement(), document.getElementById('q1'));
               _.hu.nevermind.timeline.client.tests();
             },
@@ -2413,225 +601,116 @@
               window.setTimeout(_.hu.nevermind.timeline.client.main$f, 500);
             },
             tests: function () {
+              var counter = _.hu.nevermind.timeline.client.Counter.element_1(7);
+              var renderedCounter = React.addons.TestUtils.renderIntoDocument(counter.createReactElement());
+              var counterDom = React.addons.TestUtils.findRenderedDOMComponentWithTag(renderedCounter, 'div');
+              var dom = _.hu.nevermind.timeline.client.React.findDOMNode(counterDom);
+              Kotlin.modules['stdlib'].kotlin.check_eltq40$(Kotlin.equals(dom.textContent, '7'));
             },
-            Rows: Kotlin.createClass(function () {
-              return [_.hu.nevermind.timeline.client.ComponentSpecInTree];
-            }, function $fun(body) {
-              $fun.baseInitializer.call(this);
-              this.body = body;
-              this.$componentSpec_s1ll2u$ = _.hu.nevermind.timeline.client.Rows.object;
-              this.$childrenFromUserSide_uzof5z$ = _.hu.nevermind.timeline.client.collectChildren(this.body);
-            }, /** @lends _.hu.nevermind.timeline.client.Rows.prototype */ {
-              componentSpec: {
-                get: function () {
-                  return this.$componentSpec_s1ll2u$;
+            f_0: function (it) {
+              return function () {
+                this.plus(it);
+              };
+            },
+            f_1: function () {
+            },
+            f_2: function (this$) {
+              return function (it) {
+                this$.plus(_.hu.nevermind.timeline.client.li(_.hu.nevermind.timeline.client.f_0(it)));
+                this$.plus(_.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_1));
+              };
+            },
+            f_3: function (this$Rows) {
+              return function () {
+                var operation = _.hu.nevermind.timeline.client.f_2(this);
+                var tmp$0;
+                tmp$0 = this$Rows.children.iterator();
+                while (tmp$0.hasNext()) {
+                  var element = tmp$0.next();
+                  operation(element);
                 }
-              },
-              childrenFromUserSide: {
-                get: function () {
-                  return this.$childrenFromUserSide_uzof5z$;
-                }
-              }
-            }, /** @lends _.hu.nevermind.timeline.client.Rows */ {
-              f: function (it) {
-                return function () {
-                  this.plus(it);
-                };
-              },
-              f_0: function () {
-              },
-              f_1: function (this$) {
-                return function (it) {
-                  this$.plus(_.hu.nevermind.timeline.client.li(_.hu.nevermind.timeline.client.Rows.f(it)));
-                  this$.plus(_.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.Rows.f_0));
-                };
-              },
-              f_2: function (this$Rows$) {
-                return function () {
-                  var operation = _.hu.nevermind.timeline.client.Rows.f_1(this);
-                  var tmp$0;
-                  tmp$0 = this$Rows$.children.iterator();
-                  while (tmp$0.hasNext()) {
-                    var element = tmp$0.next();
-                    operation(element);
-                  }
-                };
-              },
-              render$f: function (this$Rows$) {
-                return function () {
-                  return _.hu.nevermind.timeline.client.ul(_.hu.nevermind.timeline.client.Rows.f_2(this$Rows$));
-                };
-              },
-              object_initializer$: function () {
-                return Kotlin.createObject(function () {
-                  return [_.hu.nevermind.timeline.client.ReactSpec];
-                }, function $fun() {
-                  $fun.baseInitializer.call(this);
-                  this.$render_qmgcgq$ = _.hu.nevermind.timeline.client.Rows.render$f(this);
-                }, {
-                  render: {
-                    get: function () {
-                      return this.$render_qmgcgq$;
-                    }
-                  }
-                });
-              }
-            }),
-            CounterAdderSpec: Kotlin.createClass(function () {
-              return [_.hu.nevermind.timeline.client.ComponentSpecInTree];
-            }, function $fun() {
-              $fun.baseInitializer.call(this);
-              this.$componentSpec_izzrwi$ = _.hu.nevermind.timeline.client.CounterAdderSpec.object;
-            }, /** @lends _.hu.nevermind.timeline.client.CounterAdderSpec.prototype */ {
-              componentSpec: {
-                get: function () {
-                  return this.$componentSpec_izzrwi$;
-                }
-              }
-            }, /** @lends _.hu.nevermind.timeline.client.CounterAdderSpec */ {
-              handleClick_33woik$f: function (e) {
-                Kotlin.println('clicked');
-              },
-              f: function () {
-                this.plus(new _.hu.nevermind.timeline.client.Counter(1));
-                this.plus(new _.hu.nevermind.timeline.client.Counter(2));
-              },
-              render$f: function () {
-                return _.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.CounterAdderSpec.f);
-              },
-              object_initializer$: function () {
-                return Kotlin.createObject(function () {
-                  return [_.hu.nevermind.timeline.client.ReactSpec];
-                }, function $fun() {
-                  $fun.baseInitializer.call(this);
-                  this.handleClick_33woik$ = _.hu.nevermind.timeline.client.CounterAdderSpec.handleClick_33woik$f;
-                  this.$render_112f76$ = _.hu.nevermind.timeline.client.CounterAdderSpec.render$f;
-                }, {
-                  render: {
-                    get: function () {
-                      return this.$render_112f76$;
-                    }
-                  }
-                });
-              }
-            }),
-            Counter: Kotlin.createClass(function () {
-              return [_.hu.nevermind.timeline.client.ComponentSpecInTree];
-            }, function $fun(initialValue) {
-              $fun.baseInitializer.call(this);
-              this.initialValue = initialValue;
-              this.$props_mi2ag9$ = this.initialValue;
-              this.$componentSpec_n7z5hd$ = _.hu.nevermind.timeline.client.Counter.object;
-            }, /** @lends _.hu.nevermind.timeline.client.Counter.prototype */ {
-              props: {
-                get: function () {
-                  return this.$props_mi2ag9$;
-                }
-              },
-              componentSpec: {
-                get: function () {
-                  return this.$componentSpec_n7z5hd$;
-                }
-              }
-            }, /** @lends _.hu.nevermind.timeline.client.Counter */ {
-              handleClick_nwkuw5$f: function (this$Counter$) {
-                return function (e) {
-                  this$Counter$.state = this$Counter$.state + 1;
-                };
-              },
-              f: function () {
-                this.plus_1('asd');
-              },
-              render$f: function () {
-                return _.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.Counter.f);
-              },
-              object_initializer$: function () {
-                return Kotlin.createObject(function () {
-                  return [_.hu.nevermind.timeline.client.ReactSpec];
-                }, function $fun() {
-                  $fun.baseInitializer.call(this);
-                  this.handleClick_nwkuw5$ = _.hu.nevermind.timeline.client.Counter.handleClick_nwkuw5$f(this);
-                  this.$render_qux7bl$ = _.hu.nevermind.timeline.client.Counter.render$f;
-                }, {
-                  initialState: function () {
-                    return 3;
-                  },
-                  render: {
-                    get: function () {
-                      return this.$render_qux7bl$;
-                    }
-                  }
-                });
-              }
-            }),
-            MyCompSpec: Kotlin.createClass(function () {
-              return [_.hu.nevermind.timeline.client.ComponentSpecInTree];
-            }, function $fun() {
-              $fun.baseInitializer.call(this);
-              this.$componentSpec_lh5gmf$ = _.hu.nevermind.timeline.client.MyCompSpec.object;
-            }, /** @lends _.hu.nevermind.timeline.client.MyCompSpec.prototype */ {
-              componentSpec: {
-                get: function () {
-                  return this.$componentSpec_lh5gmf$;
-                }
-              }
-            }, /** @lends _.hu.nevermind.timeline.client.MyCompSpec */ {
-              f: function () {
-                this.plus_1('Hello');
-              },
-              f_0: function () {
-                this.plus_1('World');
-              },
-              f_1: function () {
-                this.plus_1('Salala');
-              },
-              f_2: function () {
-                this.plus_1('!!!');
-              },
-              f_3: function () {
-                this.plus(_.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.MyCompSpec.f));
-                this.plus(_.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.MyCompSpec.f_0));
-                this.plus(_.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.MyCompSpec.f_1));
-                this.plus(_.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.MyCompSpec.f_2));
-              },
-              f_4: function () {
-                this.plus_1('Hello');
-              },
-              f_5: function () {
-                this.plus(new _.hu.nevermind.timeline.client.Rows(_.hu.nevermind.timeline.client.MyCompSpec.f_3));
-                this.plus(_.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.MyCompSpec.f_4));
-              },
-              render$f: function () {
-                return _.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.MyCompSpec.f_5);
-              },
-              object_initializer$: function () {
-                return Kotlin.createObject(function () {
-                  return [_.hu.nevermind.timeline.client.ReactSpec];
-                }, function $fun() {
-                  $fun.baseInitializer.call(this);
-                  this.$render_8pl0fd$ = _.hu.nevermind.timeline.client.MyCompSpec.render$f;
-                }, {
-                  render: {
-                    get: function () {
-                      return this.$render_8pl0fd$;
-                    }
-                  }
-                });
-              }
-            }),
-            div: function (body) {
-              return new _.hu.nevermind.timeline.client.TagElement('div', null, _.hu.nevermind.timeline.client.collectChildren(body));
+              };
+            },
+            render$f: function (this$Rows) {
+              return function () {
+                return _.hu.nevermind.timeline.client.ul(_.hu.nevermind.timeline.client.f_3(this$Rows));
+              };
+            },
+            handleClick_1q8ijd$f: function (this$Counter) {
+              return function (e) {
+                Kotlin.println('CLICK: props: ' + this$Counter.props);
+              };
+            },
+            f_4: function (this$Counter) {
+              return function () {
+                this.onClick = this$Counter.handleClick_1q8ijd$;
+                this.key = this$Counter.props.toString();
+              };
+            },
+            f_5: function (this$Counter) {
+              return function () {
+                Kotlin.println('Draw props: ' + this$Counter.props);
+                this.plus_1(this$Counter.props.toString());
+              };
+            },
+            render$f_0: function (this$Counter) {
+              return function () {
+                return _.hu.nevermind.timeline.client.div(_.hu.nevermind.timeline.client.f_4(this$Counter), _.hu.nevermind.timeline.client.f_5(this$Counter));
+              };
+            },
+            handleClick_2zba8q$f: function (e) {
+              Kotlin.println('clicked');
+            },
+            f_6: function () {
+              this.plus(_.hu.nevermind.timeline.client.Counter.element_1(1));
+              this.plus(_.hu.nevermind.timeline.client.Counter.element_1(2));
+            },
+            render$f_1: function () {
+              return _.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_6);
+            },
+            f_7: function () {
+              this.plus_1('Hello');
+            },
+            f_8: function () {
+              this.plus_1('World');
+            },
+            f_9: function () {
+              this.plus_1('Salala');
+            },
+            f_10: function () {
+              this.plus_1('!!!');
+            },
+            f_11: function () {
+              this.plus(_.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_7));
+              this.plus(_.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_8));
+              this.plus(_.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_9));
+              this.plus(_.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_10));
+            },
+            f_12: function () {
+              this.plus_1('Hello');
+            },
+            f_13: function () {
+              this.plus(_.hu.nevermind.timeline.client.Rows.element_1(_.hu.nevermind.timeline.client.f_11));
+              this.plus(_.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_12));
+            },
+            render$f_2: function () {
+              return _.hu.nevermind.timeline.client.div(void 0, _.hu.nevermind.timeline.client.f_13);
+            },
+            div$f: function () {
+            },
+            div: function (propBuilder, body) {
+              if (propBuilder === void 0)
+                propBuilder = _.hu.nevermind.timeline.client.div$f;
+              var props = new _.hu.nevermind.reakt.HtmlGlobalProperties();
+              propBuilder.call(props);
+              delete props.key;
+              return new _.hu.nevermind.timeline.client.TagElement('div', props, _.hu.nevermind.timeline.client.collectChildren(body));
             },
             ul: function (body) {
               return new _.hu.nevermind.timeline.client.TagElement('ul', null, _.hu.nevermind.timeline.client.collectChildren(body));
             },
-            LiTag: Kotlin.createClass(function () {
-              return [_.hu.nevermind.timeline.client.TagElement];
-            }, function $fun(body) {
-              $fun.baseInitializer.call(this, 'li', null, _.hu.nevermind.timeline.client.collectChildren(body));
-            }),
             li: function (body) {
-              return new _.hu.nevermind.timeline.client.LiTag(body);
+              return new _.hu.nevermind.timeline.client.TagElement('li', null, _.hu.nevermind.timeline.client.collectChildren(body));
             },
             TagElement: Kotlin.createClass(function () {
               return [_.hu.nevermind.timeline.client.ReactElementCreator];
@@ -2693,47 +772,37 @@
               }
             }),
             CanAppearInComponentTree: Kotlin.createTrait(null),
-            ComponentSpecInTree: Kotlin.createClass(function () {
+            ReactSpecInstance: Kotlin.createClass(function () {
               return [_.hu.nevermind.timeline.client.ReactElementCreator];
-            }, function () {
-              this.$childrenFromUserSide_mfoysl$ = Kotlin.modules['stdlib'].kotlin.emptyList();
-              this.$props_pdaxxm$ = null;
-            }, /** @lends _.hu.nevermind.timeline.client.ComponentSpecInTree.prototype */ {
-              childrenFromUserSide: {
+            }, function (componentSpec, props, childrenFromUserSide) {
+              if (props === void 0)
+                props = null;
+              if (childrenFromUserSide === void 0)
+                childrenFromUserSide = Kotlin.modules['stdlib'].kotlin.emptyList();
+              this.componentSpec = componentSpec;
+              this.props = props;
+              this.childrenFromUserSide = childrenFromUserSide;
+              this.reactComponent$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
+            }, /** @lends _.hu.nevermind.timeline.client.ReactSpecInstance.prototype */ {
+              reactComponent_mt50lg$: {
                 get: function () {
-                  return this.$childrenFromUserSide_mfoysl$;
-                }
-              },
-              props: {
-                get: function () {
-                  return this.$props_pdaxxm$;
+                  return this.reactComponent$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('reactComponent'));
+                },
+                set: function (reactComponent) {
+                  this.reactComponent$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('reactComponent'), reactComponent);
                 }
               },
               createReactElement: function () {
-                if (this.componentSpec.reactClass == null) {
-                  this.componentSpec.reactClass = React.createClass(_.hu.nevermind.timeline.client.ComponentSpecInTree.createReactElement$f(this));
-                }
                 this.componentSpec.children = this.childrenFromUserSide;
                 var renderFunc = this.componentSpec.render;
-                var body = _.hu.nevermind.timeline.client.ComponentSpecInTree.createReactElement$f_0(renderFunc);
-                return _.hu.nevermind.timeline.client.React.createElement(this.componentSpec.reactClass, null, _.hu.nevermind.timeline.client.collectChildren(body));
+                var body = _.hu.nevermind.timeline.client.ReactSpecInstance.createReactElement$f(this, renderFunc);
+                this.reactComponent_mt50lg$ = _.hu.nevermind.timeline.client.React.createElement(this.componentSpec.reactClass, null, _.hu.nevermind.timeline.client.collectChildren(body));
+                return this.reactComponent_mt50lg$;
               }
-            }, /** @lends _.hu.nevermind.timeline.client.ComponentSpecInTree */ {
-              render$f: function (this$ComponentSpecInTree) {
+            }, /** @lends _.hu.nevermind.timeline.client.ReactSpecInstance */ {
+              createReactElement$f: function (this$ReactSpecInstance, renderFunc) {
                 return function () {
-                  var renderFunc = this$ComponentSpecInTree.componentSpec.render;
-                  var builder = new _.hu.nevermind.timeline.client.ComponentBuilder();
-                  var reactElementCreator = renderFunc.call(builder);
-                  return reactElementCreator.createReactElement();
-                };
-              },
-              createReactElement$f: function (this$ComponentSpecInTree) {
-                return Kotlin.createObject(null, function () {
-                  this.render = _.hu.nevermind.timeline.client.ComponentSpecInTree.render$f(this$ComponentSpecInTree);
-                });
-              },
-              createReactElement$f_0: function (renderFunc) {
-                return function () {
+                  this$ReactSpecInstance.componentSpec.props = this$ReactSpecInstance.props;
                   renderFunc.call(this);
                 };
               }
@@ -2749,32 +818,73 @@
               else
                 return Kotlin.modules['stdlib'].kotlin.error_za3rmp$(it.toString());
             },
+            RuntimeInstanceData: Kotlin.createClass(null, function (props, state) {
+              this.props = props;
+              this.state = state;
+            }, /** @lends _.hu.nevermind.timeline.client.RuntimeInstanceData.prototype */ {
+              component1: function () {
+                return this.props;
+              },
+              component2: function () {
+                return this.state;
+              },
+              copy: function (props, state) {
+                return new _.hu.nevermind.timeline.client.RuntimeInstanceData(props === void 0 ? this.props : props, state === void 0 ? this.state : state);
+              },
+              toString: function () {
+                return 'RuntimeInstanceData(props=' + Kotlin.toString(this.props) + (', state=' + Kotlin.toString(this.state)) + ')';
+              },
+              hashCode: function () {
+                var result = 0;
+                result = result * 31 + Kotlin.hashCode(this.props) | 0;
+                result = result * 31 + Kotlin.hashCode(this.state) | 0;
+                return result;
+              },
+              equals_za3rmp$: function (other) {
+                return this === other || (other !== null && (Object.getPrototypeOf(this) === Object.getPrototypeOf(other) && (Kotlin.equals(this.props, other.props) && Kotlin.equals(this.state, other.state))));
+              }
+            }),
             ReactSpec: Kotlin.createClass(function () {
               return [_.hu.nevermind.timeline.client.ReactMixin];
             }, function () {
+              this.runtimeInstanceData$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
               this.reactClass = null;
-              this.component = null;
+              this.component$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
               this.children = Kotlin.modules['stdlib'].kotlin.emptyList();
+              this.props$delegate = Kotlin.modules['stdlib'].kotlin.properties.Delegates.notNull();
+              this.reactClass = React.createClass(_.hu.nevermind.timeline.client.ReactSpec.ReactSpec$f(this));
             }, /** @lends _.hu.nevermind.timeline.client.ReactSpec.prototype */ {
+              runtimeInstanceData: {
+                get: function () {
+                  return this.runtimeInstanceData$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('runtimeInstanceData'));
+                }
+              },
+              component: {
+                get: function () {
+                  return this.component$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('component'));
+                },
+                set: function (component) {
+                  this.component$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('component'), component);
+                }
+              },
               state: {
                 get: function () {
-                  var tmp$0;
-                  return ((tmp$0 = this.component) != null ? tmp$0 : Kotlin.throwNPE()).state;
+                  return this.component.state;
                 },
                 set: function (value) {
-                  var tmp$0;
-                  ((tmp$0 = this.component) != null ? tmp$0 : Kotlin.throwNPE()).setState(value);
+                  this.component.setState(value);
                 }
               },
               props: {
                 get: function () {
-                  var tmp$0;
-                  return ((tmp$0 = this.component) != null ? tmp$0 : Kotlin.throwNPE()).props;
+                  return this.props$delegate.get_1tsekc$(this, new Kotlin.PropertyMetadata('props'));
                 },
-                set: function (value) {
-                  var tmp$0;
-                  ((tmp$0 = this.component) != null ? tmp$0 : Kotlin.throwNPE()).setProps(value, null);
+                set: function (props) {
+                  this.props$delegate.set_1z3uih$(this, new Kotlin.PropertyMetadata('props'), props);
                 }
+              },
+              element: function () {
+                return new _.hu.nevermind.timeline.client.ReactSpecInstance(this, null, Kotlin.modules['stdlib'].kotlin.emptyList());
               },
               getInitialState: function () {
                 var state = this.initialState();
@@ -2785,6 +895,20 @@
               },
               getDefaultProps: function () {
                 return null;
+              }
+            }, /** @lends _.hu.nevermind.timeline.client.ReactSpec */ {
+              render$f: function (this$ReactSpec) {
+                return function () {
+                  var renderFunc = this$ReactSpec.render;
+                  var builder = new _.hu.nevermind.timeline.client.ComponentBuilder();
+                  var reactElementCreator = renderFunc.call(builder);
+                  return reactElementCreator.createReactElement();
+                };
+              },
+              ReactSpec$f: function (this$ReactSpec) {
+                return Kotlin.createObject(null, function () {
+                  this.render = _.hu.nevermind.timeline.client.ReactSpec.render$f(this$ReactSpec);
+                });
               }
             }),
             collectChildren: function (body) {
