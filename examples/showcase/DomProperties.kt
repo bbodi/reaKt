@@ -93,368 +93,368 @@ trait WheelEvent  {
 }
 
 open class ReactProperties  {
-    open var key: String? by Property()
-    open var ref: String? by Property()
-    var onCopy: ((event: ClipboardEvent) -> Unit)? by Property()
-    var onCut: ((event: ClipboardEvent) -> Unit)? by Property()
-    var onPaste: ((event: ClipboardEvent) -> Unit)? by Property()
-    var onKeyDown: ((event: KeyboardEvent) -> Unit)? by Property()
-    var onKeyPress: ((event: KeyboardEvent) -> Unit)? by Property()
-    var onKeyUp: ((event: KeyboardEvent) -> Unit)? by Property()
-    var onFocus: ((event: FocusEvent) -> Unit)? by Property()
-    var onBlur: ((event: FocusEvent) -> Unit)? by Property()
-    var onChange: ((event: FormEvent) -> Unit)? by Property()
-    var onInput: ((event: FormEvent) -> Unit)? by Property()
-    var onSubmit: ((event: FormEvent) -> Unit)? by Property()
-    var onClick: ((event: MouseEvent) -> Unit)? by Property()
-    var onDoubleClick: ((event: MouseEvent) -> Unit)? by Property()
-    var onDrag: ((event: MouseEvent) -> Unit)? by Property()
-    var onDragEnd: ((event: MouseEvent) -> Unit)? by Property()
-    var onDragEnter: ((event: MouseEvent) -> Unit)? by Property()
-    var onDragExit: ((event: MouseEvent) -> Unit)? by Property()
-    var onDragLeave: ((event: MouseEvent) -> Unit)? by Property()
-    var onDragOver: ((event: MouseEvent) -> Unit)? by Property()
-    var onDragStart: ((event: MouseEvent) -> Unit)? by Property()
-    var onDrop: ((event: MouseEvent) -> Unit)? by Property()
-    var onMouseDown: ((event: MouseEvent) -> Unit)? by Property()
-    var onMouseEnter: ((event: MouseEvent) -> Unit)? by Property()
-    var onMouseLeave: ((event: MouseEvent) -> Unit)? by Property()
-    var onMouseMove: ((event: MouseEvent) -> Unit)? by Property()
-    var onMouseUp: ((event: MouseEvent) -> Unit)? by Property()
-    var onTouchCancel: ((event: TouchEvent) -> Unit)? by Property()
-    var onTouchEnd: ((event: TouchEvent) -> Unit)? by Property()
-    var onTouchMove: ((event: TouchEvent) -> Unit)? by Property()
-    var onTouchStart: ((event: TouchEvent) -> Unit)? by Property()
-    var onScroll: ((event: UIEvent) -> Unit)? by Property()
-    var onWheel: ((event: WheelEvent) -> Unit)? by Property()
+    open var key: String? = null
+    open var ref: String? = null
+    var onCopy: ((event: ClipboardEvent) -> Unit)? = null
+    var onCut: ((event: ClipboardEvent) -> Unit)? = null
+    var onPaste: ((event: ClipboardEvent) -> Unit)? = null
+    var onKeyDown: ((event: KeyboardEvent) -> Unit)? = null
+    var onKeyPress: ((event: KeyboardEvent) -> Unit)? = null
+    var onKeyUp: ((event: KeyboardEvent) -> Unit)? = null
+    var onFocus: ((event: FocusEvent) -> Unit)? = null
+    var onBlur: ((event: FocusEvent) -> Unit)? = null
+    var onChange: ((event: FormEvent) -> Unit)? = null
+    var onInput: ((event: FormEvent) -> Unit)? = null
+    var onSubmit: ((event: FormEvent) -> Unit)? = null
+    var onClick: ((event: MouseEvent) -> Unit)? = null
+    var onDoubleClick: ((event: MouseEvent) -> Unit)? = null
+    var onDrag: ((event: MouseEvent) -> Unit)? = null
+    var onDragEnd: ((event: MouseEvent) -> Unit)? = null
+    var onDragEnter: ((event: MouseEvent) -> Unit)? = null
+    var onDragExit: ((event: MouseEvent) -> Unit)? = null
+    var onDragLeave: ((event: MouseEvent) -> Unit)? = null
+    var onDragOver: ((event: MouseEvent) -> Unit)? = null
+    var onDragStart: ((event: MouseEvent) -> Unit)? = null
+    var onDrop: ((event: MouseEvent) -> Unit)? = null
+    var onMouseDown: ((event: MouseEvent) -> Unit)? = null
+    var onMouseEnter: ((event: MouseEvent) -> Unit)? = null
+    var onMouseLeave: ((event: MouseEvent) -> Unit)? = null
+    var onMouseMove: ((event: MouseEvent) -> Unit)? = null
+    var onMouseUp: ((event: MouseEvent) -> Unit)? = null
+    var onTouchCancel: ((event: TouchEvent) -> Unit)? = null
+    var onTouchEnd: ((event: TouchEvent) -> Unit)? = null
+    var onTouchMove: ((event: TouchEvent) -> Unit)? = null
+    var onTouchStart: ((event: TouchEvent) -> Unit)? = null
+    var onScroll: ((event: UIEvent) -> Unit)? = null
+    var onWheel: ((event: WheelEvent) -> Unit)? = null
 }
 
 open class HtmlGlobalProperties : ReactProperties() {
-    override var key: String? by Property()
-    var accessKey: String? by Property()
-    var className: String? by Property()
-    var contentEditable: String? by Property()
-    var contextMenu: String? by Property()
-    var dir: String? by Property()
-    var draggable: Boolean? by Property()
-    var hidden: Boolean? by Property()
-    var id: String? by Property()
-    var lang: String? by Property()
-    var spellCheck: Boolean? by Property()
-    var role: String? by Property()
-    var scrollLeft: Int? by Property()
-    var scrollTop: Int? by Property()
-    var style: Style? by Property()
+    override var key: String? = null
+    var accessKey: String? = null
+    var className: String? = null
+    var contentEditable: String? = null
+    var contextMenu: String? = null
+    var dir: String? = null
+    var draggable: Boolean? = null
+    var hidden: Boolean? = null
+    var id: String? = null
+    var lang: String? = null
+    var spellCheck: Boolean? = null
+    var role: String? = null
+    var scrollLeft: Int? = null
+    var scrollTop: Int? = null
+    var style: Style? = null
 }
 
 class FormProperties : HtmlGlobalProperties() {
-    var accept: String? by Property()
-    var action: String? by Property()
-    var autoCapitalize: String? by Property()
-    var autoComplete: String? by Property()
-    var encType: String? by Property()
-    var method: String? by Property()
-    var name: String? by Property()
-    var target: String? by Property()
+    var accept: String? = null
+    var action: String? = null
+    var autoCapitalize: String? = null
+    var autoComplete: String? = null
+    var encType: String? = null
+    var method: String? = null
+    var name: String? = null
+    var target: String? = null
 }
 
 class InputProperties : HtmlGlobalProperties() {
-    var accept: String? by Property()
-    var alt: String? by Property()
-    var autoCapitalize: String? by Property()
-    var autoComplete: String? by Property()
-    var autoFocus: Boolean? by Property()
-    var checked: Any? by Property()
-    var defaultValue: Any? by Property()
-    var disabled: Boolean? by Property()
-    var form: String? by Property()
-    var height: Int? by Property()
-    var list: String? by Property()
-    var max: Int? by Property()
-    var maxLength: Int? by Property()
-    var min: Int? by Property()
-    var multiple: Boolean? by Property()
-    var name: String? by Property()
-    var pattern: String? by Property()
-    var placeholder: String? by Property()
-    var readOnly: Boolean? by Property()
-    var required: Boolean? by Property()
-    var size: Int? by Property()
-    var src: String? by Property()
-    var step: Int? by Property()
-    var `type`: String? by Property()
-    var value: String? by Property()
-    var width: Int? by Property()
+    var accept: String? = null
+    var alt: String? = null
+    var autoCapitalize: String? = null
+    var autoComplete: String? = null
+    var autoFocus: Boolean? = null
+    var checked: Any? = null
+    var defaultValue: Any? = null
+    var disabled: Boolean? = null
+    var form: String? = null
+    var height: Int? = null
+    var list: String? = null
+    var max: Int? = null
+    var maxLength: Int? = null
+    var min: Int? = null
+    var multiple: Boolean? = null
+    var name: String? = null
+    var pattern: String? = null
+    var placeholder: String? = null
+    var readOnly: Boolean? = null
+    var required: Boolean? = null
+    var size: Int? = null
+    var src: String? = null
+    var step: Int? = null
+    var `type`: String? = null
+    var value: String? = null
+    var width: Int? = null
 }
 
 class IframeProperties : HtmlGlobalProperties() {
-    var allowFullScreen: Boolean? by Property()
-    var allowTransparency: Boolean? by Property()
-    var frameBorder: Int? by Property()
-    var height: Int? by Property()
-    var name: String? by Property()
-    var src: String? by Property()
-    var width: Int? by Property()
+    var allowFullScreen: Boolean? = null
+    var allowTransparency: Boolean? = null
+    var frameBorder: Int? = null
+    var height: Int? = null
+    var name: String? = null
+    var src: String? = null
+    var width: Int? = null
 }
 
 class AppletProperties : HtmlGlobalProperties() {
-    var alt: String? by Property()
+    var alt: String? = null
 }
 
 class AreaProperties : HtmlGlobalProperties() {
-    var alt: String? by Property()
-    var href: String? by Property()
-    var rel: String? by Property()
-    var target: String? by Property()
+    var alt: String? = null
+    var href: String? = null
+    var rel: String? = null
+    var target: String? = null
 }
 
 class ImgProperties : HtmlGlobalProperties() {
-    var alt: String? by Property()
-    var height: Int? by Property()
-    var src: String? by Property()
-    var width: Int? by Property()
+    var alt: String? = null
+    var height: Int? = null
+    var src: String? = null
+    var width: Int? = null
 }
 
 class ButtonProperties : HtmlGlobalProperties() {
-    var autoFocus: Boolean? by Property()
-    var disabled: Boolean? by Property()
-    var form: String? by Property()
-    var name: String? by Property()
-    var `type`: String? by Property()
-    var value: String? by Property()
+    var autoFocus: Boolean? = null
+    var disabled: Boolean? = null
+    var form: String? = null
+    var name: String? = null
+    var `type`: String? = null
+    var value: String? = null
 }
 
 class KeygenProperties : HtmlGlobalProperties() {
-    var autoFocus: Boolean? by Property()
-    var form: String? by Property()
-    var name: String? by Property()
+    var autoFocus: Boolean? = null
+    var form: String? = null
+    var name: String? = null
 }
 
 class SelectProperties : HtmlGlobalProperties() {
-    var autoFocus: Boolean? by Property()
-    var disabled: Boolean? by Property()
-    var form: String? by Property()
-    var multiple: Boolean? by Property()
-    var name: String? by Property()
-    var required: Boolean? by Property()
-    var size: Int? by Property()
+    var autoFocus: Boolean? = null
+    var disabled: Boolean? = null
+    var form: String? = null
+    var multiple: Boolean? = null
+    var name: String? = null
+    var required: Boolean? = null
+    var size: Int? = null
 }
 
 class TextareaProperties : HtmlGlobalProperties() {
-    var autoFocus: Boolean? by Property()
-    var form: String? by Property()
-    var maxLength: String? by Property()
-    var name: String? by Property()
-    var placeholder: String? by Property()
-    var readOnly: String? by Property()
-    var required: Boolean? by Property()
+    var autoFocus: Boolean? = null
+    var form: String? = null
+    var maxLength: String? = null
+    var name: String? = null
+    var placeholder: String? = null
+    var readOnly: String? = null
+    var required: Boolean? = null
 }
 
 class AudioProperties : HtmlGlobalProperties() {
-    var autoPlay: Boolean? by Property()
-    var controls: Boolean? by Property()
-    var loop: Boolean? by Property()
-    var preload: String? by Property()
-    var src: String? by Property()
+    var autoPlay: Boolean? = null
+    var controls: Boolean? = null
+    var loop: Boolean? = null
+    var preload: String? = null
+    var src: String? = null
 }
 
 class VideoProperties : HtmlGlobalProperties() {
-    var autoPlay: Boolean? by Property()
-    var controls: Boolean? by Property()
-    var height: Int? by Property()
-    var loop: Boolean? by Property()
-    var poster: String? by Property()
-    var preload: String? by Property()
-    var src: String? by Property()
-    var width: Int? by Property()
+    var autoPlay: Boolean? = null
+    var controls: Boolean? = null
+    var height: Int? = null
+    var loop: Boolean? = null
+    var poster: String? = null
+    var preload: String? = null
+    var src: String? = null
+    var width: Int? = null
 }
 
 class TableProperties : HtmlGlobalProperties() {
-    var cellPadding: Int? by Property()
-    var cellSpacing: Int? by Property()
+    var cellPadding: Int? = null
+    var cellSpacing: Int? = null
 }
 
 class MetaProperties : HtmlGlobalProperties() {
-    var charSet: String? by Property()
-    var content: String? by Property()
-    var httpEquiv: String? by Property()
-    var name: String? by Property()
+    var charSet: String? = null
+    var content: String? = null
+    var httpEquiv: String? = null
+    var name: String? = null
 }
 
 class ScriptProperties : HtmlGlobalProperties() {
-    var charSet: String? by Property()
-    var src: String? by Property()
-    var `type`: String? by Property()
+    var charSet: String? = null
+    var src: String? = null
+    var `type`: String? = null
 }
 
 class CommandProperties : HtmlGlobalProperties() {
-    var checked: Boolean? by Property()
-    var icon: String? by Property()
-    var radioGroup: String? by Property()
-    var `type`: String? by Property()
+    var checked: Boolean? = null
+    var icon: String? = null
+    var radioGroup: String? = null
+    var `type`: String? = null
 }
 
 class TdProperties : HtmlGlobalProperties() {
-    var colSpan: Int? by Property()
-    var rowSpan: Int? by Property()
+    var colSpan: Int? = null
+    var rowSpan: Int? = null
 }
 
 class ThProperties : HtmlGlobalProperties() {
-    var colSpan: Int? by Property()
-    var rowSpan: Int? by Property()
+    var colSpan: Int? = null
+    var rowSpan: Int? = null
 }
 
 class ObjectProperties : HtmlGlobalProperties() {
-    var data: String? by Property()
-    var form: String? by Property()
-    var height: Int? by Property()
-    var name: String? by Property()
-    var `type`: String? by Property()
-    var width: Int? by Property()
-    var wmode: String? by Property()
+    var data: String? = null
+    var form: String? = null
+    var height: Int? = null
+    var name: String? = null
+    var `type`: String? = null
+    var width: Int? = null
+    var wmode: String? = null
 }
 
 class DelProperties : HtmlGlobalProperties() {
-    var dateTime: Date? by Property()
+    var dateTime: Date? = null
 }
 
 class InsProperties : HtmlGlobalProperties() {
-    var dateTime: Date? by Property()
+    var dateTime: Date? = null
 }
 
 class TimeProperties : HtmlGlobalProperties() {
-    var dateTime: Date? by Property()
+    var dateTime: Date? = null
 }
 
 class FieldsetProperties : HtmlGlobalProperties() {
-    var form: String? by Property()
-    var name: String? by Property()
+    var form: String? = null
+    var name: String? = null
 }
 
 class LabelProperties : HtmlGlobalProperties() {
-    var form: String? by Property()
-    var htmlFor: String? by Property()
+    var form: String? = null
+    var htmlFor: String? = null
 }
 
 class MeterProperties : HtmlGlobalProperties() {
-    var form: String? by Property()
-    var max: Int? by Property()
-    var min: Int? by Property()
-    var value: Int? by Property()
+    var form: String? = null
+    var max: Int? = null
+    var min: Int? = null
+    var value: Int? = null
 }
 
 class OutputProperties : HtmlGlobalProperties() {
-    var form: String? by Property()
-    var htmlFor: String? by Property()
-    var name: String? by Property()
+    var form: String? = null
+    var htmlFor: String? = null
+    var name: String? = null
 }
 
 class ProgressProperties : HtmlGlobalProperties() {
-    var form: String? by Property()
-    var max: Int? by Property()
-    var value: Int? by Property()
+    var form: String? = null
+    var max: Int? = null
+    var value: Int? = null
 }
 
 class CanvasProperties : HtmlGlobalProperties() {
-    var height: Int? by Property()
-    var width: Int? by Property()
+    var height: Int? = null
+    var width: Int? = null
 }
 
 class EmbedProperties : HtmlGlobalProperties() {
-    var height: Int? by Property()
-    var src: String? by Property()
-    var `type`: String? by Property()
-    var width: Int? by Property()
+    var height: Int? = null
+    var src: String? = null
+    var `type`: String? = null
+    var width: Int? = null
 }
 
 class AProperties : HtmlGlobalProperties() {
-    var href: String? by Property()
-    var rel: String? by Property()
-    var target: String? by Property()
+    var href: String? = null
+    var rel: String? = null
+    var target: String? = null
 }
 
 class BaseProperties : HtmlGlobalProperties() {
-    var href: String? by Property()
-    var target: String? by Property()
+    var href: String? = null
+    var target: String? = null
 }
 
 class LinkProperties : HtmlGlobalProperties() {
-    var href: String? by Property()
-    var rel: String? by Property()
+    var href: String? = null
+    var rel: String? = null
 }
 
 class TrackProperties : HtmlGlobalProperties() {
-    var label: String? by Property()
-    var src: String? by Property()
+    var label: String? = null
+    var src: String? = null
 }
 
 class BgsoundProperties : HtmlGlobalProperties() {
-    var loop: Boolean? by Property()
+    var loop: Boolean? = null
 }
 
 class MarqueeProperties : HtmlGlobalProperties() {
-    var loop: Boolean? by Property()
+    var loop: Boolean? = null
 }
 
 class MapProperties : HtmlGlobalProperties() {
-    var name: String? by Property()
+    var name: String? = null
 }
 
 class ParamProperties : HtmlGlobalProperties() {
-    var name: String? by Property()
-    var value: String? by Property()
+    var name: String? = null
+    var value: String? = null
 }
 
 class OptionProperties : HtmlGlobalProperties() {
-    var selected: Boolean? by Property()
-    var value: String? by Property()
+    var selected: Boolean? = null
+    var value: String? = null
 }
 
 class SourceProperties : HtmlGlobalProperties() {
-    var src: String? by Property()
-    var `type`: String? by Property()
+    var src: String? = null
+    var `type`: String? = null
 }
 
 class StyleProperties : HtmlGlobalProperties() {
-    var `type`: String? by Property()
+    var `type`: String? = null
 }
 
 class MenuProperties : HtmlGlobalProperties() {
-    var `type`: String? by Property()
+    var `type`: String? = null
 }
 
 class LiProperties : HtmlGlobalProperties() {
-    var value: String? by Property()
+    var value: String? = null
 }
 
 class SvgProperties : ReactProperties() {
-    var id: String? by Property()
-    var cx: Int? by Property()
-    var cy: Int? by Property()
-    var d: Int? by Property()
-    var fill: String? by Property()
-    var fx: Int? by Property()
-    var fy: Int? by Property()
-    var gradientTransform: Any? by Property()
-    var gradientUnits: String? by Property()
-    var offset: Int? by Property()
-    var points: Any? by Property()
-    var r: Int? by Property()
-    var rx: Int? by Property()
-    var ry: Int? by Property()
-    var spreadMethod: String? by Property()
-    var stopColor: String? by Property()
-    var stopOpacity: Int? by Property()
-    var stroke: String? by Property()
-    var strokeLinecap: String? by Property()
-    var strokeWidth: Int? by Property()
-    var transform: String? by Property()
-    var version: Int? by Property()
-    var viewBox: Any? by Property()
-    var x1: Int? by Property()
-    var x2: Int? by Property()
-    var x: Int? by Property()
-    var y1: Int? by Property()
-    var y2: Int? by Property()
-    var y: Int? by Property()
+    var id: String? = null
+    var cx: Int? = null
+    var cy: Int? = null
+    var d: Int? = null
+    var fill: String? = null
+    var fx: Int? = null
+    var fy: Int? = null
+    var gradientTransform: Any? = null
+    var gradientUnits: String? = null
+    var offset: Int? = null
+    var points: Any? = null
+    var r: Int? = null
+    var rx: Int? = null
+    var ry: Int? = null
+    var spreadMethod: String? = null
+    var stopColor: String? = null
+    var stopOpacity: Int? = null
+    var stroke: String? = null
+    var strokeLinecap: String? = null
+    var strokeWidth: Int? = null
+    var transform: String? = null
+    var version: Int? = null
+    var viewBox: Any? = null
+    var x1: Int? = null
+    var x2: Int? = null
+    var x: Int? = null
+    var y1: Int? = null
+    var y2: Int? = null
+    var y: Int? = null
 }

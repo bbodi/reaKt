@@ -1,5 +1,6 @@
 package hu.nevermind.timeline.client
 
+import hu.nevermind.reakt.HtmlGlobalProperties
 import hu.nevermind.reakt.MouseEvent
 import org.w3c.dom.Node
 import org.w3c.dom.Element
@@ -14,9 +15,9 @@ import kotlin.test.assertEquals
 
 fun main(vararg args: String) {
     window.setTimeout({
-        val asd = Rows {
-            +MyCompSpec()
-            +CounterAdderSpec()
+        val asd = Rows.element {
+            +MyCompSpec.element()
+            +CounterAdderSpec.element()
         }
         React.render(asd.createReactElement(), document.getElementById("q1"))
         tests()
@@ -25,8 +26,12 @@ fun main(vararg args: String) {
 
 
 fun tests() {
-    //val counter = Counter()
-    //val renderedCounter = React.render(counter.createElement(), document.getElementById("q2"))
+    val counter = Counter.element(7)
+    val renderedCounter = ReactTestUtils.renderIntoDocument(counter.createReactElement())
+
+    val counterDom = ReactTestUtils.findRenderedDOMComponentWithTag(renderedCounter, "div")
+    val dom = React.findDOMNode(counterDom)
+    check(dom.textContent == "7")
 
     //check(renderedCounter.element.lastChild.textContent == "7")
     /*
@@ -81,111 +86,103 @@ fun tests() {
 // akkor ez a "name" nem lehet az, ami az elõbbi megnyitáskor volt értéke.
 
 
-class Rows(val body: ComponentBuilder.() -> Unit) : ComponentSpecInTree<Nothing, Nothing>() {
-
-    override val componentSpec: ReactSpec<Nothing, Nothing> = Rows
-    override val childrenFromUserSide: Iterable<CanAppearInComponentTree>
-
-
-    init {
-        childrenFromUserSide = collectChildren(body)
-    }
-
-    companion object : ReactSpec<Nothing, Nothing>() {
-        override val render: ComponentBuilder.() -> ReactElementCreator = {
-            ul {
-                children.forEach {
-                    +li {
-                        +it
-                    }
-                    +div{}
+object Rows : ReactSpec<Nothing?, Nothing>() {
+    override val render: ComponentBuilder.() -> ReactElementCreator = {
+        ul {
+            children.forEach {
+                +li {
+                    +it
                 }
+                +div {}
             }
         }
     }
-}
 
-class CounterAdderSpec() : ComponentSpecInTree<Nothing, List<Int>>() {
-
-    override val componentSpec: ReactSpec<Nothing, List<Int>> = CounterAdderSpec
-
-    companion object : ReactSpec<Nothing, List<Int>>() {
-        private val handleClick = { e: MouseEvent ->
-            println("clicked")
-            //state = state + 1
-        }
-
-        override val render: ComponentBuilder.() -> ReactElementCreator = {
-            div {
-                +Counter(1)
-                +Counter(2)
-                /*state.forEach {
-
-            }*/
-                //+button({onClick = handleClick}) { +"Add" }
-            }
-        }
+    fun element(body: ComponentBuilder.() -> Unit): ReactSpecInstance<Nothing?, Nothing> {
+        val childrenFromUserSite = collectChildren(body)
+        return ReactSpecInstance<Nothing?, Nothing>(this, null, childrenFromUserSite)
     }
 }
 
-class Counter(val initialValue: Int) : ComponentSpecInTree<Int, Int>() {
+object Counter : ReactSpec<Int, Int>() {
+    override fun initialState(): Int = 3
 
-    override val props: Int = initialValue
-    override val componentSpec: ReactSpec<Int, Int> = Counter
+    private val handleClick = { e: MouseEvent ->
+        println("CLICK: props: $props")
+        //state = state + 1
+    }
 
-    companion object : ReactSpec<Int, Int>() {
-        override fun initialState(): Int = 3
-
-        private val handleClick = { e: MouseEvent ->
-            state = state + 1
+    override val render: ComponentBuilder.() -> ReactElementCreator = {
+        div({ onClick = handleClick; key = "$props" }) {
+            //+"$state"
+            println("Draw props: $props")
+            +"$props"
         }
+        /*return div({onClick = handleClick}) {
+        +"${state}"
+    }*/
+    }
 
-        override val render: ComponentBuilder.() -> ReactElementCreator = {
-            div/*({onClick = handleClick})*/ {
-                //+"${state}"
-                +"asd"
-            }
-            /*return div({onClick = handleClick}) {
-            +"${state}"
+    fun element(initialValue: Int): ReactSpecInstance<Int, Int> {
+        return ReactSpecInstance(this, initialValue, emptyList())
+    }
+}
+
+object CounterAdderSpec : ReactSpec<Nothing, List<Int>>() {
+    private val handleClick = { e: MouseEvent ->
+        println("clicked")
+        //state = state + 1
+    }
+
+    override val render: ComponentBuilder.() -> ReactElementCreator = {
+        div {
+            +Counter.element(1)
+            +Counter.element(2)
+            /*state.forEach {
+
         }*/
+            //+button({onClick = handleClick}) { +"Add" }
         }
     }
 }
 
-class MyCompSpec : ComponentSpecInTree<Nothing, Nothing>() {
-    override val componentSpec: ReactSpec<Nothing, Nothing> = MyCompSpec
+object MyCompSpec : ReactSpec<Nothing, Nothing>() {
 
-    companion object : ReactSpec<Nothing, Nothing>() {
-
-        override val render: ComponentBuilder.() -> ReactElementCreator = {
-            div {
-                +Rows {
-                    +div { +"Hello" }
-                    +div { +"World" }
-                    +div { +"Salala" }
-                    +div { +"!!!" }
-                }
+    override val render: ComponentBuilder.() -> ReactElementCreator = {
+        div {
+            +Rows.element {
                 +div { +"Hello" }
+                +div { +"World" }
+                +div { +"Salala" }
+                +div { +"!!!" }
             }
+            +div { +"Hello" }
         }
     }
 }
 
 
-fun div(body: ComponentBuilder.() -> Unit): TagElement {
-    return TagElement("div", null, collectChildren(body))
+fun div(propBuilder: HtmlGlobalProperties.() -> Unit = {}, body: ComponentBuilder.() -> Unit): TagElement {
+    val props = HtmlGlobalProperties()
+    props.propBuilder()
+    // TODO: nem mûködik!
+    js("delete props.key")
+    return TagElement("div", props, collectChildren(body))
 }
 
 fun ul(body: ComponentBuilder.() -> Unit): TagElement {
     return TagElement("ul", null, collectChildren(body))
 }
 
-class LiTag(body: ComponentBuilder.() -> Unit) : TagElement("li", null, collectChildren(body))
-
-fun li(body: ComponentBuilder.() -> Unit): LiTag = LiTag(body)
+fun li(body: ComponentBuilder.() -> Unit): TagElement {
+    return TagElement("li", null, collectChildren(body))
+}
 
 
 open public data class TagElement(val tagName: String, val options: dynamic, val children: Iterable<CanAppearInComponentTree>?) : ReactElementCreator {
+    // TODO: Ha itt tudom, hogy ez egy TagElement, akkor minek
+    // hívom meg az általános React.createElement-et, amikor abban va negy when(). ami
+    // nem hatékony!
     override fun createReactElement(): ReactComponent {
         return React.createElement(tagName, options, children)
     }
@@ -195,37 +192,61 @@ public data class StringNode(val text: String) : CanAppearInComponentTree
 
 public trait CanAppearInComponentTree
 
-public abstract class ComponentSpecInTree<P, S> : ReactElementCreator {
+// egy olyan osztály, amelybõl Elementet lehet csinálni
+// ReactClass (Spec) + props + children. Mind a props és mind a children
+// meghatározható a létrehozás pontjánál (Spec.invoke)
+public class ReactSpecInstance<P, S>(val componentSpec: ReactSpec<P, S>, val props: P = null, val childrenFromUserSide: Iterable<CanAppearInComponentTree> = emptyList()) : ReactElementCreator {
 
-    abstract val componentSpec: ReactSpec<P, S>
-
-    open val childrenFromUserSide: Iterable<CanAppearInComponentTree> = emptyList()
-
-    open val props: P = null
+    private var reactComponent: ReactComponent by Delegates.notNull()
 
     override fun createReactElement(): ReactComponent {
-        if (componentSpec.reactClass == null) {
-            componentSpec.reactClass = ReactJs.createClass(object {
-                val render = {
-                    val renderFunc = componentSpec.render
-                    val builder = ComponentBuilder();
-                    val reactElementCreator = builder.renderFunc()
-                    reactElementCreator.createReactElement()
-                }
-            })
-        }
+        // ezen a ponton adunk a componentSpec children, state,props
+        // fieldjeinek mindig más-más értéket, az aktuális példánytól függõen.
+        // A componentSpec kódja meg felhazsnálhatja ezeket
+
+        // TODO: függvénybe: inject_instance_fields_to_react_class
         componentSpec.children = childrenFromUserSide
+
+        /**
+         * A Renderbõl tilos meghívni a setState-t (mert gondolom akkor még nincs ReactComponent)
+         * Tehát lényegében a rendernél még nem kell készen áljon a ReactComponent.
+         * ==> A state-t vedd a ReactComponentbõl, a propsot ne!
+         */
+
+
         // TODO: ez elég érdekes: ez a render ugyanaz mint máshol a "body" metódus
         // ami összegyûjti a tageket. Ez viszont vissza is tér egy objektummal,
         // amit it teljesen ignorálunk.
+        // A render két dolgot csinál:
+        //      - Minden egyes alkalommal, amikor lefut, meghatáérozzuk belõle a
+        //      gyermekek listáját
+        //      - Visszatér egy ReactElementtel(vagy egy osztállyal ami képes azt elõállítani).
+        /*
+        * Viszont ennek megfelelõen a ComponentBuilder is több dolgot csinál:
+        *   - Lehetõvé teszi a gyermekek hozzáadását (plus fun elérhetõvé tétele)
+        *   - Szerintem ennek kellene elérhetõvé tennie a prop és state fieldeket is.
+        *   Viszont az Igazi Reactban minden metódus eléri õket, nem csak a render. Tehát
+        *   valahogy a Spec osztályoknak kéne elérhetõvé tennem.
+        * */
         val renderFunc = componentSpec.render
-        val body: ComponentBuilder.()->Unit = {renderFunc()}
-        return React.createElement(componentSpec.reactClass, null, collectChildren(body))
+        val body: ComponentBuilder.() -> Unit = {
+            componentSpec.props = props
+            renderFunc()
+        }
+        reactComponent = React.createElement(componentSpec.reactClass, null, collectChildren(body))
+        return reactComponent
     }
 }
 
 trait ReactElementCreator : CanAppearInComponentTree {
     fun createReactElement(): ReactComponent
+}
+
+native("React.addons.TestUtils")
+private object ReactTestUtils {
+    fun renderIntoDocument(element: dynamic): ReactComponent = noImpl
+
+    fun findRenderedDOMComponentWithTag(renderedCounter: ReactComponent, tagName: String): ReactComponent = noImpl
 }
 
 object React {
@@ -241,6 +262,8 @@ object React {
         }
         return ReactJs.createElement(tagNameOrSpec, options, *(reactElementChildren?.toArrayList()?.copyToArray()))
     }
+
+    fun findDOMNode(component: ReactComponent): HTMLElement = ReactJs.findDOMNode(component)
 }
 
 native("React")
@@ -250,21 +273,53 @@ private object ReactJs {
     fun createElement(tagNameOrSpec: dynamic, options: dynamic, vararg children: dynamic): ReactComponent = noImpl
 
     fun render(comp: ReactComponent?, element: Element): Unit = noImpl
+
+    fun findDOMNode(component: ReactComponent): HTMLElement = noImpl
 }
 
-abstract class ReactSpec<P, S> : ReactMixin<P, S> {
-    var reactClass: ReactComponent? = null
-    var component: ReactComponent? = null
-    var children: Iterable<CanAppearInComponentTree> = emptyList()
-    var state: S
-        get() = component!!.state
-        set(value) = component!!.setState(value)
+data class RuntimeInstanceData<P, S>(val props: P, val state: S) {}
 
-    var props: P
-        get() = component!!.props
-        set(value) = component!!.setProps(value, null)
+abstract class ReactSpec<P, S> : ReactMixin<P, S> {
+    val runtimeInstanceData: RuntimeInstanceData<P, S> by Delegates.notNull()
+
+    var reactClass: ReactComponent? = null
+    var component: ReactComponent by Delegates.notNull()
+    var children: Iterable<CanAppearInComponentTree> = emptyList()
+    protected var state: S
+        get() = component.state
+        set(value) = component.setState(value)
+
+    var props: P by Delegates.notNull()
 
     abstract val render: ComponentBuilder.() -> ReactElementCreator
+
+    init {
+        reactClass = ReactJs.createClass(object {
+            val render = {
+                // itt történik a valódi rajzolás, az elõbbieknél csak Elementeket csináltunk,
+                // amik tartalmazzák a rajzoló metódusokat. Lényegében Spec+prop+children-ek voltak
+                // Itt viszont a fenti hármason meghívódik a render,
+                // this =
+                // ReactClass.createClass.Constructor {getDOMNode: function, props: Object, context: Object, state: null, refs: Object…}
+                //var reactComponent: ReactComponent? = null
+                //js("reactComponent = this")
+                //component = reactComponent!!
+
+                // itt meg a ComponentBuilder által összegyaûjtött gyermekeket szarjuk le
+                val renderFunc = this@ReactSpec.render
+                val builder = ComponentBuilder();
+                val reactElementCreator = builder.renderFunc()
+                reactElementCreator.createReactElement()
+            }
+        })
+    }
+
+    // TODO: legyen majd invoke, de jelenleg bugos
+    // this.$render_uxqw6f$ = _.hu.nevermind.timeline.client.render$f_2(Rows_0, Asd);
+    // ez lesz belõle, de a Rows_0 nem létezik sehol
+    open fun element(): ReactSpecInstance<P, S> {
+        return ReactSpecInstance<P, S>(this, null, emptyList())
+    }
 
     fun getInitialState(): S {
         val state = initialState()
@@ -316,12 +371,6 @@ trait ReactComponent {
     val state: dynamic
 
     val props: dynamic
-
-    /**
-     * If this component has been mounted into the DOM, this returns the corresponding native browser DOM element.
-     * This method is useful for reading values out of the DOM, such as form field values and performing DOM measurements.
-     */
-    fun getDOMNode(): HTMLElement
 
     /**
      * When you're integrating with an external JavaScript application you may want to signal a change to a React component rendered with renderComponent().
